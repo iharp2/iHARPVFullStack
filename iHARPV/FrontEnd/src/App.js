@@ -4,8 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
 import Box from "@mui/joy/Box";
-import Card from "@mui/joy/Card";
-import CardContent from "@mui/joy/CardContent";
 import Table from "react-bootstrap/Table";
 import ImageComponent from "./components/ImageComponent";
 import VideoComponent from "./components/VideoComponent";
@@ -52,16 +50,16 @@ export default function App() {
   const [open, setOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
   const [imageSrc, setImageSrc] = useState(null);
-  const [videoUrl, setVideoUrl] = useState(null);
+  const [videoUrl, setVideoUrl] = useState("");
 
-  const handleImageUpdate = (newImageSrc) => {
-    setImageSrc(newImageSrc);
-  };
-  const handleVideoUpdate = (newVideoUrl) => {
-    console.log("Requested to change Video url");
-    // setVideoUrl("");
-    setVideoUrl(newVideoUrl);
-  };
+  // const handleImageUpdate = (newImageSrc) => {
+  //   setImageSrc(newImageSrc);
+  // };
+  // const handleVideoUpdate = (newVideoUrl) => {
+  //   console.log("Requested to change Video url");
+  //   // setVideoUrl("");
+  //   setVideoUrl(newVideoUrl);
+  // };
   const handleDrawerToggle = () => {
     setOpen(!open);
   };
@@ -81,6 +79,7 @@ export default function App() {
   };
 
   // console.log("I'm at the app and recieved, ", { imageSrc }, { videoUrl });
+
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
@@ -93,8 +92,9 @@ export default function App() {
         <Sidebar
           handleDrawerClose={handleDrawerClose}
           open={open}
-          handleImageUpdate={handleImageUpdate}
-          handleVideoUpdate={handleVideoUpdate}
+          handleImageUpdate={setImageSrc}
+          handleVideoUpdate={setVideoUrl}
+          // videoUrl={videoUrl}
         />
 
         <main
@@ -109,23 +109,12 @@ export default function App() {
             component="ul"
             sx={{ display: "flex", gap: 4, flexWrap: "wrap", p: 0, m: 0 }}
           >
-            <Card
-              component="li"
-              sx={{ maxWidth: 520, backgroundColor: "white" }}
-            >
-              <CardContent>
-                <ImageComponent imageData={imageSrc} />
-              </CardContent>
-            </Card>
-            <Card
-              component="li"
-              sx={{ maxWidth: 520, backgroundColor: "white" }}
-            >
-              <CardContent>
-                <VideoComponent videoSrc={videoUrl} />
-              </CardContent>
-            </Card>
-
+            <div component="li">
+              <ImageComponent imageData={imageSrc} />
+            </div>
+            <div component="li">
+              <VideoComponent videoSrc={videoUrl} />
+            </div>
             <div component="li">
               <div style={{ maxHeight: "350px", overflowY: "auto" }}>
                 <Table className="table table-striped table-bordered table-hover">

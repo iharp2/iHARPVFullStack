@@ -9,10 +9,11 @@ const ImageComponent = ({ imageData }) => {
     <div>
       <img
         src={`data:image/png;base64,${imageData}`}
-        alt="Your Image"
+        // src={require("/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/FrontEnd/src/assets/timeSeriesResult.png")}
+        alt="Time Series should show here"
         style={{ maxWidth: "500px" }}
         loading="lazy"
-        controls
+        // controls
       />
     </div>
   );

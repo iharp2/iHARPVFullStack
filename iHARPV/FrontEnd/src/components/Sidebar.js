@@ -15,7 +15,7 @@ import timezone from "dayjs/plugin/timezone";
 import dayjs from "dayjs";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BoundsContext } from "./BoundsContext";
-
+import Dropdown from "./Dropdown";
 const drawerWidth = 355;
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -42,6 +42,7 @@ export default function SideBar({
   handleDrawerClose,
   handleImageUpdate,
   handleVideoUpdate,
+  // videoUrl,
 }) {
   // const { updateImageData } = props;
 
@@ -49,8 +50,15 @@ export default function SideBar({
   const classes = useStyles();
   const [selectedStartDateTime, setSelectedStartDateTime] = useState(null); // Initialize selectedStartDateTime with null
   const [selectedEndDateTime, setSelectedEndDateTime] = useState(null); // Initialize selectedEndDateTime with null
-  const [imageResponse, setImageResponse] = useState(""); // Initialize selectedEndDateTime with null
-  const [videoUrl, setVideoUrl] = useState("");
+  // const [videoUrl, setVideoUrl] = useState("");
+  // const [responseRecieved, setresponseRecieved] = useState("");
+  const maxDate = dayjs("2024-02-28T23");
+  const [progress, setProgress] = useState(1); // State to manage progress
+  const [progressDesc, setProgressDesc] = useState(""); // State to manage progress
+  const [temporalLevelSelected, setTemporalLevelSelected] =
+    React.useState(false);
+  const [videoRecieved, setVideoReceived] = useState(null);
+  const [imageRecieved, setImageRecieved] = useState(null); // Initialize selectedEndDateTime with null
 
   const [formData, setFormData] = useState({
     requestType: "",
@@ -58,6 +66,7 @@ export default function SideBar({
     endDateTime: "",
     temporalLevel: "",
     aggLevel: "",
+    spatialLevel: "0.25",
     north: "",
     south: "",
     east: "",
@@ -70,16 +79,16 @@ export default function SideBar({
       const validLongitude = (lng) => lng >= -180 && lng <= 180;
 
       const north_val = validLatitude(drawnShapeBounds._northEast.lat)
-        ? drawnShapeBounds._northEast.lat.toFixed(3)
+        ? drawnShapeBounds._northEast.lat.toFixed(2)
         : 90;
       const east_val = validLongitude(drawnShapeBounds._northEast.lng)
-        ? drawnShapeBounds._northEast.lng.toFixed(3)
+        ? drawnShapeBounds._northEast.lng.toFixed(2)
         : 180;
       const south_val = validLatitude(drawnShapeBounds._southWest.lat)
-        ? drawnShapeBounds._southWest.lat.toFixed(3)
+        ? drawnShapeBounds._southWest.lat.toFixed(2)
         : -90;
       const west_val = validLongitude(drawnShapeBounds._southWest.lng)
-        ? drawnShapeBounds._southWest.lng.toFixed(3)
+        ? drawnShapeBounds._southWest.lng.toFixed(2)
         : -180;
 
       setFormData((prevFormData) => ({
@@ -133,6 +142,7 @@ export default function SideBar({
         ...prevFormData,
         [name]: value,
       }));
+      setTemporalLevelSelected(value !== "");
     }
   };
 
@@ -157,11 +167,43 @@ export default function SideBar({
 
   const handleHeatMap = async (e) => {
     if (e) e.preventDefault();
+    if (formData.temporalLevel === "") {
+      // If not, display an error message or perform any other action to prompt the user to select a temporal level
+      alert(
+        "ERROR: Please select a temporal level resolution before proceeding..."
+      );
+      return; // Exit the function early
+    } else if (
+      formData.temporalLevel !== "Hourly" &&
+      formData.aggLevel === ""
+    ) {
+      alert("ERROR: Please select an aggregation method before proceeding...");
+      return; // Exit the function early
+    } else if (!selectedStartDateTime) {
+      alert("ERROR: Please select a start date and time before proceeding.");
+      return; // Exit the function early
+    } else if (!selectedEndDateTime) {
+      alert("ERROR: Please select an end date and time before proceeding..");
+      return; // Exit the function early
+    } else if (
+      formData.north === "" ||
+      formData.south === "" ||
+      formData.east === "" ||
+      formData.west === ""
+    ) {
+      alert(
+        "ERROR: Please select an area on the map or enter FOUR coordinates of interest manually(S,N,W,E) before proceeding..."
+      );
+      return; // Exit the function early
+    }
+
     formData.requestType = "Heat Map";
     formData.startDateTime = selectedStartDateTime;
     formData.endDateTime = selectedEndDateTime;
 
     try {
+      setProgress(20);
+      setProgressDesc("Creating HeatMap");
       // Send request to the backend to fetch both time series data and image data
       const response = await fetch("http://127.0.0.1:6080/heatmap/", {
         method: "POST",
@@ -173,21 +215,17 @@ export default function SideBar({
 
       // Check if the response is successful
       if (response.ok) {
+        // handleVideoUpdate("");
         // Parse the response as JSON
         const videoBlob = await response.blob();
         // Create a URL for the video blob
-        const url = URL.createObjectURL(videoBlob);
+        // const url = URL.createObjectURL(videoBlob);
         // Set the video URL state
-        setVideoUrl(url);
-
-        // console.log("I am at the Sidebar.js and recieved, the video ");
-
-        // setImageData(imageResponse);
-        // Call the parent component's function to update the image data
-        handleVideoUpdate(videoUrl);
+        // setVideoUrl(url);
+        setVideoReceived(videoBlob);
       } else {
         console.error(
-          "Failed to fetch time series data. HTTP status:",
+          "Failed to fetch heat map data. HTTP status:",
           response.status
         );
       }
@@ -195,14 +233,40 @@ export default function SideBar({
       console.error("Error requesting Time Series:", error);
     }
   };
-
   const handleTimeSeries = async (e) => {
     if (e) e.preventDefault();
+    // Check if a temporal level option has been selected
+    if (formData.temporalLevel === "") {
+      // If not, display an error message or perform any other action to prompt the user to select a temporal level
+      alert(
+        "ERROR: Please select a temporal level resolution before proceeding..."
+      );
+      return; // Exit the function early
+    } else if (!selectedStartDateTime) {
+      alert("ERROR: Please select a start date and time before proceeding.");
+      return; // Exit the function early
+    } else if (!selectedEndDateTime) {
+      alert("ERROR: Please select an end date and time before proceeding..");
+      return; // Exit the function early
+    } else if (
+      formData.north === "" ||
+      formData.south === "" ||
+      formData.east === "" ||
+      formData.west === ""
+    ) {
+      alert(
+        "ERROR: Please select an area on the map or enter FOUR coordinates of interest manually(S,N,W,E) before proceeding..."
+      );
+      return; // Exit the function early
+    }
+
     formData.requestType = "Time Series";
     formData.startDateTime = selectedStartDateTime;
     formData.endDateTime = selectedEndDateTime;
 
     try {
+      setProgress(20);
+      setProgressDesc("Creating Timeseries");
       // Send request to the backend to fetch both time series data and image data
       const response = await fetch("http://127.0.0.1:6080/timeseries/", {
         method: "POST",
@@ -217,17 +281,10 @@ export default function SideBar({
         // Parse the response as JSON
         const responseData = await response.json();
         // console.log("Successfully requested time series data:", responseData);
-        setImageResponse(responseData.imageData);
-
-        // console.log(
-        //   "I am at the Sidebar.js and recieved, ",
-        //   JSON.stringify(imageResponse)
-        // );
-
-        // setImageData(imageResponse);
-        // Call the parent component's function to update the image data
-        handleImageUpdate(imageResponse);
+        setImageRecieved(responseData.imageData);
       } else {
+        setProgress(10);
+        setProgressDesc("Failed", response.status);
         console.error(
           "Failed to fetch time series data. HTTP status:",
           response.status
@@ -237,6 +294,30 @@ export default function SideBar({
       console.error("Error requesting Time Series:", error);
     }
   };
+  useEffect(() => {
+    if (videoRecieved) {
+      // Execute any code you want to run after responseReceived changes
+      // This code will run every time responseReceived changes
+      // For example, you can trigger a re-render here or perform other actions
+      console.log("Video received:", videoRecieved);
+      handleVideoUpdate(videoRecieved);
+      setProgress(100);
+      setProgressDesc("Created HeatMap");
+    }
+  }, [videoRecieved, handleVideoUpdate]);
+
+  useEffect(() => {
+    if (imageRecieved) {
+      // Execute any code you want to run after responseReceived changes
+      // This code will run every time responseReceived changes
+      // For example, you can trigger a re-render here or perform other actions
+      console.log("Image received:");
+      handleImageUpdate(imageRecieved);
+      // Update progress to 100 when response is received
+      setProgress(100);
+      setProgressDesc("Created Time Series");
+    }
+  }, [imageRecieved, handleImageUpdate]);
 
   return (
     <Drawer
@@ -256,15 +337,16 @@ export default function SideBar({
       <Divider />
 
       <div className="sidebar-content">
-        <div class="nine">
+        <div className="nine">
           <h1>
             iHARPV<span>Query Menu</span>
           </h1>
         </div>
         <div className="sidebar-container">
+          <Dropdown></Dropdown>
           <div style={{ marginBottom: "10px" }}></div>
 
-          <h4 className="sidebar-heading">Select Start Date and Time</h4>
+          {/* <h4 className="sidebar-heading">Select Start Date and Time</h4> */}
           <div style={{ marginBottom: "10px" }}></div>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
@@ -272,30 +354,36 @@ export default function SideBar({
               name="startDateTime"
               disableFuture
               label="Start Date & Time"
-              minutesStep={60}
+              ampm={false} // Disable AM/PM selector
+              minutesStep={60} // Set minutes step to 60 to skip minutes selection
+              secondsStep={0} // Set seconds step to 0 to remove seconds
               value={selectedStartDateTime}
               sx={{ width: "60%", marginLeft: "10px" }}
               timezone="UTC"
+              maxDateTime={maxDate}
               onChange={(newDateTime) => setSelectedStartDateTime(newDateTime)}
             />
           </LocalizationProvider>
           <div style={{ marginBottom: "20px" }}></div>
-          <h4 className="sidebar-heading">Select End Date and Time</h4>
+          {/* <h4 className="sidebar-heading">Select End Date and Time</h4> */}
           <div style={{ marginBottom: "10px" }}></div>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
               disableFuture
               label="End Date & Time"
-              minutesStep={60}
+              ampm={false} // Disable AM/PM selector
+              minutesStep={60} // Set minutes step to 60 to skip minutes selection
+              secondsStep={0} // Set seconds step to 0 to remove
               name="endDateTime"
               value={selectedEndDateTime}
               timezone="UTC"
+              maxDateTime={maxDate}
               sx={{ width: "60%", marginLeft: "10px" }}
               onChange={(newDateTime) => setSelectedEndDateTime(newDateTime)}
             />
           </LocalizationProvider>
           <div style={{ marginBottom: "20px" }}></div>
-          <h4 className="sidebar-heading">Select Temporal Output Level</h4>
+          <h4 className="sidebar-heading">Select Temporal Resolution</h4>
           <Form label="Select Output Level">
             <div className="mb-4">
               <Form.Check
@@ -345,7 +433,7 @@ export default function SideBar({
             </div>
           </Form>
           <h4 className="sidebar-heading">
-            For HeatMap: Select Aggregation Method
+            For HeatMap: Select Aggregation Level
           </h4>
           <Form>
             {["radio"].map((type) => (
@@ -386,13 +474,64 @@ export default function SideBar({
               </div>
             ))}
           </Form>
+          <h4 className="sidebar-heading">Select Spatial Resolution</h4>
+          <Form>
+            {["radio"].map((type) => (
+              <div key={`inline-${type}`} className="mb-5">
+                <Form.Check
+                  inline
+                  label="0.25"
+                  name="spatialLevel"
+                  type={type}
+                  id={`inline-2-${type}-1`}
+                  value="0.25" // Set value of radio input to Minimum
+                  style={{ fontSize: "small", marginLeft: "10px" }}
+                  onChange={handleChange} // Add onChange handler
+                  checked={formData.spatialLevel === "0.25"}
+                />
+                <Form.Check
+                  inline
+                  label="0.5"
+                  name="spatialLevel"
+                  type={type}
+                  id={`inline-2-${type}-2`}
+                  value="0.5" // Set value of radio input to Maximum
+                  style={{ fontSize: "small" }}
+                  onChange={handleChange} // Add onChange handler
+                  checked={formData.spatialLevel === "0.5"}
+                />
+                <Form.Check
+                  inline
+                  label="1.0"
+                  name="spatialLevel"
+                  type={type}
+                  id={`inline-2-${type}-3`}
+                  value="1.0" // Set value of radio input to Average
+                  style={{ fontSize: "small" }}
+                  onChange={handleChange} // Add onChange handler
+                  checked={formData.spatialLevel === "1.0"}
+                />
+                <Form.Check
+                  inline
+                  label="2.0"
+                  name="spatialLevel"
+                  type={type}
+                  id={`inline-2-${type}-3`}
+                  value="2.0" // Set value of radio input to Average
+                  style={{ fontSize: "small" }}
+                  onChange={handleChange} // Add onChange handler
+                  checked={formData.spatialLevel === "2.0"}
+                />
+              </div>
+            ))}
+          </Form>
           <h4 className="sidebar-heading">
             Optional: Select Longitude Latitude Range
           </h4>
-          <div class="coordinates-container">
-            <div class="row">
-              <div class="cell">
-                <label class="label"> North:</label>
+          <div className="coordinates-container">
+            <div className="row">
+              <div className="cell">
+                <label className="label"> North:</label>
                 <input
                   type="number"
                   name="north"
@@ -402,9 +541,9 @@ export default function SideBar({
                 />
               </div>
             </div>
-            <div class="column">
-              <div class="cell">
-                <label class="label">West:</label>
+            <div className="column">
+              <div className="cell">
+                <label className="label">West:</label>
                 <input
                   name="west"
                   value={formData.west}
@@ -414,8 +553,8 @@ export default function SideBar({
                 />
               </div>
               <div style={{ marginLeft: "20px" }}></div>
-              <div class="cell">
-                <label class="label">East:</label>
+              <div className="cell">
+                <label className="label">East:</label>
                 <input
                   name="east"
                   value={formData.east}
@@ -425,9 +564,9 @@ export default function SideBar({
                 />
               </div>
             </div>
-            <div class="row">
-              <div class="cell">
-                <label class="label">South:</label>
+            <div className="row">
+              <div className="cell">
+                <label className="label">South:</label>
                 <input
                   name="south"
                   value={formData.south}
@@ -448,6 +587,7 @@ export default function SideBar({
               variant="outline-primary"
               size="sm"
               onClick={handleTimeSeries}
+              disabled={!temporalLevelSelected} // Disable the button if no temporal level option is selected
             >
               TimeSeries
             </Button>
@@ -469,11 +609,21 @@ export default function SideBar({
               justifyContent: "center",
             }}
           >
+            <p>{progressDesc}</p>
+          </div>
+          <div
+            style={{
+              // marginTop: "20px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            {/* TODO: Look at this website later to do the progress bar  */}
             <ProgressBar
               animated
-              now={45}
-              label="Progress"
-              style={{ width: "65%" }}
+              now={progress} // Set progress dynamically
+              label={`Progress: ${progress}%`}
+              style={{ width: "100%" }}
             />
           </div>
         </div>
