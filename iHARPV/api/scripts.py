@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from PIL import Image
 import base64
 from io import BytesIO
+from matplotlib.animation import FuncAnimation
 
 from rest_framework.response import Response
 from datetime import datetime,timedelta
@@ -333,11 +334,11 @@ class iHARPExecuter():
         self.extract_date_time_info(self.startDateTime,self.endDateTime) 
         print(self.selected_year_start,self.selected_year_end,self.selected_month_name_start,self.selected_hour_end)
         ## Loading Initial Data
-
+        image_path = '/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/api/assets/timeSeriesResult.png'
         if temporalLevel=="Hourly":
             #Define where the output shall be saved
             # image_path = os.path.join(self.current_directory, 'images/temp_per_hour.png')
-            image_path = '/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/FrontEnd/src/assets/timeSeriesResult.png'
+            
             #CASE #1: Requested more than one day range of hours
             if (str(self.selected_year_start+self.selected_month_name_start+self.selected_day_start)) != (str(self.selected_year_end+self.selected_month_name_end+self.selected_day_end)) :
                 ds_list = []
@@ -411,7 +412,7 @@ class iHARPExecuter():
         elif temporalLevel=="Daily":
             #Define where the output shall be saved
             # image_path = os.path.join(self.current_directory, 'images/temp_per_day.png')
-            image_path = '/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/FrontEnd/src/assets/timeSeriesResult.png'
+            # image_path = '/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/api/src/assets/timeSeriesResult.png'
             #CASE #1: Requested more than one month range of days
             if (str(self.selected_year_start+self.selected_month_name_start)) != (str(self.selected_year_end+self.selected_month_name_end)) :
                 ds_list_max,ds_list_min,ds_list_avg = [],[],[]
@@ -516,7 +517,6 @@ class iHARPExecuter():
         elif temporalLevel=="Monthly":
             #Define where the output shall be saved
             # image_path = os.path.join(self.current_directory, 'images/temp_per_day.png')
-            image_path = '/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/FrontEnd/src/assets/timeSeriesResult.png'
             print("Starting and ending months are, ",self.selected_month_end,self.selected_month_start)
             #CASE #1: Requested more than one month range of days
             if (str(self.selected_year_start)) != (str(self.selected_year_end)) :
@@ -619,7 +619,6 @@ class iHARPExecuter():
         elif temporalLevel=="Yearly":
             #Define where the output shall be saved
             # image_path = os.path.join(self.current_directory, 'images/temp_per_day.png')
-            image_path = '/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/FrontEnd/src/assets/timeSeriesResult.png'
             #CASE #1 Requested range of years --> We have only one file storing these data
             location = (
                 "/data/ERA5/data/"
@@ -690,8 +689,6 @@ class iHARPExecuter():
         if self.min_lon > self.max_lon:
             self.max_lon, self.min_lon = self.min_lon, self.max_lon
             self.max_lat, self.min_lat = self.min_lat, self.max_lat
-        # print(self.min_lon, self.min_lat)
-        # print(self.max_lon, self.max_lat)
         # Specify the longitude and latitudenrange 
         self.lon_range = slice(self.min_lon, self.max_lon)  
         self.lat_range = slice(self.max_lat, self.min_lat)
@@ -702,7 +699,7 @@ class iHARPExecuter():
         self.extract_date_time_info(self.startDateTime,self.endDateTime) 
         print(self.selected_year_start,self.selected_year_end,self.selected_month_name_start,self.selected_hour_end)
         ## Loading Initial Data
-        videoPath = '/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/FrontEnd/src/assets/heatmapVideo.mp4'
+        videoPath = '/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/api/assets/heatmapVideo.mp4'
 
         if self.temporalLevel=="Hourly":
             #Define where the output shall be saved
@@ -1066,6 +1063,7 @@ class iHARPExecuter():
         total = len(self.HeatMapTemps)
         # print("Number of frames in heatmap is ",total)
         index = -1
+        
         for data in self.HeatMapTemps:
             # print(data)
             progress_percentage = (index + 1) / total * 100
@@ -1133,16 +1131,9 @@ class iHARPExecuter():
             plt.savefig(output_file)
         # print("Finished Temp data to frames")
         print("Started Generating HeatMap Video")
-        # Path to the folder containing images
-
-        # update_progress(95,'Creating HeatMap Video..Almost Finished:')
         # Create a video file from the images
-        output_video_file = videoPath
-        # print(output_video_file)
-        # print(folder_path)
-        # print(f"ffmpeg -framerate 2 -start_number 0 -i  {folder_path}/%d.png -c:v libx264 -r 30 {output_video_file} -y")
         os.system(
-            f'ffmpeg -framerate 2 -start_number 0 -i  "{self.frames_directory}/%d.png" -c:v libx264 -r 30 "{output_video_file}" -y'
+            f'ffmpeg -framerate 2 -start_number 0 -i  "{self.frames_directory}/%d.png" -c:v libx264 -r 30 "{videoPath}" -y'
         )
         
 
@@ -1150,21 +1141,7 @@ class iHARPExecuter():
         with open(videoPath, 'rb') as f:
             video_data = f.read()
 
-        # Convert image data to base64 string
-        # base64_image_data = base64.b64encode(image_data).decode('utf-8')
-
-
-        # Alternatively, you can encode the image in memory using PIL (Python Imaging Library)
-        # image = Image.open(image_path)
-        # byte_io = io.BytesIO()
-        # image.save(byte_io, format='JPEG')
-        # base64_image_data = base64.b64encode(byte_io.getvalue()).decode('utf-8')
         video_file_bytes = BytesIO(video_data)
-        # Construct the response data
-        # response_data = {
-        #     'videoData': video_file_bytes,
-        #     # You can include other data if needed
-        # }
 
         # Return the response as JSON
         return (video_file_bytes)

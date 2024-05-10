@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import Drawer from "@material-ui/core/Drawer";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
@@ -16,6 +16,8 @@ import dayjs from "dayjs";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BoundsContext } from "./BoundsContext";
 import Dropdown from "./Dropdown";
+import L from "leaflet";
+
 const drawerWidth = 355;
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -46,7 +48,7 @@ export default function SideBar({
 }) {
   // const { updateImageData } = props;
 
-  const { drawnShapeBounds } = useContext(BoundsContext);
+  const { drawnShapeBounds, setDrawnShapeBounds } = useContext(BoundsContext);
   const classes = useStyles();
   const [selectedStartDateTime, setSelectedStartDateTime] = useState(null); // Initialize selectedStartDateTime with null
   const [selectedEndDateTime, setSelectedEndDateTime] = useState(null); // Initialize selectedEndDateTime with null
@@ -64,32 +66,21 @@ export default function SideBar({
     requestType: "",
     startDateTime: "",
     endDateTime: "",
-    temporalLevel: "",
+    temporalLevel: "Hourly",
     aggLevel: "",
     spatialLevel: "0.25",
-    north: "",
-    south: "",
-    east: "",
-    west: "",
+    north: 72,
+    south: 58,
+    east: -11,
+    west: -57,
   });
+
   useEffect(() => {
     if (drawnShapeBounds) {
-      // Update formData with the value of drawnShapeBounds.southWest
-      const validLatitude = (lat) => lat >= -90 && lat <= 90;
-      const validLongitude = (lng) => lng >= -180 && lng <= 180;
-
-      const north_val = validLatitude(drawnShapeBounds._northEast.lat)
-        ? drawnShapeBounds._northEast.lat.toFixed(2)
-        : 90;
-      const east_val = validLongitude(drawnShapeBounds._northEast.lng)
-        ? drawnShapeBounds._northEast.lng.toFixed(2)
-        : 180;
-      const south_val = validLatitude(drawnShapeBounds._southWest.lat)
-        ? drawnShapeBounds._southWest.lat.toFixed(2)
-        : -90;
-      const west_val = validLongitude(drawnShapeBounds._southWest.lng)
-        ? drawnShapeBounds._southWest.lng.toFixed(2)
-        : -180;
+      const north_val = drawnShapeBounds._northEast.lat;
+      const east_val = drawnShapeBounds._northEast.lng;
+      const south_val = drawnShapeBounds._southWest.lat;
+      const west_val = drawnShapeBounds._southWest.lng;
 
       setFormData((prevFormData) => ({
         ...prevFormData,
@@ -100,37 +91,32 @@ export default function SideBar({
       }));
     }
   }, [drawnShapeBounds]);
+
   const handleChange = (e) => {
+    let myValue;
     const { name, value } = e.target;
-
-    // Handle range validation only for the "north" input
-    if (name === "north" || name === "south") {
-      // Convert the input value to a number
+    // Convert the input value to a number
+    if (
+      name === "north" ||
+      name === "south" ||
+      name === "east" ||
+      name === "west"
+    ) {
       let numericValue = parseFloat(value);
 
-      // Define the range boundaries
-      const min = -90; // Minimum allowed value for latitude
-      const max = 90; // Maximum allowed value for latitude
+      // Define the range boundaries based on the input name
+      let min, max;
+      if (name === "north" || name === "south") {
+        min = -90;
+        max = 90;
+      } else if (name === "east" || name === "west") {
+        min = -180;
+        max = 180;
+      }
 
       // Clamp the value to the range
       numericValue = Math.min(Math.max(numericValue, min), max);
-
-      // Update the form data with the clamped value
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: numericValue,
-      }));
-    } else if (name === "east" || name === "west") {
-      // Convert the input value to a number
-      let numericValue = parseFloat(value);
-
-      // Define the range boundaries
-      const min = -180; // Minimum allowed value for latitude
-      const max = 180; // Maximum allowed value for latitude
-
-      // Clamp the value to the range
-      numericValue = Math.min(Math.max(numericValue, min), max);
-
+      myValue = numericValue;
       // Update the form data with the clamped value
       setFormData((prevFormData) => ({
         ...prevFormData,
@@ -142,8 +128,34 @@ export default function SideBar({
         ...prevFormData,
         [name]: value,
       }));
-      setTemporalLevelSelected(value !== "");
+      // setTemporalLevelSelected(value !== "");
     }
+    if (drawnShapeBounds) {
+      setDrawnShapeBounds((prevBounds) => ({
+        _southWest: {
+          lat: name === "south" ? myValue : prevBounds._southWest.lat,
+          lng: name === "west" ? myValue : prevBounds._southWest.lng,
+        },
+        _northEast: {
+          lat: name === "north" ? myValue : prevBounds._northEast.lat,
+          lng: name === "east" ? myValue : prevBounds._northEast.lng,
+        },
+      }));
+    } else {
+      if (formData.south && formData.north && formData.east && formData.west) {
+        setDrawnShapeBounds(() => ({
+          _southWest: {
+            lat: formData.south,
+            lng: formData.west,
+          },
+          _northEast: {
+            lat: formData.north,
+            lng: formData.east,
+          },
+        }));
+      }
+    }
+    // setTemporalLevelSelected(value !== "");
   };
 
   const handleDownload = async (e) => {
@@ -224,6 +236,8 @@ export default function SideBar({
         // setVideoUrl(url);
         setVideoReceived(videoBlob);
       } else {
+        setProgress(5);
+        setProgressDesc("Failed", response.status);
         console.error(
           "Failed to fetch heat map data. HTTP status:",
           response.status
@@ -283,7 +297,7 @@ export default function SideBar({
         // console.log("Successfully requested time series data:", responseData);
         setImageRecieved(responseData.imageData);
       } else {
-        setProgress(10);
+        setProgress(5);
         setProgressDesc("Failed", response.status);
         console.error(
           "Failed to fetch time series data. HTTP status:",
@@ -299,7 +313,7 @@ export default function SideBar({
       // Execute any code you want to run after responseReceived changes
       // This code will run every time responseReceived changes
       // For example, you can trigger a re-render here or perform other actions
-      console.log("Video received:", videoRecieved);
+      // console.log("Video received:", videoRecieved);
       handleVideoUpdate(videoRecieved);
       setProgress(100);
       setProgressDesc("Created HeatMap");
@@ -311,14 +325,14 @@ export default function SideBar({
       // Execute any code you want to run after responseReceived changes
       // This code will run every time responseReceived changes
       // For example, you can trigger a re-render here or perform other actions
-      console.log("Image received:");
+      // console.log("Image received:");
       handleImageUpdate(imageRecieved);
       // Update progress to 100 when response is received
       setProgress(100);
       setProgressDesc("Created Time Series");
     }
   }, [imageRecieved, handleImageUpdate]);
-
+  // console.log(formData);
   return (
     <Drawer
       className={classes.drawer}
@@ -538,6 +552,8 @@ export default function SideBar({
                   value={formData.north}
                   onChange={handleChange}
                   className="input"
+                  max="90"
+                  min="-90"
                 />
               </div>
             </div>
@@ -550,6 +566,8 @@ export default function SideBar({
                   onChange={handleChange}
                   className="input"
                   type="number"
+                  max="180"
+                  min="-180"
                 />
               </div>
               <div style={{ marginLeft: "20px" }}></div>
@@ -561,18 +579,23 @@ export default function SideBar({
                   onChange={handleChange}
                   className="input"
                   type="number"
+                  max="180"
+                  min="-180"
                 />
               </div>
             </div>
             <div className="row">
               <div className="cell">
                 <label className="label">South:</label>
+
                 <input
                   name="south"
                   value={formData.south}
                   onChange={handleChange}
                   className="input"
                   type="number"
+                  max="90"
+                  min="-90"
                 />
               </div>
             </div>
@@ -587,7 +610,7 @@ export default function SideBar({
               variant="outline-primary"
               size="sm"
               onClick={handleTimeSeries}
-              disabled={!temporalLevelSelected} // Disable the button if no temporal level option is selected
+              // disabled={!temporalLevelSelected} // Disable the button if no temporal level option is selected
             >
               TimeSeries
             </Button>
