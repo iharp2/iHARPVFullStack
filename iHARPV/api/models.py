@@ -26,10 +26,10 @@ class Query(models.Model):
     endDateTime = models.DateTimeField(default=timezone.now)
     temporalLevel = models.CharField(max_length=10, choices=TEMPORAL_CHOICES)
     aggLevel = models.CharField(max_length=10, choices=AGG_CHOICES)
-    north = models.DecimalField(max_digits=5, decimal_places=3)
-    east = models.DecimalField(max_digits=6, decimal_places=3)
-    south = models.DecimalField(max_digits=5, decimal_places=3)
-    west = models.DecimalField(max_digits=6, decimal_places=3)
+    north = models.DecimalField(max_digits=20, decimal_places=15)
+    east = models.DecimalField(max_digits=20, decimal_places=15)
+    south = models.DecimalField(max_digits=20, decimal_places=15)
+    west = models.DecimalField(max_digits=20, decimal_places=15)
     created_at = models.DateTimeField(auto_now_add=True)
     
 

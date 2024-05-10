@@ -694,182 +694,104 @@ class iHARPExecuter():
         self.lat_range = slice(self.max_lat, self.min_lat)
         self.startDateTime = startDateTime[:-11]
         self.endDateTime = endDateTime[:-11]
-        # print(self.startDateTime)
-        # self.selected_year_start,self.selected_year_end,self.selected_month_name_start, self.selected_month_name_end,self.selected_day_start,self.selected_day_end,self.selected_hour_start,self.selected_hour_end  = self.extract_date_time_info(self.startDateTime,self.endDateTime) 
         self.extract_date_time_info(self.startDateTime,self.endDateTime) 
-        print(self.selected_year_start,self.selected_year_end,self.selected_month_name_start,self.selected_hour_end)
         ## Loading Initial Data
         videoPath = '/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/api/assets/heatmapVideo.mp4'
 
         if self.temporalLevel=="Hourly":
-            #Define where the output shall be saved
-            # image_path = os.path.join(self.current_directory, 'images/temp_per_hour.png')
             #CASE #1: Requested more than one day range of hours
-            if (str(self.selected_year_start+self.selected_month_name_start+self.selected_day_start)) != (str(self.selected_year_end+self.selected_month_name_end+self.selected_day_end)) :
-                ds_list = []
-                start_date = datetime.strptime(self.startDateTime, "%Y-%m-%dT%H")
-                end_date = datetime.strptime(self.endDateTime, "%Y-%m-%dT%H")
-                # print(type(start_date), type(end_date))
-                current_date = start_date
-                while current_date <= end_date:
-                    data_location = (
-                        "/data/ERA5/data/"
-                        + current_date.strftime("%Y")
-                        + "/"
-                        + current_date.strftime("%B").lower()
-                        + "/daily_data/"
-                        + f"day_{current_date.day}_temp_data"
-                        + ".nc"
-                    )
-                    print(data_location)
-                    ds = xr.open_dataset(data_location, engine="netcdf4").load()
-                    
-                    # For the first day, retrieve data from selected_hour_start to 11:00 PM
-                    if current_date == start_date:
-                        mask = (ds.time.dt.hour >= int(self.selected_hour_start)) & (
-                    ds.time.dt.hour <= 23
-                )
-                    # For the last day, retrieve data from 12:00 AM to selected_hour_end
-                    elif current_date == end_date:
-                        mask = (ds.time.dt.hour >= 0) & (
-                    ds.time.dt.hour <= int(self.selected_hour_end)
-                )
-                    # For all days in between, retrieve data for the entire day
-                    else:
-                        mask = (ds.time.dt.hour >= 0) & (
-                    ds.time.dt.hour <= 23
-                )
-                   
-                    ds_selected_time = ds.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
-                    ds_list.append(ds_selected_time)
-                    current_date += timedelta(days=1)
-                ds_daily = xr.concat(ds_list, dim="time")
-                
-                #TODO: We need to figure out how to update the progress bar
-                # update_progress(50,'Retrieving Time Series..Progress:')
-
-            #CASE #2 Requested range of hours in one day
-            else:
-                # print("I chose option 2")
+            # if (str(self.selected_year_start+self.selected_month_name_start+self.selected_day_start)) != (str(self.selected_year_end+self.selected_month_name_end+self.selected_day_end)) :
+            ds_list = []
+            start_date = datetime.strptime(self.startDateTime, "%Y-%m-%dT%H")
+            end_date = datetime.strptime(self.endDateTime, "%Y-%m-%dT%H")
+            # print(type(start_date), type(end_date))
+            current_date = start_date
+            while current_date <= end_date:
+                print(current_date)
                 data_location = (
                     "/data/ERA5/data/"
-                    + self.selected_year_start
+                    + current_date.strftime("%Y")
                     + "/"
-                    + self.selected_month_name_start
+                    + current_date.strftime("%B").lower()
                     + "/daily_data/"
-                    + f"day_{self.selected_day_start}_temp_data"
+                    + f"day_{current_date.day}_temp_data"
                     + ".nc"
                 )
-
-                # print("Finsihed Loading daily file ya Youssef")
-                ds_daily_ = xr.open_dataset(data_location, engine="netcdf4").load()
-                mask = (ds_daily_.time.dt.hour >= int(self.selected_hour_start)) & (
-                    ds_daily_.time.dt.hour <= int(self.selected_hour_end)
-                )
-                ds_daily = ds_daily_.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
-            #Now we have the input data, coordinates and output location; we can proceed and compute the timeseries
-            #Note Now I don't even need to give the coordinates they are already stored in self just call them inside the function
-            self.ds_daily = ds_daily
-            # self.getHeatMap(videoPath)
-            #TODO: We need to figure out how to update the progress bar
+                ds = xr.open_dataset(data_location, engine="netcdf4").sel(time=slice(start_date,end_date),longitude=self.lon_range, latitude=self.lat_range)
+                ds_list.append(ds)
+                current_date += timedelta(days=1)
+            self.ds_daily = xr.concat(ds_list, dim="time")
             # update_progress(100,'Retrieving Time Series..Finished:')
             
         elif self.temporalLevel=="Daily":
             #Define where the output shall be saved
             # image_path = os.path.join(self.current_directory, 'images/temp_per_day.png')
-            image_path = '/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/FrontEnd/src/assets/timeSeriesResult.png'
             #CASE #1: Requested more than one month range of days
-            if (str(self.selected_year_start+self.selected_month_name_start)) != (str(self.selected_year_end+self.selected_month_name_end)) :
-                ds_list_max,ds_list_min,ds_list_avg = [],[],[]
-                
-                start_date = datetime.strptime(self.startDateTime, "%Y-%m-%dT%H")
-                end_date = datetime.strptime(self.endDateTime, "%Y-%m-%dT%H")
-                # print(type(start_date), type(end_date))
-                current_date = start_date
-                while current_date <= end_date:
-                    location = (
-                        "/data/ERA5/data/"
-                        + current_date.strftime("%Y")
-                        + "/"
-                        + current_date.strftime("%B").lower()
-                        + "/"
-                    )
-                    print(location)
-                    # For the first month, retrieve data from selected_day_start to till end of month
-                    if current_date == start_date:
-                        daily_temp_max = xr.open_dataset(location + "daily_temp_max.nc").load()
-                        mask = daily_temp_max.time.dt.day >= int(self.selected_day_start)
-                        daily_temp_max = daily_temp_max.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
-                        daily_temp_min = xr.open_dataset(location + "daily_temp_min.nc").load()
-                        mask = daily_temp_min.time.dt.day >= int(self.selected_day_start)
-                        daily_temp_min = daily_temp_min.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
-                        daily_temp_avg = xr.open_dataset(location + "daily_temp_avg.nc").load()
-                        mask = daily_temp_avg.time.dt.day >= int(self.selected_day_start)
-                        daily_temp_avg = daily_temp_avg.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
-                    # For the last month, retrieve data from beginning of month till selected_day_end
-                    elif current_date == end_date:
-                        daily_temp_max = xr.open_dataset(location + "daily_temp_max.nc").load()
-                        mask = daily_temp_max.time.dt.day <= int(self.selected_day_end)
-                        daily_temp_max = daily_temp_max.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
-                        daily_temp_min = xr.open_dataset(location + "daily_temp_min.nc").load()
-                        mask = daily_temp_min.time.dt.day <= int(self.selected_day_end)
-                        daily_temp_min = daily_temp_min.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
-                        daily_temp_avg = xr.open_dataset(location + "daily_temp_avg.nc").load()
-                        mask = daily_temp_avg.time.dt.day <= int(self.selected_day_end)
-                        daily_temp_avg = daily_temp_avg.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
-                    # For all month in between, retrieve data for the entire month
-                    else:
-                        daily_temp_max = xr.open_dataset(location + "daily_temp_max.nc").load()
-                        daily_temp_max = daily_temp_max.sel(longitude=self.lon_range, latitude=self.lat_range)
-                        daily_temp_min = xr.open_dataset(location + "daily_temp_min.nc").load()
-                        daily_temp_min = daily_temp_min.sel(longitude=self.lon_range, latitude=self.lat_range)
-                        daily_temp_avg = xr.open_dataset(location + "daily_temp_avg.nc").load()
-                        daily_temp_avg = daily_temp_avg.sel(longitude=self.lon_range, latitude=self.lat_range)
-                   
-                    ds_list_max.append(daily_temp_max)
-                    ds_list_min.append(daily_temp_min)
-                    ds_list_avg.append(daily_temp_avg)
-                    current_date += relativedelta(months=1)
-                    print(current_date)
-                self.daily_temp_max = xr.concat(ds_list_max, dim="time")
-                self.daily_temp_min = xr.concat(ds_list_min, dim="time")
-                self.daily_temp_avg = xr.concat(ds_list_avg, dim="time")
+            # if (str(self.selected_year_start+self.selected_month_name_start)) != (str(self.selected_year_end+self.selected_month_name_end)) :
+            ds_list_max,ds_list_min,ds_list_avg = [],[],[]
+            
+            start_date = datetime.strptime(self.startDateTime, "%Y-%m-%dT%H")
+            start_date = start_date.replace(hour=0)
+            end_date = datetime.strptime(self.endDateTime, "%Y-%m-%dT%H")
+            end_date = end_date.replace(hour=0)
+            # print(type(start_date), type(end_date))
+            current_date = start_date
+            while current_date <= end_date:
+                location = (
+                    "/data/ERA5/data/"
+                    + current_date.strftime("%Y")
+                    + "/"
+                    + current_date.strftime("%B").lower()
+                    + "/"
+                )
+                print(location)
+                daily_temp_max = xr.open_dataset(location + "daily_temp_max.nc").sel(time=slice(start_date,end_date),longitude=self.lon_range, latitude=self.lat_range)
+                daily_temp_min = xr.open_dataset(location + "daily_temp_min.nc").sel(time=slice(start_date,end_date),longitude=self.lon_range, latitude=self.lat_range)
+                daily_temp_avg = xr.open_dataset(location + "daily_temp_avg.nc").sel(time=slice(start_date,end_date),longitude=self.lon_range, latitude=self.lat_range)
+                ds_list_max.append(daily_temp_max)
+                ds_list_min.append(daily_temp_min)
+                ds_list_avg.append(daily_temp_avg)
+                current_date += relativedelta(months=1)
+                print(current_date)
+            self.daily_temp_max = xr.concat(ds_list_max, dim="time")
+            self.daily_temp_min = xr.concat(ds_list_min, dim="time")
+            self.daily_temp_avg = xr.concat(ds_list_avg, dim="time")
                 #TODO: We need to figure out how to update the progress bar
                 # update_progress(50,'Retrieving Time Series..Progress:')
 
             #CASE #2 Requested range of days in one month
-            else:
-                location = (
-                    "/data/ERA5/data/"
-                    + self.selected_year_start
-                    + "/"
-                    + self.selected_month_name_start
-                     + "/"
+            # else:
+            #     location = (
+            #         "/data/ERA5/data/"
+            #         + self.selected_year_start
+            #         + "/"
+            #         + self.selected_month_name_start
+            #          + "/"
 
-                )
-                print(location)
-                print("Started Loading Aggregated Data into Memory")
-                print(self.selected_day_start," ",self.selected_day_end)
-                #Getting Maximum Data Per Month
-                self.daily_temp_max = xr.open_dataset(location + "daily_temp_max.nc").load()
-                mask = (self.daily_temp_max.time.dt.day >= int(self.selected_day_start)) & (
-                    self.daily_temp_max.time.dt.day <= int(self.selected_day_end)
-                )
-                self.daily_temp_max = self.daily_temp_max.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
-                #Getting Minimimum Data Per Month
-                self.daily_temp_min = xr.open_dataset(location + "daily_temp_min.nc").load()
-                mask = (self.daily_temp_min.time.dt.day >= int(self.selected_day_start)) & (
-                    self.daily_temp_min.time.dt.day <= int(self.selected_day_end)
-                )
-                self.daily_temp_min = self.daily_temp_min.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
-                #Getting Average Data Per Month
-                self.daily_temp_avg = xr.open_dataset(location + "daily_temp_avg.nc").load()
-                mask = (self.daily_temp_avg.time.dt.day >= int(self.selected_day_start)) & (
-                    self.daily_temp_avg.time.dt.day <= int(self.selected_day_end)
-                )
-                self.daily_temp_avg = self.daily_temp_avg.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
+            #     )
+            #     print(location)
+            #     print("Started Loading Aggregated Data into Memory")
+            #     print(self.selected_day_start," ",self.selected_day_end)
+            #     #Getting Maximum Data Per Month
+            #     self.daily_temp_max = xr.open_dataset(location + "daily_temp_max.nc").load()
+            #     mask = (self.daily_temp_max.time.dt.day >= int(self.selected_day_start)) & (
+            #         self.daily_temp_max.time.dt.day <= int(self.selected_day_end)
+            #     )
+            #     self.daily_temp_max = self.daily_temp_max.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
+            #     #Getting Minimimum Data Per Month
+            #     self.daily_temp_min = xr.open_dataset(location + "daily_temp_min.nc").load()
+            #     mask = (self.daily_temp_min.time.dt.day >= int(self.selected_day_start)) & (
+            #         self.daily_temp_min.time.dt.day <= int(self.selected_day_end)
+            #     )
+            #     self.daily_temp_min = self.daily_temp_min.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
+            #     #Getting Average Data Per Month
+            #     self.daily_temp_avg = xr.open_dataset(location + "daily_temp_avg.nc").load()
+            #     mask = (self.daily_temp_avg.time.dt.day >= int(self.selected_day_start)) & (
+            #         self.daily_temp_avg.time.dt.day <= int(self.selected_day_end)
+            #     )
+            #     self.daily_temp_avg = self.daily_temp_avg.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
            
-                print("Finished Loading Aggregated Data into Memory")
+            #     print("Finished Loading Aggregated Data into Memory")
 
             #Now we have the input data, coordinates and output location; we can proceed and compute the timeseries
             #Note Now I don't even need to give the coordinates they are already stored in self just call them inside the function

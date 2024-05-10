@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Drawer from "@material-ui/core/Drawer";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
@@ -16,7 +16,6 @@ import dayjs from "dayjs";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BoundsContext } from "./BoundsContext";
 import Dropdown from "./Dropdown";
-import L from "leaflet";
 
 const drawerWidth = 355;
 dayjs.extend(utc);
@@ -57,8 +56,7 @@ export default function SideBar({
   const maxDate = dayjs("2024-02-28T23");
   const [progress, setProgress] = useState(1); // State to manage progress
   const [progressDesc, setProgressDesc] = useState(""); // State to manage progress
-  const [temporalLevelSelected, setTemporalLevelSelected] =
-    React.useState(false);
+
   const [videoRecieved, setVideoReceived] = useState(null);
   const [imageRecieved, setImageRecieved] = useState(null); // Initialize selectedEndDateTime with null
 
@@ -159,21 +157,65 @@ export default function SideBar({
   };
 
   const handleDownload = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
+    // Check if a temporal level option has been selected
+    if (formData.temporalLevel === "") {
+      // If not, display an error message or perform any other action to prompt the user to select a temporal level
+      alert(
+        "ERROR: Please select a temporal level resolution before proceeding..."
+      );
+      return; // Exit the function early
+    } else if (!selectedStartDateTime) {
+      alert("ERROR: Please select a start date and time before proceeding.");
+      return; // Exit the function early
+    } else if (!selectedEndDateTime) {
+      alert("ERROR: Please select an end date and time before proceeding..");
+      return; // Exit the function early
+    } else if (
+      formData.north === "" ||
+      formData.south === "" ||
+      formData.east === "" ||
+      formData.west === ""
+    ) {
+      alert(
+        "ERROR: Please select an area on the map or enter FOUR coordinates of interest manually(S,N,W,E) before proceeding..."
+      );
+      return; // Exit the function early
+    }
+
     formData.requestType = "Data Download";
     formData.startDateTime = selectedStartDateTime;
     formData.endDateTime = selectedEndDateTime;
+
     try {
-      await fetch("http://127.0.0.1:6080/download/", {
+      setProgress(20);
+      setProgressDesc("Creating Timeseries");
+
+      // Send request to the backend to fetch both time series data and image data
+      const response = await fetch("http://127.0.0.1:6080/download/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
-      // console.log("Successfuly request for Downloading Data");
+
+      // Check if the response is successful
+      if (response.ok) {
+        // Parse the response as JSON
+        const responseData = await response.json();
+        // console.log("Successfully requested time series data:", responseData);
+        setImageRecieved(responseData.imageData);
+      } else {
+        setProgress(5);
+        setProgressDesc("Failed", response.status);
+        console.error(
+          "Failed to download requested data. HTTP status:",
+          response.status
+        );
+      }
     } catch (error) {
-      console.error("Error requesting Data Download:", error);
+      console.error("Error downloading data of interest:", error);
     }
   };
 
@@ -277,10 +319,10 @@ export default function SideBar({
     formData.requestType = "Time Series";
     formData.startDateTime = selectedStartDateTime;
     formData.endDateTime = selectedEndDateTime;
-
     try {
       setProgress(20);
       setProgressDesc("Creating Timeseries");
+
       // Send request to the backend to fetch both time series data and image data
       const response = await fetch("http://127.0.0.1:6080/timeseries/", {
         method: "POST",
