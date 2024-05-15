@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
 import Box from "@mui/joy/Box";
-import Table from "react-bootstrap/Table";
+// import Table from "react-bootstrap/Table";
 import ImageComponent from "./components/ImageComponent";
 import VideoComponent from "./components/VideoComponent";
 import NewMap from "./components/NewMap";
@@ -33,7 +33,9 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: -15,
+    marginLeft: -20,
+    marginRight: -21,
+    marginTop: -20,
   },
   drawerHeader: {
     display: "flex",
@@ -115,7 +117,7 @@ export default function App() {
             <div component="li">
               <VideoComponent videoSrc={videoUrl} />
             </div>
-            <div component="li">
+            {/* <div component="li">
               <div style={{ maxHeight: "350px", overflowY: "auto" }}>
                 <Table className="table table-striped table-bordered table-hover">
                   <thead>
@@ -128,7 +130,7 @@ export default function App() {
                   </thead>
                 </Table>
               </div>
-            </div>
+            </div> */}
           </Box>
         </main>
       </div>

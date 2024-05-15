@@ -3,7 +3,7 @@ import React from "react";
 const ImageComponent = ({ imageData }) => {
   if (!imageData) {
     // Render a loading indicator or placeholder while imageData is being fetched
-    return <div>Loading...</div>;
+    return <div>Placeholder for the TimeSeries Graph...</div>;
   }
   return (
     <div>

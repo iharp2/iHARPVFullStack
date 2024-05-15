@@ -57,20 +57,20 @@ class iHARPExecuter():
         self.selected_year_start,self.selected_year_end,self.selected_day_start,self.selected_day_end,self.selected_hour_start,self.selected_hour_end = 0,0,0,0,0,0
         self.HeatMapTemps=[]
         ## Loading Initial Data
-        print("Started Loading daily file")
+        # print("Started Loading daily file")
         self.ds_daily = xr.open_dataset(daily_file, engine="netcdf4").sel(time="2024-02-01")
-        print("Finsihed Loading daily file")
+        # print("Finsihed Loading daily file")
 
 
         location = "/data/ERA5/data/2024/february/"
-        print("Started Loading Aggregated Data into Memory")
+        # print("Started Loading Aggregated Data into Memory")
         # Load daily aggregates
         self.daily_temp_max = xr.open_dataset(location + "daily_temp_max.nc")
         self.daily_temp_min = xr.open_dataset(location + "daily_temp_min.nc")
         self.daily_temp_avg = xr.open_dataset(location + "daily_temp_avg.nc")
-        print("Finished Loading Aggregated Data into Memory")
+        # print("Finished Loading Aggregated Data into Memory")
 
-        print("All Data Loaded Successfully")    
+        # print("All Data Loaded Successfully")    
     #Function to parse given temporal range
     def extract_date_time_info(self,start_date_time_str, end_date_time_str):
         # Parse start date-time string
@@ -94,7 +94,7 @@ class iHARPExecuter():
         # return  selected_year_start, selected_year_end, selected_month_name_start, selected_month_name_end,  selected_day_start, selected_day_end,selected_hour_start, selected_hour_end
     def calculate_raw_stats(self, image_location):
         self.HeatMapTemps,hours,min_temps, max_temps, avg_temps = [],[],[], [], []
-        print("Getting Hourly Stats")
+        # print("Getting Hourly Stats")
         temperature_data = None
         temperature_data_per_day, min_temp_per_hour, max_temp_per_hour = (
             {},
@@ -322,8 +322,8 @@ class iHARPExecuter():
         if self.min_lon > self.max_lon:
             self.max_lon, self.min_lon = self.min_lon, self.max_lon
             self.max_lat, self.min_lat = self.min_lat, self.max_lat
-        print(self.min_lon, self.min_lat)
-        print(self.max_lon, self.max_lat)
+        # print(self.min_lon, self.min_lat)
+        # print(self.max_lon, self.max_lat)
         # Specify the longitude and latitudenrange 
         self.lon_range = slice(self.min_lon, self.max_lon)  
         self.lat_range = slice(self.max_lat, self.min_lat)
@@ -332,7 +332,7 @@ class iHARPExecuter():
         # print(self.startDateTime)
         # self.selected_year_start,self.selected_year_end,self.selected_month_name_start, self.selected_month_name_end,self.selected_day_start,self.selected_day_end,self.selected_hour_start,self.selected_hour_end  = self.extract_date_time_info(self.startDateTime,self.endDateTime) 
         self.extract_date_time_info(self.startDateTime,self.endDateTime) 
-        print(self.selected_year_start,self.selected_year_end,self.selected_month_name_start,self.selected_hour_end)
+        # print(self.selected_year_start,self.selected_year_end,self.selected_month_name_start,self.selected_hour_end)
         ## Loading Initial Data
         image_path = '/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/api/assets/timeSeriesResult.png'
         if temporalLevel=="Hourly":
@@ -356,7 +356,7 @@ class iHARPExecuter():
                         + f"day_{current_date.day}_temp_data"
                         + ".nc"
                     )
-                    print(data_location)
+                    # print(data_location)
                     ds = xr.open_dataset(data_location, engine="netcdf4").load()
                     
                     # For the first day, retrieve data from selected_hour_start to 11:00 PM
@@ -385,7 +385,7 @@ class iHARPExecuter():
 
             #CASE #2 Requested range of hours in one day
             else:
-                print("I chose option 2")
+                # print("I chose option 2")
                 data_location = (
                     "/data/ERA5/data/"
                     + self.selected_year_start
@@ -396,7 +396,7 @@ class iHARPExecuter():
                     + ".nc"
                 )
 
-                print("Finsihed Loading daily file ya Youssef")
+                # print("Finsihed Loading daily file ya Youssef")
                 ds_daily_ = xr.open_dataset(data_location, engine="netcdf4").load()
                 mask = (ds_daily_.time.dt.hour >= int(self.selected_hour_start)) & (
                     ds_daily_.time.dt.hour <= int(self.selected_hour_end)
@@ -429,7 +429,7 @@ class iHARPExecuter():
                         + current_date.strftime("%B").lower()
                         + "/"
                     )
-                    print(location)
+                    # print(location)
                     # For the first month, retrieve data from selected_day_start to till end of month
                     if current_date == start_date:
                         daily_temp_max = xr.open_dataset(location + "daily_temp_max.nc").load()
@@ -465,7 +465,7 @@ class iHARPExecuter():
                     ds_list_min.append(daily_temp_min)
                     ds_list_avg.append(daily_temp_avg)
                     current_date += relativedelta(months=1)
-                    print(current_date)
+                    # print(current_date)
                 self.daily_temp_max = xr.concat(ds_list_max, dim="time")
                 self.daily_temp_min = xr.concat(ds_list_min, dim="time")
                 self.daily_temp_avg = xr.concat(ds_list_avg, dim="time")
@@ -482,9 +482,9 @@ class iHARPExecuter():
                      + "/"
 
                 )
-                print(location)
-                print("Started Loading Aggregated Data into Memory")
-                print(self.selected_day_start," ",self.selected_day_end)
+                # print(location)
+                # print("Started Loading Aggregated Data into Memory")
+                # print(self.selected_day_start," ",self.selected_day_end)
                 #Getting Maximum Data Per Month
                 self.daily_temp_max = xr.open_dataset(location + "daily_temp_max.nc").load()
                 mask = (self.daily_temp_max.time.dt.day >= int(self.selected_day_start)) & (
@@ -504,7 +504,7 @@ class iHARPExecuter():
                 )
                 self.daily_temp_avg = self.daily_temp_avg.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
            
-                print("Finished Loading Aggregated Data into Memory")
+                # print("Finished Loading Aggregated Data into Memory")
 
             #Now we have the input data, coordinates and output location; we can proceed and compute the timeseries
             #Note Now I don't even need to give the coordinates they are already stored in self just call them inside the function
@@ -517,7 +517,7 @@ class iHARPExecuter():
         elif temporalLevel=="Monthly":
             #Define where the output shall be saved
             # image_path = os.path.join(self.current_directory, 'images/temp_per_day.png')
-            print("Starting and ending months are, ",self.selected_month_end,self.selected_month_start)
+            # print("Starting and ending months are, ",self.selected_month_end,self.selected_month_start)
             #CASE #1: Requested more than one month range of days
             if (str(self.selected_year_start)) != (str(self.selected_year_end)) :
                 ds_list_max,ds_list_min,ds_list_avg = [],[],[]
@@ -533,7 +533,7 @@ class iHARPExecuter():
                         + "/"
                         
                     )
-                    print(location)
+                    # print(location)
                     # For the first month, retrieve data from selected_day_start to till end of month
                     if current_date == start_date:
                         daily_temp_max = xr.open_dataset(location + "monthly_max.nc").load()
@@ -569,7 +569,7 @@ class iHARPExecuter():
                     ds_list_min.append(daily_temp_min)
                     ds_list_avg.append(daily_temp_avg)
                     current_date += relativedelta(years=1)
-                    print(current_date)
+                    # print(current_date)
                 self.daily_temp_max = xr.concat(ds_list_max, dim="time")
                 self.daily_temp_min = xr.concat(ds_list_min, dim="time")
                 self.daily_temp_avg = xr.concat(ds_list_avg, dim="time")
@@ -584,8 +584,8 @@ class iHARPExecuter():
                     + "/"
 
                 )
-                print(location)
-                print("Started Loading Aggregated Data into Memory")
+                # print(location)
+                # print("Started Loading Aggregated Data into Memory")
                 # print(self.selected_month_name_start," ",self.selected_month_name_end)
                 #Getting Maximum Data Per Month
                 self.daily_temp_max = xr.open_dataset(location+self.selected_year_start + "_monthly_max.nc").load()
@@ -606,7 +606,7 @@ class iHARPExecuter():
                 )
                 self.daily_temp_avg = self.daily_temp_avg.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
            
-                print("Finished Loading Aggregated Data into Memory")
+                # print("Finished Loading Aggregated Data into Memory")
 
             #Now we have the input data, coordinates and output location; we can proceed and compute the timeseries
             #Note Now I don't even need to give the coordinates they are already stored in self just call them inside the function
@@ -624,8 +624,8 @@ class iHARPExecuter():
                 "/data/ERA5/data/"
 
             )
-            print("Started Loading Aggregated Data into Memory")
-            print(self.selected_day_start," ",self.selected_day_end)
+            # print("Started Loading Aggregated Data into Memory")
+            # print(self.selected_day_start," ",self.selected_day_end)
             #Getting Maximum Data Per Month
             self.daily_temp_max = xr.open_dataset(location + "all_years_max.nc").load()
             mask = (self.daily_temp_max.time.dt.year >= int(self.selected_year_start)) & (
@@ -645,7 +645,7 @@ class iHARPExecuter():
             )
             self.daily_temp_avg = self.daily_temp_avg.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
         
-            print("Finished Loading Aggregated Data into Memory")
+            # print("Finished Loading Aggregated Data into Memory")
 
             #Now we have the input data, coordinates and output location; we can proceed and compute the timeseries
             #Note Now I don't even need to give the coordinates they are already stored in self just call them inside the function
@@ -707,7 +707,7 @@ class iHARPExecuter():
             # print(type(start_date), type(end_date))
             current_date = start_date
             while current_date <= end_date:
-                print(current_date)
+                # print(current_date)
                 data_location = (
                     "/data/ERA5/data/"
                     + current_date.strftime("%Y")
@@ -744,7 +744,7 @@ class iHARPExecuter():
                     + current_date.strftime("%B").lower()
                     + "/"
                 )
-                print(location)
+                # print(location)
                 daily_temp_max = xr.open_dataset(location + "daily_temp_max.nc").sel(time=slice(start_date,end_date),longitude=self.lon_range, latitude=self.lat_range)
                 daily_temp_min = xr.open_dataset(location + "daily_temp_min.nc").sel(time=slice(start_date,end_date),longitude=self.lon_range, latitude=self.lat_range)
                 daily_temp_avg = xr.open_dataset(location + "daily_temp_avg.nc").sel(time=slice(start_date,end_date),longitude=self.lon_range, latitude=self.lat_range)
@@ -752,7 +752,7 @@ class iHARPExecuter():
                 ds_list_min.append(daily_temp_min)
                 ds_list_avg.append(daily_temp_avg)
                 current_date += relativedelta(months=1)
-                print(current_date)
+                # print(current_date)
             self.daily_temp_max = xr.concat(ds_list_max, dim="time")
             self.daily_temp_min = xr.concat(ds_list_min, dim="time")
             self.daily_temp_avg = xr.concat(ds_list_avg, dim="time")
@@ -805,7 +805,7 @@ class iHARPExecuter():
             #Define where the output shall be saved
             # image_path = os.path.join(self.current_directory, 'images/temp_per_day.png')
             image_path = '/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/FrontEnd/src/assets/timeSeriesResult.png'
-            print("Starting and ending months are, ",self.selected_month_end,self.selected_month_start)
+            # print("Starting and ending months are, ",self.selected_month_end,self.selected_month_start)
             #CASE #1: Requested more than one month range of days
             if (str(self.selected_year_start)) != (str(self.selected_year_end)) :
                 ds_list_max,ds_list_min,ds_list_avg = [],[],[]
@@ -821,7 +821,7 @@ class iHARPExecuter():
                         + "/"
                         
                     )
-                    print(location)
+                    # print(location)
                     # For the first month, retrieve data from selected_day_start to till end of month
                     if current_date == start_date:
                         daily_temp_max = xr.open_dataset(location + "monthly_max.nc").load()
@@ -857,7 +857,7 @@ class iHARPExecuter():
                     ds_list_min.append(daily_temp_min)
                     ds_list_avg.append(daily_temp_avg)
                     current_date += relativedelta(years=1)
-                    print(current_date)
+                    # print(current_date)
                 self.daily_temp_max = xr.concat(ds_list_max, dim="time")
                 self.daily_temp_min = xr.concat(ds_list_min, dim="time")
                 self.daily_temp_avg = xr.concat(ds_list_avg, dim="time")
@@ -872,8 +872,8 @@ class iHARPExecuter():
                     + "/"
 
                 )
-                print(location)
-                print("Started Loading Aggregated Data into Memory")
+                # print(location)
+                # print("Started Loading Aggregated Data into Memory")
                 # print(self.selected_month_name_start," ",self.selected_month_name_end)
                 #Getting Maximum Data Per Month
                 self.daily_temp_max = xr.open_dataset(location+self.selected_year_start + "_monthly_max.nc").load()
@@ -894,7 +894,7 @@ class iHARPExecuter():
                 )
                 self.daily_temp_avg = self.daily_temp_avg.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
            
-                print("Finished Loading Aggregated Data into Memory")
+                # print("Finished Loading Aggregated Data into Memory")
 
             #Now we have the input data, coordinates and output location; we can proceed and compute the timeseries
             #Note Now I don't even need to give the coordinates they are already stored in self just call them inside the function
@@ -913,8 +913,8 @@ class iHARPExecuter():
                 "/data/ERA5/data/"
 
             )
-            print("Started Loading Aggregated Data into Memory")
-            print(self.selected_day_start," ",self.selected_day_end)
+            # print("Started Loading Aggregated Data into Memory")
+            # print(self.selected_day_start," ",self.selected_day_end)
             #Getting Maximum Data Per Month
             self.daily_temp_max = xr.open_dataset(location + "all_years_max.nc").load()
             mask = (self.daily_temp_max.time.dt.year >= int(self.selected_year_start)) & (
@@ -934,7 +934,7 @@ class iHARPExecuter():
             )
             self.daily_temp_avg = self.daily_temp_avg.sel(time=mask,longitude=self.lon_range, latitude=self.lat_range)
         
-            print("Finished Loading Aggregated Data into Memory")
+            # print("Finished Loading Aggregated Data into Memory")
 
             #Now we have the input data, coordinates and output location; we can proceed and compute the timeseries
             #Note Now I don't even need to give the coordinates they are already stored in self just call them inside the function
@@ -948,7 +948,7 @@ class iHARPExecuter():
             return 0
         
         self.HeatMapTemps=[]
-        print("Building HeatMap Hourly")
+        # print("Building HeatMap Hourly")
         # print(self.frames_directory)      
         for file_name in os.listdir(self.frames_directory):
             # print(file_name)
@@ -1052,7 +1052,7 @@ class iHARPExecuter():
             counter += 1
             plt.savefig(output_file)
         # print("Finished Temp data to frames")
-        print("Started Generating HeatMap Video")
+        # print("Started Generating HeatMap Video")
         # Create a video file from the images
         os.system(
             f'ffmpeg -framerate 2 -start_number 0 -i  "{self.frames_directory}/%d.png" -c:v libx264 -r 30 "{videoPath}" -y'

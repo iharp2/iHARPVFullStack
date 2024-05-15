@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/BackEnd/__pycache__
+/BackEnd//api/__pycache__
+/BackEnd/api/migrations

@@ -39,10 +39,11 @@ export default function MyDropdown() {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    if (value.includes("2m dewpoint temperature")) {
+      setPersonName(["2m dewpoint temperature"]);
+    } else {
+      setPersonName([]);
+    }
   };
 
   return (
@@ -62,8 +63,12 @@ export default function MyDropdown() {
           MenuProps={MenuProps}
         >
           {names.map((name) => (
-            <MenuItem key={name} value={name}>
-              <Checkbox checked={personName.indexOf(name) > -1} />
+            <MenuItem
+              key={name}
+              value={name}
+              disabled={name !== "2m dewpoint temperature"}
+            >
+              <Checkbox checked={personName.includes(name)} />
               <ListItemText primary={name} />
             </MenuItem>
           ))}

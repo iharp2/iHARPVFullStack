@@ -1,0 +1,43 @@
+<data>
+    <PartitionRange>30</PartitionRange>
+    <Variables>
+        <variable>2m-dewpoint temperature</variable>
+    </Variables>
+    <TimeRange>
+        <range>10</range>
+	<unit> years</unit>
+    </TimeRange>
+    <Partitions>
+        <partition>
+            <partitionStart>0</partitionStart>
+	     <partitionEnd>11</partitionEnd>
+            <SpatialResolution>0.25</SpatialResolution>
+            <TimeResolution>hour</TimeResolution>
+        </partition>
+        <partition>
+            <partitionStart>12</partitionStart>
+	     <partitionEnd>23</partitionEnd>
+            <SpatialResolution>0.5</SpatialResolution>
+            <TimeResolution>day</TimeResolution>
+        </partition>
+        <partition>
+            <partitionStart>24</partitionStart>
+	     <partitionEnd>47</partitionEnd>
+            <SpatialResolution>1.0</SpatialResolution>
+            <TimeResolution>month</TimeResolution>
+        </partition>
+        <partition>
+            <partitionStart>48</partitionStart>
+	     <partitionEnd>59</partitionEnd>
+            <SpatialResolution>0.5</SpatialResolution>
+            <TimeResolution>day</TimeResolution>
+        </partition>
+        <partition>
+            <partitionStart>60</partitionStart>
+	     <partitionEnd>71</partitionEnd>
+            <SpatialResolution>0.25</SpatialResolution>
+            <TimeResolution> hour</TimeResolution>
+        </partition>
+    </Partitions>
+</data>
+

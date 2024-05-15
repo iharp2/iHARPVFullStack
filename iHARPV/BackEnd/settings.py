@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-o7ii7xnwpi0^6^o2(xoz=+ixxyaruh*+&)%fofjtneqz)*a3cw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['*','www.iharpv.cs.umn.edu']
 
 
 REST_FRAMEWORK = {
@@ -137,11 +137,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-
+# STATIC_URL = os.path.join(BASE_DIR,'FrontEnd/build/static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'FrontEnd/build/static')]
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOWS_CREDENTIALS = True
+# CORS_ALLOWS_CREDENTIALS = True

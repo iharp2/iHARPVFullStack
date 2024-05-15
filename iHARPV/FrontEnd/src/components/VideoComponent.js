@@ -3,10 +3,10 @@ import React from "react";
 const VideoComponent = ({ videoSrc }) => {
   const videoBlob = videoSrc || "";
 
-  console.log("Video Logging....", videoBlob);
+  // console.log("Video Logging....", videoBlob);
   if (!videoBlob) {
     // Render a loading indicator or placeholder while video data is being fetched
-    return <div>Video Loading...</div>;
+    return <div>Placeholder for the HeatMap Video...</div>;
   }
 
   return (

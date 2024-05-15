@@ -17,7 +17,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BoundsContext } from "./BoundsContext";
 import Dropdown from "./Dropdown";
 
-const drawerWidth = 355;
+const drawerWidth = 405;
 dayjs.extend(utc);
 dayjs.extend(timezone);
 const useStyles = makeStyles((theme) => ({
@@ -192,7 +192,7 @@ export default function SideBar({
       setProgressDesc("Creating Timeseries");
 
       // Send request to the backend to fetch both time series data and image data
-      const response = await fetch("http://127.0.0.1:6080/download/", {
+      const response = await fetch("download/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -259,7 +259,7 @@ export default function SideBar({
       setProgress(20);
       setProgressDesc("Creating HeatMap");
       // Send request to the backend to fetch both time series data and image data
-      const response = await fetch("http://127.0.0.1:6080/heatmap/", {
+      const response = await fetch("heatmap/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -324,7 +324,7 @@ export default function SideBar({
       setProgressDesc("Creating Timeseries");
 
       // Send request to the backend to fetch both time series data and image data
-      const response = await fetch("http://127.0.0.1:6080/timeseries/", {
+      const response = await fetch("timeseries/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -394,12 +394,26 @@ export default function SideBar({
 
       <div className="sidebar-content">
         <div className="nine">
+          <h1>iHARPV</h1>
+        </div>
+        <div class="instruction-text">
+          <h7>
+            Explore <strong>iHARPV</strong> by selecting an area on the map or
+            using the range options below. Customize your query by choosing
+            params from the <strong>Query Menu</strong> below to generate a
+            TimeSeries or HeatMap. Additionally, download data of interest for
+            further analysis.
+          </h7>
+        </div>
+        <div className="nine">
           <h1>
-            iHARPV<span>Query Menu</span>
+            <span>Query Menu</span>
           </h1>
         </div>
+        <div style={{ marginBottom: "-20px" }}></div>
+
         <div className="sidebar-container">
-          <Dropdown></Dropdown>
+          <Dropdown />
           <div style={{ marginBottom: "10px" }}></div>
 
           {/* <h4 className="sidebar-heading">Select Start Date and Time</h4> */}
@@ -544,6 +558,7 @@ export default function SideBar({
                   style={{ fontSize: "small", marginLeft: "10px" }}
                   onChange={handleChange} // Add onChange handler
                   checked={formData.spatialLevel === "0.25"}
+                  // disabled
                 />
                 <Form.Check
                   inline
@@ -555,6 +570,7 @@ export default function SideBar({
                   style={{ fontSize: "small" }}
                   onChange={handleChange} // Add onChange handler
                   checked={formData.spatialLevel === "0.5"}
+                  disabled
                 />
                 <Form.Check
                   inline
@@ -566,6 +582,7 @@ export default function SideBar({
                   style={{ fontSize: "small" }}
                   onChange={handleChange} // Add onChange handler
                   checked={formData.spatialLevel === "1.0"}
+                  disabled
                 />
                 <Form.Check
                   inline
@@ -577,10 +594,13 @@ export default function SideBar({
                   style={{ fontSize: "small" }}
                   onChange={handleChange} // Add onChange handler
                   checked={formData.spatialLevel === "2.0"}
+                  disabled
                 />
               </div>
             ))}
           </Form>
+          <div style={{ marginBottom: "-30px" }}></div>
+
           <h4 className="sidebar-heading">
             Optional: Select Longitude Latitude Range
           </h4>
@@ -663,6 +683,7 @@ export default function SideBar({
               variant="outline-primary"
               size="sm"
               onClick={handleDownload}
+              disabled
             >
               Download Data
             </Button>

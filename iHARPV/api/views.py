@@ -43,7 +43,6 @@ def getTimeSeries(request):
             #     return Response(response, status=201)
             # else:
             #     return Response("Couldnt Retrieve TimeSeries For Some Reason", status=400)
-            
     return Response(serializer.errors, status=400)
 @api_view(["POST"])
 def getHeatMap(request):
