@@ -46,7 +46,11 @@ export default function SideBar({
   // videoUrl,
 }) {
   // const { updateImageData } = props;
+  const [variable, setVariable] = React.useState([]);
 
+  const handleChangeDropDown = (event) => {
+    setVariable(event.target.value);
+  };
   const { drawnShapeBounds, setDrawnShapeBounds } = useContext(BoundsContext);
   const classes = useStyles();
   const [selectedStartDateTime, setSelectedStartDateTime] = useState(null); // Initialize selectedStartDateTime with null
@@ -62,6 +66,7 @@ export default function SideBar({
 
   const [formData, setFormData] = useState({
     requestType: "",
+    variable:"",
     startDateTime: "",
     endDateTime: "",
     temporalLevel: "Hourly",
@@ -88,7 +93,23 @@ export default function SideBar({
         west: west_val,
       }));
     }
+    // if (variable){
+    //   setFormData((prevFormData) => ({
+    //     ...prevFormData,
+    //     variable: variable, // Update formData.variable with the selected variable
+    //   }));
+    // }
   }, [drawnShapeBounds]);
+
+  useEffect(() => {
+
+    if (variable){
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        variable: variable, // Update formData.variable with the selected variable
+      }));
+    }
+  }, [variable]);
 
   const handleChange = (e) => {
     let myValue;
@@ -116,6 +137,7 @@ export default function SideBar({
       numericValue = Math.min(Math.max(numericValue, min), max);
       myValue = numericValue;
       // Update the form data with the clamped value
+      
       setFormData((prevFormData) => ({
         ...prevFormData,
         [name]: numericValue,
@@ -159,7 +181,14 @@ export default function SideBar({
   const handleDownload = async (e) => {
     if (e) e.preventDefault();
     // Check if a temporal level option has been selected
-    if (formData.temporalLevel === "") {
+    if (formData.variable === "") {
+      // If not, display an error message or perform any other action to prompt the user to select a temporal level
+      alert(
+        "ERROR: Please select a variable before proceeding..."
+      );
+      return; // Exit the function early
+    }
+    else if (formData.temporalLevel === "") {
       // If not, display an error message or perform any other action to prompt the user to select a temporal level
       alert(
         "ERROR: Please select a temporal level resolution before proceeding..."
@@ -221,7 +250,14 @@ export default function SideBar({
 
   const handleHeatMap = async (e) => {
     if (e) e.preventDefault();
-    if (formData.temporalLevel === "") {
+    if (formData.variable === "") {
+      // If not, display an error message or perform any other action to prompt the user to select a temporal level
+      alert(
+        "ERROR: Please select a variable before proceeding..."
+      );
+      return; // Exit the function early
+    }
+    else if (formData.temporalLevel === "") {
       // If not, display an error message or perform any other action to prompt the user to select a temporal level
       alert(
         "ERROR: Please select a temporal level resolution before proceeding..."
@@ -291,8 +327,23 @@ export default function SideBar({
   };
   const handleTimeSeries = async (e) => {
     if (e) e.preventDefault();
+    // if (variable){
+    //   console.log
+    //   setFormData((prevFormData) => ({
+    //     ...prevFormData,
+    //     variable: variable, // Update formData.variable with the selected variable
+    //   }));
+    // }
+    // console.log(formData.variable);
     // Check if a temporal level option has been selected
-    if (formData.temporalLevel === "") {
+    if (formData.variable === "") {
+      // If not, display an error message or perform any other action to prompt the user to select a temporal level
+      alert(
+        "ERROR: Please select a variable before proceeding..."
+      );
+      return; // Exit the function early
+    }
+    else if (formData.temporalLevel === "") {
       // If not, display an error message or perform any other action to prompt the user to select a temporal level
       alert(
         "ERROR: Please select a temporal level resolution before proceeding..."
@@ -322,7 +373,7 @@ export default function SideBar({
     try {
       setProgress(20);
       setProgressDesc("Creating Timeseries");
-
+      console.log(formData);
       // Send request to the backend to fetch both time series data and image data
       const response = await fetch("timeseries/", {
         method: "POST",
@@ -361,7 +412,7 @@ export default function SideBar({
       setProgressDesc("Created HeatMap");
     }
   }, [videoRecieved, handleVideoUpdate]);
-
+console.log("Hey,",variable);
   useEffect(() => {
     if (imageRecieved) {
       // Execute any code you want to run after responseReceived changes
@@ -413,7 +464,7 @@ export default function SideBar({
         <div style={{ marginBottom: "-20px" }}></div>
 
         <div className="sidebar-container">
-          <Dropdown />
+          <Dropdown personName={variable} handleChange={handleChangeDropDown}  />
           <div style={{ marginBottom: "10px" }}></div>
 
           {/* <h4 className="sidebar-heading">Select Start Date and Time</h4> */}
