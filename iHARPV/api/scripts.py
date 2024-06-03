@@ -38,14 +38,14 @@ class iHARPExecuter():
         self.frames_directory = os.path.join(self.current_directory, 'assets/frames')
 
         self.min_lat,self.max_lat,self.min_lon,self.max_lon = -90,90,-180,180
-        daily_file = "/data/era5/preprocessed/sp/combined_daily_data_mean_2010_2023.nc"
+        daily_file = "/data/era5/preprocessed/sp/combined_monthly_mean_2014_2023.nc"
         self.HeatMapTemps = []        
         # self.selected_month_name_end, self.selected_month_name_start = "", ""
         # self.selected_year_start,self.selected_year_end,self.selected_day_start,self.selected_day_end,self.selected_hour_start,self.selected_hour_end = 0,0,0,0,0,0
-        self.ds_daily = xr.open_dataset(daily_file, engine="netcdf4").sel(time="2023-02-01")
-        self.daily_temp_max = xr.open_dataset(daily_file).sel(time="2023-02-01")
-        self.daily_temp_min = xr.open_dataset(daily_file).sel(time="2023-02-01")
-        self.daily_temp_avg = xr.open_dataset(daily_file).sel(time="2023-02-01")
+        self.ds_daily = xr.open_dataset(daily_file, engine="netcdf4").sel(time="2023-02")
+        self.daily_temp_max = xr.open_dataset(daily_file).sel(time="2023-02")
+        self.daily_temp_min = xr.open_dataset(daily_file).sel(time="2023-02")
+        self.daily_temp_avg = xr.open_dataset(daily_file).sel(time="2023-02")
         
     #Function to parse given temporal range
     def extract_date_time_info(self,start_date_time_str, end_date_time_str):
@@ -313,7 +313,7 @@ class iHARPExecuter():
         ## Loading Initial Data
         # image_path = '/data/iHARP New Project/iHARPVFullStack/iHARPV/api/assets/timeSeriesResult.png'
         image_path =os.path.join(self.current_directory,'assets/timeSeriesResult.png')
-        print(image_path)
+        # print(image_path)
         if variable == '2m Temperature':
             self.variable = 't2m'
         elif variable == 'Surface Pressure':
@@ -330,7 +330,7 @@ class iHARPExecuter():
                 current_date = start_date
                 while current_date <= end_date:
                     data_location = (self.dataDirectory+ 'raw/'+ self.variable+'/'+ self.variable+'-'+str(current_date.year)+'.nc')
-                    print(data_location)                    
+                    # print(data_location)                    
                     # For the first year, retrieve data from selected start datetime till the end of the year
                     if current_date.year == self.selected_year_start:
                         ds = xr.open_dataset(data_location, engine="netcdf4").sel(time=slice(self.startDateTime,None),longitude=self.lon_range, latitude=self.lat_range)
@@ -355,17 +355,17 @@ class iHARPExecuter():
             end_date = datetime.strptime(self.endDateTime, "%Y-%m-%dT%H")
             # day_start,day_end,month_start,month_end,year_start,year_end = start_date.day,end_date.day,start_date.month,end_date.month,start_date.year,end_date.year
             if temporalLevel=="Daily":
-                data_location = (self.dataDirectory+'preprocessed/'+  self.variable+'/'+ 'combined_daily_data_')
+                data_location = (self.dataDirectory+'preprocessed/'+  self.variable+'/'+ 'combined_daily_')
             elif temporalLevel=="Monthly":
-                data_location = (self.dataDirectory+'preprocessed/'+  self.variable+'/'+ 'combined_monthly_data_')
+                data_location = (self.dataDirectory+'preprocessed/'+  self.variable+'/'+ 'combined_monthly_')
             elif temporalLevel=="Yearly":
-                data_location = (self.dataDirectory+'preprocessed/'+  self.variable+'/'+ 'combined_yearly_data_')
+                data_location = (self.dataDirectory+'preprocessed/'+  self.variable+'/'+ 'combined_yearly_')
             #Getting Maximum Data Per Month
-            self.daily_temp_max = xr.open_dataset(data_location + "max_2010_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
+            self.daily_temp_max = xr.open_dataset(data_location + "max_2014_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
             #Getting Minimimum Data Per Month
-            self.daily_temp_min = xr.open_dataset(data_location + "min_2010_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
+            self.daily_temp_min = xr.open_dataset(data_location + "min_2014_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
             #Getting Average Data Per Month
-            self.daily_temp_avg = xr.open_dataset(data_location + "mean_2010_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
+            self.daily_temp_avg = xr.open_dataset(data_location + "mean_2014_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
             self.calculate_aggregate_stats(image_path)
 
         # Open the image file
@@ -397,7 +397,7 @@ class iHARPExecuter():
         self.extract_date_time_info(self.startDateTime,self.endDateTime) 
         ## Loading Initial Data
         videoPath =os.path.join(self.current_directory,'assets/heatmapVideo.mp4')
-        print(videoPath)
+        # print(videoPath)
         if variable == '2m Temperature':
             self.variable = 't2m'
         elif variable == 'Surface Pressure':
@@ -413,7 +413,7 @@ class iHARPExecuter():
                 current_date = start_date
                 while current_date <= end_date:
                     data_location = (self.dataDirectory+  self.variable+'/'+ self.variable+'-'+str(current_date.year)+'.nc')
-                    print(data_location)                    
+                    # print(data_location)                    
                     # For the first year, retrieve data from selected start datetime till the end of the year
                     if current_date.year == self.selected_year_start:
                         ds = xr.open_dataset(data_location, engine="netcdf4").sel(time=slice(self.startDateTime,None),longitude=self.lon_range, latitude=self.lat_range)
@@ -437,21 +437,21 @@ class iHARPExecuter():
             start_date = datetime.strptime(self.startDateTime, "%Y-%m-%dT%H")
             end_date = datetime.strptime(self.endDateTime, "%Y-%m-%dT%H")
             if temporalLevel=="Daily":
-                data_location = (self.dataDirectory+'preprocessed/'+  self.variable+'/'+ 'combined_daily_data_')
+                data_location = (self.dataDirectory+'preprocessed/'+  self.variable+'/'+ 'combined_daily_')
                 # self.endDateTime = end_date.replace(day=end_date.day + 1)
             elif temporalLevel=="Monthly":
-                data_location = (self.dataDirectory+'preprocessed/'+  self.variable+'/'+ 'combined_monthly_data_')
+                data_location = (self.dataDirectory+'preprocessed/'+  self.variable+'/'+ 'combined_monthly_')
                 # self.endDateTime = end_date.replace(month=end_date.month + 1)
             elif temporalLevel=="Yearly":
-                data_location = (self.dataDirectory+'preprocessed/'+  self.variable+'/'+ 'combined_yearly_data_')
+                data_location = (self.dataDirectory+'preprocessed/'+  self.variable+'/'+ 'combined_yearly_')
                 # self.endDateTime = end_date.replace(year=end_date.year + 1)
             #Getting Maximum Data Per Month
             # self.endDateTime
-            self.daily_temp_max = xr.open_dataset(data_location + "max_2010_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
+            self.daily_temp_max = xr.open_dataset(data_location + "max_2014_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
             #Getting Minimimum Data Per Month
-            self.daily_temp_min = xr.open_dataset(data_location + "min_2010_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
+            self.daily_temp_min = xr.open_dataset(data_location + "min_2014_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
             #Getting Average Data Per Month
-            self.daily_temp_avg = xr.open_dataset(data_location + "mean_2010_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
+            self.daily_temp_avg = xr.open_dataset(data_location + "mean_2014_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
         self.HeatMapTemps=[]
         # print("Building HeatMap Hourly")
         # print(self.frames_directory)      
@@ -555,7 +555,7 @@ class iHARPExecuter():
             output_file = self.frames_directory+f"/{counter}.png"
             counter += 1
             plt.savefig(output_file)
-  
+            plt.close(fig)  # Close the figure to free up memory
         # Create a video file from the images
         os.system(
             f'ffmpeg -framerate 2 -start_number 0 -i  "{self.frames_directory}/%d.png" -c:v libx264 -r 30 "{videoPath}" -y'
@@ -567,7 +567,13 @@ class iHARPExecuter():
             video_data = f.read()
 
         video_file_bytes = BytesIO(video_data)
-
+        #After you send the video go and delete all frames
+        for file_name in os.listdir(self.frames_directory):
+            # print(file_name)
+            if file_name.endswith(".png"):
+                file_path_full = os.path.join(self.frames_directory, file_name)
+                # print(file_path_full)
+                os.remove(file_path_full)
         # Return the response as JSON
         return (video_file_bytes)
         # return 1

@@ -29,7 +29,7 @@ def getTimeSeries(request):
     serializer = QuerySeriazlier(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        print(request.data)
+        # print(request.data)
         north = round(float(request.data.get("north")),3)
         south = round(float(request.data.get("south")),3)
         east = round(float(request.data.get("east")),3)
@@ -59,8 +59,8 @@ def getHeatMap(request):
         east = round(float(request.data.get("east")),3)
         west = round(float(request.data.get("west")),3)
         startDateTime = request.data.get("startDateTime")
-        print(startDateTime)
-        print(type(startDateTime))
+        # print(startDateTime)
+        # print(type(startDateTime))
         endDateTime = request.data.get("endDateTime")
         temporalLevel = request.data.get("temporalLevel")
         aggLevel = request.data.get("aggLevel")
@@ -80,4 +80,16 @@ def downloadData(request):
         response = {"message": f"[Django {now}] Hi, Data Written Successfully: {requestType} !"}
         return Response(response, status=201)
     return Response(serializer.errors, status=400)
-    
+
+@api_view(["POST"])
+def getArea(request):
+    print("Request for Getting an Area")
+    # print(request.data)
+    serializer = QuerySeriazlier(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        requestType = request.data.get("requestType")
+        response = {"message": f"[Django {now}] Hi, Data Written Successfully: {requestType} !"}
+        return Response(response, status=201)
+    return Response(serializer.errors, status=400)
