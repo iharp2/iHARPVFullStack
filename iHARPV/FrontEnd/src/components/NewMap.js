@@ -56,7 +56,7 @@ const NewMap = () => {
           const bounds = [southWest, northEast];
           const rectangle = L.rectangle(bounds, {
             color: "blue",
-            weight: 3,
+            weight: 1,
             guidelineDistance: 10,
           }); // Create the rectangle
           rectangle.addTo(editableFG.leafletElement); // Add the rectangle to the feature group
@@ -107,8 +107,8 @@ const NewMap = () => {
       center={[52, -19]}
       zoom={3}
       zoomControl={false}
-      minZoom={2}
-      maxZoom={18}
+      minZoom={1}
+      maxZoom={12}
       className="map-container"
       maxBounds={bounds} // Set the maxBounds option
     >
@@ -120,7 +120,7 @@ const NewMap = () => {
           onFeatureGroupReady(featureGroupRef);
         }}
       >
-        <Polygon positions={initialRectangleBounds} color="blue" weight={3} />
+        <Polygon positions={initialRectangleBounds} color="blue" weight={1} />
 
         <EditControl
           position="topleft"
@@ -135,7 +135,7 @@ const NewMap = () => {
               shapeOptions: {
                 guidelineDistance: 10,
                 color: "blue",
-                weight: 3,
+                weight: 1,
               },
             },
             polyline: false,

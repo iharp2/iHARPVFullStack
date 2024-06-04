@@ -11,11 +11,11 @@ const ImageComponent = ({ imageData }) => {
         src={`data:image/png;base64,${imageData}`}
         // src={require("/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/FrontEnd/src/assets/timeSeriesResult.png")}
         alt="Time Series should show here"
-        style={{ maxWidth: "500px" }}
+        style={{width: "400px",height: "300px"}} 
         loading="lazy"
         // controls
       />
-    </div>
+    </div> 
   );
 };
 

@@ -17,7 +17,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BoundsContext } from "./BoundsContext";
 import Dropdown from "./Dropdown";
 
-const drawerWidth = 405;
+const drawerWidth = 375;
 dayjs.extend(utc);
 dayjs.extend(timezone);
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +43,7 @@ export default function SideBar({
   handleDrawerClose,
   handleImageUpdate,
   handleVideoUpdate,
+  handleAreaQuery,
   // videoUrl,
 }) {
   // const { updateImageData } = props;
@@ -58,7 +59,7 @@ export default function SideBar({
   // const [videoUrl, setVideoUrl] = useState("");
   // const [responseRecieved, setresponseRecieved] = useState("");
   const maxDate = dayjs("2024-02-28T23");
-  const [progress, setProgress] = useState(1); // State to manage progress
+  const [progress, setProgress] = useState(0); // State to manage progress
   const [progressDesc, setProgressDesc] = useState(""); // State to manage progress
 
   const [videoRecieved, setVideoReceived] = useState(null);
@@ -77,6 +78,7 @@ export default function SideBar({
     east: -11,
     west: -57,
   });
+  const [areaRecieved, setAreaRecieved] = useState(null); // Initialize selectedEndDateTime with null
 
   useEffect(() => {
     if (drawnShapeBounds) {
@@ -178,9 +180,8 @@ export default function SideBar({
     // setTemporalLevelSelected(value !== "");
   };
 
-  const handleDownload = async (e) => {
+  const handleAreas = async (e) =>  {
     if (e) e.preventDefault();
-    // Check if a temporal level option has been selected
     if (formData.variable === "") {
       // If not, display an error message or perform any other action to prompt the user to select a temporal level
       alert(
@@ -193,6 +194,12 @@ export default function SideBar({
       alert(
         "ERROR: Please select a temporal level resolution before proceeding..."
       );
+      return; // Exit the function early
+    } else if (
+      formData.temporalLevel !== "Hourly" &&
+      formData.aggLevel === ""
+    ) {
+      alert("ERROR: Please select an aggregation method before proceeding...");
       return; // Exit the function early
     } else if (!selectedStartDateTime) {
       alert("ERROR: Please select a start date and time before proceeding.");
@@ -212,16 +219,15 @@ export default function SideBar({
       return; // Exit the function early
     }
 
-    formData.requestType = "Data Download";
+    formData.requestType = "Area Query";
     formData.startDateTime = selectedStartDateTime;
     formData.endDateTime = selectedEndDateTime;
 
     try {
       setProgress(20);
-      setProgressDesc("Creating Timeseries");
-
+      setProgressDesc("Getting an Area");
       // Send request to the backend to fetch both time series data and image data
-      const response = await fetch("download/", {
+      const response = await fetch("area/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -229,25 +235,21 @@ export default function SideBar({
         body: JSON.stringify(formData),
       });
 
-      // Check if the response is successful
       if (response.ok) {
-        // Parse the response as JSON
-        const responseData = await response.json();
-        // console.log("Successfully requested time series data:", responseData);
-        setImageRecieved(responseData.imageData);
+        const jsonData = await response.json();
+        setAreaRecieved(jsonData);
       } else {
         setProgress(5);
         setProgressDesc("Failed", response.status);
         console.error(
-          "Failed to download requested data. HTTP status:",
+          "Failed to fetch get area. HTTP status:",
           response.status
         );
       }
     } catch (error) {
-      console.error("Error downloading data of interest:", error);
+      console.error("Error requesting Time Series:", error);
     }
   };
-
   const handleHeatMap = async (e) => {
     if (e) e.preventDefault();
     if (formData.variable === "") {
@@ -412,7 +414,7 @@ export default function SideBar({
       setProgressDesc("Created HeatMap");
     }
   }, [videoRecieved, handleVideoUpdate]);
-console.log("Hey,",variable);
+// console.log("Hey,",variable);
   useEffect(() => {
     if (imageRecieved) {
       // Execute any code you want to run after responseReceived changes
@@ -425,7 +427,18 @@ console.log("Hey,",variable);
       setProgressDesc("Created Time Series");
     }
   }, [imageRecieved, handleImageUpdate]);
-  // console.log(formData);
+  useEffect(() => {
+    if (areaRecieved) {
+      // Execute any code you want to run after responseReceived changes
+      // This code will run every time responseReceived changes
+      // For example, you can trigger a re-render here or perform other actions
+      // console.log("Image received:");
+      handleAreaQuery(areaRecieved);
+      // Update progress to 100 when response is received
+      setProgress(100);
+      setProgressDesc("Received Areas");
+    }
+  }, [areaRecieved, handleAreaQuery]);
   return (
     <Drawer
       className={classes.drawer}
@@ -451,7 +464,7 @@ console.log("Hey,",variable);
           <h7>
             Explore <strong>iHARPV</strong> by selecting an area on the map or
             using the range options below. Customize your query by choosing
-            params from the <strong>Query Menu</strong> below to generate a
+            parameters from the <strong>Query Menu</strong> below to generate a
             TimeSeries or HeatMap. Additionally, download data of interest for
             further analysis.
           </h7>
@@ -468,7 +481,7 @@ console.log("Hey,",variable);
           <div style={{ marginBottom: "10px" }}></div>
 
           {/* <h4 className="sidebar-heading">Select Start Date and Time</h4> */}
-          <div style={{ marginBottom: "10px" }}></div>
+          <div style={{ marginBottom: "3px" }}></div>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
               // name=""
@@ -485,9 +498,9 @@ console.log("Hey,",variable);
               onChange={(newDateTime) => setSelectedStartDateTime(newDateTime)}
             />
           </LocalizationProvider>
-          <div style={{ marginBottom: "20px" }}></div>
-          {/* <h4 className="sidebar-heading">Select End Date and Time</h4> */}
           <div style={{ marginBottom: "10px" }}></div>
+          {/* <h4 className="sidebar-heading">Select End Date and Time</h4> */}
+          <div style={{ marginBottom: "3px" }}></div>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
               disableFuture
@@ -714,7 +727,7 @@ console.log("Hey,",variable);
             </div>
           </div>
 
-          <div style={{ marginBottom: "20px" }}></div>
+          <div style={{ marginBottom: "10px" }}></div>
           <div
             className="sidebar-buttons"
             style={{ display: "flex", gap: "10px", position: "right" }}
@@ -733,15 +746,15 @@ console.log("Hey,",variable);
             <Button
               variant="outline-primary"
               size="sm"
-              onClick={handleDownload}
-              disabled
+              onClick={handleAreas}
+              // disabled
             >
-              Download Data
+              Get Areas
             </Button>
           </div>
           <div
             style={{
-              marginTop: "20px",
+              marginTop: "10px",
               display: "flex",
               justifyContent: "center",
             }}
@@ -757,7 +770,7 @@ console.log("Hey,",variable);
           >
             {/* TODO: Look at this website later to do the progress bar  */}
             <ProgressBar
-              animated
+              // animated
               now={progress} // Set progress dynamically
               label={`Progress: ${progress}%`}
               style={{ width: "100%" }}

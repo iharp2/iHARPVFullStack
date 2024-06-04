@@ -2,17 +2,17 @@ import xarray as xr
 import os
 import pandas as pd
 
-ds_raw = xr.open_dataset('/data/era5/raw/tp/temp/tp-2014.nc')
-encoding = ds_raw['tp'].encoding
+ds_raw = xr.open_dataset('/data/era5/raw/t2m/temp/t2m-2014.nc')
+encoding = ds_raw['t2m'].encoding
 ds_raw = ''
 print(encoding)
 
 
 # Directory containing the .nc files
-data_dir = '/data/era5/raw/tp/temp'
-output_file_min = '/data/era5/preprocessed/tp/combined_daily_min_2014_2018.nc'
-output_file_max = '/data/era5/preprocessed/tp/combined_daily_max_2014_2018.nc'
-output_file_mean = '/data/era5/preprocessed/tp/combined_daily_mean_2014_2018.nc'
+data_dir = '/data/era5/raw/t2m/temp'
+output_file_min = '/data/era5/preprocessed/t2m/combined_daily_min_2014_2018.nc'
+output_file_max = '/data/era5/preprocessed/t2m/combined_daily_max_2014_2018.nc'
+output_file_mean = '/data/era5/preprocessed/t2m/combined_daily_mean_2014_2018.nc'
 
 # List to store resampled datasets
 resampled_datasets_min = []
@@ -32,7 +32,7 @@ for filename in nc_files:
         
         # Resample the data from hourly to daily
         ds_daily = ds.resample(time='1D').min()
-        ds_daily['tp'].encoding = encoding
+        ds_daily['t2m'].encoding = encoding
         # Append the resampled dataset to the list
         resampled_datasets_min.append(ds_daily)
         
@@ -52,7 +52,7 @@ for filename in nc_files:
         ds = xr.open_dataset(file_path)
         
         ds_daily = ds.resample(time='1D').max()
-        ds_daily['tp'].encoding = encoding
+        ds_daily['t2m'].encoding = encoding
         # Append the resampled dataset to the list
         resampled_datasets_max.append(ds_daily)
         
@@ -72,7 +72,7 @@ for filename in nc_files:
         ds = xr.open_dataset(file_path)
         
         ds_daily = ds.resample(time='1D').mean()
-        ds_daily['tp'].encoding = encoding
+        ds_daily['t2m'].encoding = encoding
         # Append the resampled dataset to the list
         resampled_datasets_mean.append(ds_daily)
         ds =''

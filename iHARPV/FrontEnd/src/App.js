@@ -11,6 +11,9 @@ import NewMap from "./components/NewMap";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import "./App.css";
+import logo from './components/umnlogo.ico'
+import PlotlyFigure from './components/plotlyFigure';
+
 // import QueryForm from "./components/MyForm";
 const drawerWidth = 240;
 
@@ -53,15 +56,8 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [imageSrc, setImageSrc] = useState(null);
   const [videoUrl, setVideoUrl] = useState("");
+  const [jsonFile,setJsonFile] = useState(null);
 
-  // const handleImageUpdate = (newImageSrc) => {
-  //   setImageSrc(newImageSrc);
-  // };
-  // const handleVideoUpdate = (newVideoUrl) => {
-  //   console.log("Requested to change Video url");
-  //   // setVideoUrl("");
-  //   setVideoUrl(newVideoUrl);
-  // };
   const handleDrawerToggle = () => {
     setOpen(!open);
   };
@@ -80,7 +76,6 @@ export default function App() {
     setDarkMode(!darkMode);
   };
 
-  // console.log("I'm at the app and recieved, ", { imageSrc }, { videoUrl });
 
   return (
     <ThemeProvider theme={theme}>
@@ -90,12 +85,15 @@ export default function App() {
           handleDrawerToggle={handleDrawerToggle}
           toggleDarkMode={toggleDarkMode}
           darkMode={darkMode}
-        />
+        >
+          <img src={logo} className="App-logo" alt="logo" />
+        </Header>
         <Sidebar
           handleDrawerClose={handleDrawerClose}
           open={open}
           handleImageUpdate={setImageSrc}
           handleVideoUpdate={setVideoUrl}
+          handleAreaQuery={setJsonFile}
           // videoUrl={videoUrl}
         />
 
@@ -109,7 +107,7 @@ export default function App() {
           <NewMap />
           <Box
             component="ul"
-            sx={{ display: "flex", gap: 4, flexWrap: "wrap", p: 0, m: 0 }}
+            sx={{ display: "flex", gap: 2, flexWrap: "wrap", p: 0, m: 0 }}
           >
             <div component="li">
               <ImageComponent imageData={imageSrc} />
@@ -117,6 +115,8 @@ export default function App() {
             <div component="li">
               <VideoComponent videoSrc={videoUrl} />
             </div>
+            <PlotlyFigure jsonData={jsonFile}/>
+
             {/* <div component="li">
               <div style={{ maxHeight: "350px", overflowY: "auto" }}>
                 <Table className="table table-striped table-bordered table-hover">

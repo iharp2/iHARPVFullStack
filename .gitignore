@@ -2,3 +2,4 @@ env/
 db.sqlite3
 /iHARPV/api/__pycache__/
 nohup.out
+iHARPV/api/assets/

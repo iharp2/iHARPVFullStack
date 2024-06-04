@@ -1,11 +1,15 @@
 import xarray as xr
+import json
+import pandas as pd
 import matplotlib.pyplot as plt
 from django.http import JsonResponse
 from PIL import Image
 import base64
 from io import BytesIO
 from matplotlib.animation import FuncAnimation
-
+import plotly.express as px
+import geopandas as gpd
+from shapely.geometry import Polygon
 from rest_framework.response import Response
 from datetime import datetime,timedelta
 import os
@@ -447,11 +451,17 @@ class iHARPExecuter():
                 # self.endDateTime = end_date.replace(year=end_date.year + 1)
             #Getting Maximum Data Per Month
             # self.endDateTime
-            self.daily_temp_max = xr.open_dataset(data_location + "max_2014_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
+            if self.aggLevel=="Maximum":
+                self.daily_temp_max = xr.open_dataset(data_location + "max_2014_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
+
+            elif self.aggLevel=="Minimum":
+                self.daily_temp_min = xr.open_dataset(data_location + "min_2014_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
+
+            elif self.aggLevel=="Average":
+                self.daily_temp_avg = xr.open_dataset(data_location + "mean_2014_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
             #Getting Minimimum Data Per Month
-            self.daily_temp_min = xr.open_dataset(data_location + "min_2014_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
             #Getting Average Data Per Month
-            self.daily_temp_avg = xr.open_dataset(data_location + "mean_2014_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
+        
         self.HeatMapTemps=[]
         # print("Building HeatMap Hourly")
         # print(self.frames_directory)      
@@ -579,3 +589,148 @@ class iHARPExecuter():
         # return 1
    
 
+    def getAreas(self,variable,startDateTime,endDateTime,temporalLevel,aggLevel,north,east,south,west):
+        self.min_lat, self.max_lat, self.min_lon, self.max_lon = float(south),float(north),float(west),float(east)
+        self.temporalLevel = temporalLevel
+        self.variable = variable
+        self.aggLevel = aggLevel
+        if self.min_lon > self.max_lon:
+            self.max_lon, self.min_lon = self.min_lon, self.max_lon
+            self.max_lat, self.min_lat = self.min_lat, self.max_lat
+
+        # Specify the longitude and latitudenrange 
+        self.lon_range = slice(self.min_lon, self.max_lon)  
+        self.lat_range = slice(self.max_lat, self.min_lat)
+        self.startDateTime = startDateTime[:-11]
+        self.endDateTime = endDateTime[:-11]
+        self.extract_date_time_info(self.startDateTime,self.endDateTime) 
+        json_file_path =os.path.join(self.current_directory,'assets/areasData.json')
+        if variable == '2m Temperature':
+            self.variable = 't2m'
+        elif variable == 'Surface Pressure':
+            self.variable = 'sp'
+        elif variable == 'Total Precipitation':
+            self.variable = 'tp'
+        if temporalLevel=="Hourly":
+            #CASE #1: Requested more than more than one year of hours
+            if (str(self.selected_year_start) != str(self.selected_year_end)) :
+                ds_list = []
+                start_date = datetime.strptime(self.startDateTime, "%Y-%m-%dT%H")
+                end_date = datetime.strptime(self.endDateTime, "%Y-%m-%dT%H")
+                current_date = start_date
+                while current_date <= end_date:
+                    data_location = (self.dataDirectory+  self.variable+'/'+ self.variable+'-'+str(current_date.year)+'.nc')
+                    # print(data_location)                    
+                    # For the first year, retrieve data from selected start datetime till the end of the year
+                    if current_date.year == self.selected_year_start:
+                        ds = xr.open_dataset(data_location, engine="netcdf4").sel(time=slice(self.startDateTime,None),longitude=self.lon_range, latitude=self.lat_range)
+                    # For the last year, retrieve data from selected start datetime till the end of the year
+                    elif current_date.year == self.selected_year_end:
+                        ds = xr.open_dataset(data_location, engine="netcdf4").sel(time=slice(None,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
+                    # For all years between get all hours in thos years
+                    else:
+                        ds = xr.open_dataset(data_location, engine="netcdf4").sel(longitude=self.lon_range, latitude=self.lat_range)
+                    ds_list.append(ds)
+                    current_date += timedelta(years=1)
+                self.ds_daily = xr.concat(ds_list, dim="time")
+
+            #CASE #2 Requested range of hours in one day
+            else:
+                data_location = (self.dataDirectory+'raw/'+  self.variable+'/'+ self.variable+'-'+str(self.selected_year_start)+'.nc')
+                self.ds_daily = xr.open_dataset(data_location, engine="netcdf4").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
+            
+            # update_progress(100,'Retrieving Time Series..Finished:')
+        else:
+            start_date = datetime.strptime(self.startDateTime, "%Y-%m-%dT%H")
+            end_date = datetime.strptime(self.endDateTime, "%Y-%m-%dT%H")
+            if temporalLevel=="Daily":
+                data_location = (self.dataDirectory+'preprocessed/'+  self.variable+'/'+ 'combined_daily_')
+                # self.endDateTime = end_date.replace(day=end_date.day + 1)
+            elif temporalLevel=="Monthly":
+                data_location = (self.dataDirectory+'preprocessed/'+  self.variable+'/'+ 'combined_monthly_')
+                # self.endDateTime = end_date.replace(month=end_date.month + 1)
+            elif temporalLevel=="Yearly":
+                data_location = (self.dataDirectory+'preprocessed/'+  self.variable+'/'+ 'combined_yearly_')
+                # self.endDateTime = end_date.replace(year=end_date.year + 1)
+            if self.aggLevel=="Maximum":
+                self.daily_temp_max = xr.open_dataset(data_location + "max_2014_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
+                self.ds_daily = self.daily_temp_max
+
+            elif self.aggLevel=="Minimum":
+                self.daily_temp_min = xr.open_dataset(data_location + "min_2014_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
+                self.ds_daily = self.daily_temp_min
+
+            elif self.aggLevel=="Average":
+                self.daily_temp_avg = xr.open_dataset(data_location + "mean_2014_2023.nc").sel(time=slice(self.startDateTime,self.endDateTime),longitude=self.lon_range, latitude=self.lat_range)
+                self.ds_daily = self.daily_temp_avg
+        
+        # Assume the surface pressure variable is named 'sp'
+        self.ds_daily = self.ds_daily.coarsen(latitude=4, longitude=4, boundary='trim').mean()
+
+        surface_pressure = self.ds_daily[self.variable]
+        print("Total number of values:", surface_pressure.size)
+
+        # Define the threshold for surface pressure
+        threshold_max = 92000
+        threshold_min = 90000
+
+        # Create a boolean mask indicating whether each value meets the condition
+        condition_met = (surface_pressure > threshold_min) & (surface_pressure < threshold_max)
+
+        # Convert the DataArray and mask to DataFrames
+        surface_pressure_df = surface_pressure.to_dataframe().reset_index()
+        condition_met_df = condition_met.to_dataframe(name='condition_met').reset_index()
+
+        # Merge the two DataFrames
+        filtered_df = pd.merge(surface_pressure_df, condition_met_df, on=['time', 'latitude', 'longitude'])
+
+        # Print the total number of values and number of non-NaN values
+        print("Total number of values in DataFrame:", filtered_df['sp'].size)
+        print("Number of non-NaN values in DataFrame:", filtered_df['sp'].count())
+
+        # Ensure that 'latitude' and 'longitude' are the coordinate names
+        filtered_df = filtered_df.rename(columns={'lat': 'latitude', 'lon': 'longitude'})
+
+        # Print the DataFrame to verify the results
+        df = filtered_df
+        df["latitude"] = df["latitude"] - 1
+        df["longitude"] = df["longitude"] - 1
+        df["latitude2"] = df["latitude"] + 2
+        df["longitude2"] = df["longitude"] + 2
+        gdf = gpd.GeoDataFrame(df, geometry=[Polygon([(x, y), (x, y2), (x2, y2), (x2, y)]) for x, y, x2, y2 in zip(df["longitude"], df["latitude"], df["longitude2"], df["latitude2"])])
+        config = {'displaylogo': False}
+        print("I reached here")
+        fig = px.choropleth_mapbox(
+            gdf,
+            color_continuous_scale="Viridis",
+            geojson=gdf.geometry,
+            locations=gdf.index,
+            color="condition_met",
+            mapbox_style="open-street-map",
+            center={"lat": gdf["latitude"].mean(), "lon": gdf["longitude"].mean()},
+            opacity=0.1,
+            zoom=1,
+        )
+       
+
+        fig.update_layout(
+            modebar_remove=[
+            'toImage','pan','zoomIn','zoomOut','resetViewMapbox','lasso2d','select'
+        ],
+            # displaylogo=False,  # Hide the Plotly logo
+            margin={"r":0,"t":0,"l":0,"b":0}, 
+            showlegend=True,
+            legend=dict( font=dict(size=7),
+                                     x=1,  # Adjust the x position (0 to 1, 1 is far right)
+                                     y=1,  # Adjust the y position (0 to 1, 1 is top)
+                                     xanchor='right',  # Anchors the legend's x position
+                                     yanchor='top'  # Anchors the legend's y position
+    ))
+        
+        fig_json = fig.to_json()
+        with open(json_file_path, 'w') as f:
+            f.write(fig_json)
+        # Read the JSON file
+        with open(json_file_path, 'r') as json_file:
+            data = json.load(json_file)
+        return data

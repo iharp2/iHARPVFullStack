@@ -8,7 +8,7 @@ from .models import Query
 from rest_framework.decorators import api_view
 from .scripts import *
 import os
-from django.http import FileResponse
+from django.http import FileResponse,JsonResponse
 
 
 # Clear Model
@@ -83,13 +83,22 @@ def downloadData(request):
 
 @api_view(["POST"])
 def getArea(request):
-    print("Request for Getting an Area")
+    print("Request for Heat Map")
     # print(request.data)
     serializer = QuerySeriazlier(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        requestType = request.data.get("requestType")
-        response = {"message": f"[Django {now}] Hi, Data Written Successfully: {requestType} !"}
-        return Response(response, status=201)
+        north = round(float(request.data.get("north")),3)
+        south = round(float(request.data.get("south")),3)
+        east = round(float(request.data.get("east")),3)
+        west = round(float(request.data.get("west")),3)
+        startDateTime = request.data.get("startDateTime")
+        # print(startDateTime)
+        # print(type(startDateTime))
+        endDateTime = request.data.get("endDateTime")
+        temporalLevel = request.data.get("temporalLevel")
+        aggLevel = request.data.get("aggLevel")
+        variable = request.data.get("variable")
+        jsonData = iHARPExecuterInstance.getAreas(variable,startDateTime,endDateTime,temporalLevel,aggLevel,north,east,south,west)
+        return JsonResponse(jsonData,status=201)
     return Response(serializer.errors, status=400)

@@ -15,7 +15,7 @@ const VideoComponent = ({ videoSrc }) => {
       autoPlay
       loop
       // muted
-      style={{ width: "100%", height: "100%", maxWidth: "520px" }}
+      style={{width: "400px",height: "300px"}} 
       // key={require("/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/FrontEnd/src/assets/heatmapVideo.mp4")}
       key={URL.createObjectURL(videoBlob)}
     >
