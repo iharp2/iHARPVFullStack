@@ -104,16 +104,16 @@ const NewMap = () => {
 
   return (
     <Map
-      center={[52, -19]}
-      zoom={3}
+      center={[70, -40]}
+      zoom={2.5}
       zoomControl={false}
-      minZoom={1}
+      minZoom={2}
       maxZoom={12}
       className="map-container"
       maxBounds={bounds} // Set the maxBounds option
     >
       <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" />
-      <ScaleControl position="bottomleft" imperial={false} />
+      <ScaleControl position="bottomleft" imperial={true} />
       <FullscreenControl position="topleft" title="Show full screen" />
       <FeatureGroup
         ref={(featureGroupRef) => {

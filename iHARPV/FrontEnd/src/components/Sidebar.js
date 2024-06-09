@@ -1,9 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import Drawer from "@material-ui/core/Drawer";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
@@ -44,6 +41,7 @@ export default function SideBar({
   handleImageUpdate,
   handleVideoUpdate,
   handleAreaQuery,
+  handleTable,
   // videoUrl,
 }) {
   // const { updateImageData } = props;
@@ -54,16 +52,19 @@ export default function SideBar({
   };
   const { drawnShapeBounds, setDrawnShapeBounds } = useContext(BoundsContext);
   const classes = useStyles();
-  const [selectedStartDateTime, setSelectedStartDateTime] = useState(null); // Initialize selectedStartDateTime with null
-  const [selectedEndDateTime, setSelectedEndDateTime] = useState(null); // Initialize selectedEndDateTime with null
+  const [selectedStartDateTime, setSelectedStartDateTime] = useState(dayjs("2023-01-01T00")); // Initialize selectedStartDateTime with null
+  const [selectedEndDateTime, setSelectedEndDateTime] = useState(dayjs("2023-01-01T01")); // Initialize selectedEndDateTime with null
   // const [videoUrl, setVideoUrl] = useState("");
   // const [responseRecieved, setresponseRecieved] = useState("");
-  const maxDate = dayjs("2024-02-28T23");
+  const maxDate = dayjs("2023-12-31T23");
+  const minDate = dayjs("2014-01-01T00");
+
   const [progress, setProgress] = useState(0); // State to manage progress
   const [progressDesc, setProgressDesc] = useState(""); // State to manage progress
 
   const [videoRecieved, setVideoReceived] = useState(null);
   const [imageRecieved, setImageRecieved] = useState(null); // Initialize selectedEndDateTime with null
+  const [tableRecieved, setTableRecieved] = useState([]); // Initialize selectedEndDateTime with null
 
   const [formData, setFormData] = useState({
     requestType: "",
@@ -71,7 +72,7 @@ export default function SideBar({
     startDateTime: "",
     endDateTime: "",
     temporalLevel: "Hourly",
-    aggLevel: "",
+    aggLevel: "Mean",
     spatialLevel: "0.25",
     north: 72,
     south: 58,
@@ -237,7 +238,8 @@ export default function SideBar({
 
       if (response.ok) {
         const jsonData = await response.json();
-        setAreaRecieved(jsonData);
+        setAreaRecieved(jsonData.plotlyData);
+        setTableRecieved(jsonData.dfData);
       } else {
         setProgress(5);
         setProgressDesc("Failed", response.status);
@@ -390,7 +392,7 @@ export default function SideBar({
         // Parse the response as JSON
         const responseData = await response.json();
         // console.log("Successfully requested time series data:", responseData);
-        setImageRecieved(responseData.imageData);
+        setImageRecieved(responseData);
       } else {
         setProgress(5);
         setProgressDesc("Failed", response.status);
@@ -436,29 +438,42 @@ export default function SideBar({
       handleAreaQuery(areaRecieved);
       // Update progress to 100 when response is received
       setProgress(100);
-      setProgressDesc("Received Areas");
+      setProgressDesc("Received Areas On Map");
     }
   }, [areaRecieved, handleAreaQuery]);
+  useEffect(() => {
+    if (tableRecieved) {
+      // Execute any code you want to run after responseReceived changes
+      // This code will run every time responseReceived changes
+      // For example, you can trigger a re-render here or perform other actions
+      // console.log("Image received:");
+      handleTable(tableRecieved);
+      // Update progress to 100 when response is received
+      setProgress(100);
+      setProgressDesc("Received Areas on Table");
+    }
+  }, [tableRecieved, handleTable]);
+
   return (
     <Drawer
       className={classes.drawer}
       variant="persistent"
       anchor="left"
-      open={open}
+      open={true}
       classes={{
         paper: classes.drawerPaper,
       }}
     >
-      <div className={classes.drawerHeader}>
+      {/* <div className={classes.drawerHeader}>
         <IconButton onClick={handleDrawerClose}>
           <ChevronLeftIcon />
         </IconButton>
-      </div>
-      <Divider />
+      </div> */}
+      {/* <Divider /> */}
 
-      <div className="sidebar-content">
-        <div className="nine">
-          <h1>iHARPV</h1>
+      <div className="sidebar-content" >
+        <div className="nine" style={{backgroundColor: "black", color: 'whitesmoke', marginTop: '-17px',marginLeft: '-13px',marginRight: '-10px',marginBottom: '10px'  }}>
+          <h1 style={{ color: 'white' }}>iHARPV</h1>
         </div>
         <div class="instruction-text">
           <h7>
@@ -469,7 +484,7 @@ export default function SideBar({
             further analysis.
           </h7>
         </div>
-        <div className="nine">
+        <div className="ninem">
           <h1>
             <span>Query Menu</span>
           </h1>
@@ -495,6 +510,7 @@ export default function SideBar({
               sx={{ width: "60%", marginLeft: "10px" }}
               timezone="UTC"
               maxDateTime={maxDate}
+              minDateTime={minDate}
               onChange={(newDateTime) => setSelectedStartDateTime(newDateTime)}
             />
           </LocalizationProvider>
@@ -512,6 +528,7 @@ export default function SideBar({
               value={selectedEndDateTime}
               timezone="UTC"
               maxDateTime={maxDate}
+              minDateTime={minDate}
               sx={{ width: "60%", marginLeft: "10px" }}
               onChange={(newDateTime) => setSelectedEndDateTime(newDateTime)}
             />
@@ -596,14 +613,14 @@ export default function SideBar({
                 />
                 <Form.Check
                   inline
-                  label="Average"
+                  label="Mean"
                   name="aggLevel"
                   type={type}
                   id={`inline-2-${type}-3`}
-                  value="Average" // Set value of radio input to Average
+                  value="Mean" // Set value of radio input to Average
                   style={{ fontSize: "small" }}
                   onChange={handleChange} // Add onChange handler
-                  checked={formData.aggLevel === "Average"}
+                  checked={formData.aggLevel === "Mean"}
                 />
               </div>
             ))}

@@ -5,3 +5,5 @@ FrontEnd/assets/
 BackEnd/__pycache__
 iHARPV//api/__pycache__
 iHARPV/api/migrations
+iHARPV/db.sqlite3
+iHARPV/nohup.out

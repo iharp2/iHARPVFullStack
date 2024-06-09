@@ -21,3 +21,196 @@ Django version 5.0.4, using settings 'BackEnd.settings'
 Starting development server at http://0.0.0.0:6080/
 Quit the server with CONTROL-C.
 
+Watching for file changes with StatReloader
+[06/Jun/2024 22:08:22] "GET / HTTP/1.0" 200 559
+[06/Jun/2024 22:08:22] "GET /static/js/main.40d631fd.js HTTP/1.0" 200 5117178
+[06/Jun/2024 22:08:22] "GET /static/css/main.8a18a701.css HTTP/1.0" 200 269347
+[06/Jun/2024 22:08:23] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 200 5551
+[06/Jun/2024 22:08:23] "GET /static/media/heatmapVideo.b408471cc10f46dab99c.mp4 HTTP/1.0" 200 62793
+[06/Jun/2024 22:12:31] "GET / HTTP/1.0" 200 559
+[06/Jun/2024 22:12:31] "GET /static/css/main.8a18a701.css HTTP/1.0" 200 269347
+[06/Jun/2024 22:12:31] "GET /static/js/main.40d631fd.js HTTP/1.0" 200 5117178
+[06/Jun/2024 22:12:33] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 200 5551
+[06/Jun/2024 22:12:33] "GET /static/media/heatmapVideo.b408471cc10f46dab99c.mp4 HTTP/1.0" 200 62793
+[06/Jun/2024 22:12:34] "GET /static/media/favicon.ico HTTP/1.0" 404 1942
+[06/Jun/2024 22:12:53] "GET / HTTP/1.0" 200 559
+[07/Jun/2024 03:00:34] "GET / HTTP/1.0" 200 559
+[07/Jun/2024 03:00:35] "GET /static/css/main.8a18a701.css HTTP/1.0" 200 269347
+[07/Jun/2024 03:00:35] "GET /static/js/main.40d631fd.js HTTP/1.0" 200 5117178
+[07/Jun/2024 03:00:36] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 200 5551
+[07/Jun/2024 03:00:36] "GET /static/media/heatmapVideo.b408471cc10f46dab99c.mp4 HTTP/1.0" 200 62793
+[07/Jun/2024 03:00:37] "GET /static/media/favicon.ico HTTP/1.0" 404 1942
+Internal Server Error: /timeseries/
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 51, in getTimeSeries
+    response = iHARPExecuterInstance.getTimeSeries(
+  File "/data/iHARPScripts/iHARPExecutor.py", line 368, in getTimeSeries
+    raster = self.getRaster(
+  File "/data/iHARPScripts/iHARPExecutor.py", line 180, in getRaster
+    self.dataDirectory
+TypeError: can only concatenate str (not "list") to str
+[07/Jun/2024 03:01:42] "POST /timeseries/ HTTP/1.0" 500 111358
+[07/Jun/2024 03:01:52] "POST /timeseries/ HTTP/1.0" 201 9610
+ffmpeg version 4.4.2-0ubuntu0.22.04.1 Copyright (c) 2000-2021 the FFmpeg developers
+  built with gcc 11 (Ubuntu 11.2.0-19ubuntu1)
+  configuration: --prefix=/usr --extra-version=0ubuntu0.22.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-pocketsphinx --enable-librsvg --enable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
+  libavutil      56. 70.100 / 56. 70.100
+  libavcodec     58.134.100 / 58.134.100
+  libavformat    58. 76.100 / 58. 76.100
+  libavdevice    58. 13.100 / 58. 13.100
+  libavfilter     7.110.100 /  7.110.100
+  libswscale      5.  9.100 /  5.  9.100
+  libswresample   3.  9.100 /  3.  9.100
+  libpostproc    55.  9.100 / 55.  9.100
+Input #0, image2, from '/data/iHARPVFullStack/iHARPV/api/assets/frames/%d.png':
+  Duration: 00:00:01.50, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: png, rgba(pc), 1200x900 [SAR 3937:3937 DAR 4:3], 2 fps, 2 tbr, 2 tbn, 2 tbc
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[libx264 @ 0x653a3cea10c0] using SAR=1/1
+[libx264 @ 0x653a3cea10c0] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x653a3cea10c0] profile High 4:4:4 Predictive, level 3.2, 4:4:4, 8-bit
+[libx264 @ 0x653a3cea10c0] 264 - core 163 r3060 5db6aa6 - H.264/MPEG-4 AVC codec - Copyleft 2003-2021 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=4 threads=28 lookahead_threads=4 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to '/data/iHARPVFullStack/iHARPV/api/assets/heatmapVideo.mp4':
+  Metadata:
+    encoder         : Lavf58.76.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv444p(tv, progressive), 1200x900 [SAR 1:1 DAR 4:3], q=2-31, 30 fps, 15360 tbn
+    Metadata:
+      encoder         : Lavc58.134.100 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+frame=   15 fps=0.0 q=0.0 size=       0kB time=00:00:00.00 bitrate=N/A dup=14 drop=0 speed=   0x    frame=   45 fps=0.0 q=-1.0 Lsize=      75kB time=00:00:01.40 bitrate= 437.5kbits/s dup=42 drop=0 speed=1.76x    
+video:73kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 1.885437%
+[libx264 @ 0x653a3cea10c0] frame I:1     Avg QP:18.65  size: 34618
+[libx264 @ 0x653a3cea10c0] frame P:11    Avg QP:16.26  size:  3164
+[libx264 @ 0x653a3cea10c0] frame B:33    Avg QP:14.21  size:   153
+[libx264 @ 0x653a3cea10c0] consecutive B-frames:  2.2%  0.0%  0.0% 97.8%
+[libx264 @ 0x653a3cea10c0] mb I  I16..4: 18.1% 66.7% 15.3%
+[libx264 @ 0x653a3cea10c0] mb P  I16..4:  1.6%  2.0%  0.3%  P16..4:  5.7%  3.0%  0.9%  0.0%  0.0%    skip:86.4%
+[libx264 @ 0x653a3cea10c0] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  3.2%  0.0%  0.0%  direct: 0.0%  skip:96.8%  L0:43.4% L1:56.5% BI: 0.1%
+[libx264 @ 0x653a3cea10c0] 8x8 transform intra:61.9% inter:81.5%
+[libx264 @ 0x653a3cea10c0] coded y,u,v intra: 28.1% 22.7% 21.0% inter: 0.5% 0.5% 0.4%
+[libx264 @ 0x653a3cea10c0] i16 v,h,dc,p: 49% 31%  5% 15%
+[libx264 @ 0x653a3cea10c0] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 54% 14% 26%  1%  1%  1%  1%  1%  1%
+[libx264 @ 0x653a3cea10c0] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 53% 27% 12%  1%  1%  1%  1%  1%  1%
+[libx264 @ 0x653a3cea10c0] Weighted P-Frames: Y:9.1% UV:9.1%
+[libx264 @ 0x653a3cea10c0] ref P L0: 61.0%  5.4% 27.3%  5.9%  0.4%
+[libx264 @ 0x653a3cea10c0] ref B L0: 51.6% 47.7%  0.8%
+[libx264 @ 0x653a3cea10c0] ref B L1: 97.0%  3.0%
+[libx264 @ 0x653a3cea10c0] kb/s:397.15
+[07/Jun/2024 03:02:14] "POST /heatmap/ HTTP/1.0" 201 76572
+[07/Jun/2024 03:02:43] "POST /area/ HTTP/1.0" 201 397579
+[07/Jun/2024 03:04:04] "GET / HTTP/1.0" 200 559
+/data/iHARPVFullStack/iHARPV
+Performing system checks...
+
+0.3859825395669382
+System check identified no issues (0 silenced).
+June 06, 2024 - 22:08:22
+Django version 5.0.4, using settings 'BackEnd.settings'
+Starting development server at http://0.0.0.0:6080/
+Quit the server with CONTROL-C.
+
+Request for Time Seies 
+2023-01-01T06:00:00.000Z
+2023-01-01T23:00:00.000Z
+Mean
+Request for Time Seies 
+2023-01-01T06:00:00.000Z
+2023-01-01T23:00:00.000Z
+Mean
+Request for Heat Map
+Request for Heat Map
+Total number of values: 648
+                 time  latitude  longitude            sp  condition_met
+0 2023-01-01 06:00:00    70.875     -1.125  97982.619424          False
+1 2023-01-01 06:00:00    70.875      0.875  98011.361375          False
+2 2023-01-01 06:00:00    70.875      2.875  98038.696864          False
+3 2023-01-01 06:00:00    70.875      4.875  98069.040232          False
+4 2023-01-01 06:00:00    70.875      6.875  98090.624546          False
+Total number of values in DataFrame: 648
+Number of non-NaN values in DataFrame: 648
+/data/iHARPVFullStack/iHARPV
+Watching for file changes with StatReloader
+[07/Jun/2024 20:34:40] "GET / HTTP/1.0" 200 559
+[07/Jun/2024 20:34:40] "GET /static/css/main.8a18a701.css HTTP/1.0" 304 0
+[07/Jun/2024 20:34:40] "GET /static/js/main.40d631fd.js HTTP/1.0" 304 0
+[07/Jun/2024 20:34:41] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 304 0
+[07/Jun/2024 20:34:41] "GET /static/media/heatmapVideo.b408471cc10f46dab99c.mp4 HTTP/1.0" 304 0
+[07/Jun/2024 20:34:42] "GET /static/media/favicon.ico HTTP/1.0" 404 1942
+[07/Jun/2024 21:04:47] "GET / HTTP/1.0" 200 559
+[08/Jun/2024 19:45:55] "GET / HTTP/1.0" 200 559
+[08/Jun/2024 19:45:55] "GET /static/css/main.8a18a701.css HTTP/1.0" 200 269347
+[08/Jun/2024 19:45:55] "GET /static/js/main.40d631fd.js HTTP/1.0" 200 5117178
+[08/Jun/2024 19:45:56] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 304 0
+[08/Jun/2024 19:45:56] "GET /static/media/heatmapVideo.b408471cc10f46dab99c.mp4 HTTP/1.0" 200 62793
+[08/Jun/2024 19:46:48] "POST /timeseries/ HTTP/1.0" 201 10008
+ffmpeg version 4.4.2-0ubuntu0.22.04.1 Copyright (c) 2000-2021 the FFmpeg developers
+  built with gcc 11 (Ubuntu 11.2.0-19ubuntu1)
+  configuration: --prefix=/usr --extra-version=0ubuntu0.22.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-pocketsphinx --enable-librsvg --enable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
+  libavutil      56. 70.100 / 56. 70.100
+  libavcodec     58.134.100 / 58.134.100
+  libavformat    58. 76.100 / 58. 76.100
+  libavdevice    58. 13.100 / 58. 13.100
+  libavfilter     7.110.100 /  7.110.100
+  libswscale      5.  9.100 /  5.  9.100
+  libswresample   3.  9.100 /  3.  9.100
+  libpostproc    55.  9.100 / 55.  9.100
+Input #0, image2, from '/data/iHARPVFullStack/iHARPV/api/assets/frames/%d.png':
+  Duration: 00:00:12.00, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: png, rgba(pc), 1200x900 [SAR 3937:3937 DAR 4:3], 2 fps, 2 tbr, 2 tbn, 2 tbc
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[libx264 @ 0x55d1599a9140] using SAR=1/1
+[libx264 @ 0x55d1599a9140] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x55d1599a9140] profile High 4:4:4 Predictive, level 3.2, 4:4:4, 8-bit
+[libx264 @ 0x55d1599a9140] 264 - core 163 r3060 5db6aa6 - H.264/MPEG-4 AVC codec - Copyleft 2003-2021 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=4 threads=28 lookahead_threads=4 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to '/data/iHARPVFullStack/iHARPV/api/assets/heatmapVideo.mp4':
+  Metadata:
+    encoder         : Lavf58.76.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv444p(tv, progressive), 1200x900 [SAR 1:1 DAR 4:3], q=2-31, 30 fps, 15360 tbn
+    Metadata:
+      encoder         : Lavc58.134.100 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+frame=   15 fps=0.0 q=0.0 size=       0kB time=00:00:00.00 bitrate=N/A dup=14 drop=0 speed=   0x    frame=  105 fps=0.0 q=29.0 size=       0kB time=00:00:01.00 bitrate=   0.4kbits/s dup=98 drop=0 speed=1.74x    frame=  240 fps=221 q=29.0 size=       0kB time=00:00:05.50 bitrate=   0.1kbits/s dup=224 drop=0 speed=5.07x    frame=  360 fps=203 q=-1.0 Lsize=     248kB time=00:00:11.90 bitrate= 170.5kbits/s dup=336 drop=0 speed= 6.7x    
+video:243kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 2.090554%
+[libx264 @ 0x55d1599a9140] frame I:2     Avg QP:17.32  size: 52824
+[libx264 @ 0x55d1599a9140] frame P:91    Avg QP:16.06  size:  1221
+[libx264 @ 0x55d1599a9140] frame B:267   Avg QP:13.81  size:   116
+[libx264 @ 0x55d1599a9140] consecutive B-frames:  1.1%  0.0%  0.0% 98.9%
+[libx264 @ 0x55d1599a9140] mb I  I16..4: 19.4% 56.7% 23.9%
+[libx264 @ 0x55d1599a9140] mb P  I16..4:  0.4%  0.5%  0.0%  P16..4:  3.9%  1.6%  0.6%  0.0%  0.0%    skip:92.9%
+[libx264 @ 0x55d1599a9140] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  2.1%  0.0%  0.0%  direct: 0.0%  skip:97.9%  L0:48.0% L1:52.0% BI: 0.0%
+[libx264 @ 0x55d1599a9140] 8x8 transform intra:55.9% inter:91.2%
+[libx264 @ 0x55d1599a9140] coded y,u,v intra: 22.6% 21.9% 20.0% inter: 0.2% 0.2% 0.2%
+[libx264 @ 0x55d1599a9140] i16 v,h,dc,p: 49% 37%  5%  9%
+[libx264 @ 0x55d1599a9140] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 44% 14% 38%  1%  1%  1%  0%  1%  1%
+[libx264 @ 0x55d1599a9140] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 50% 34%  8%  1%  2%  1%  1%  1%  1%
+[libx264 @ 0x55d1599a9140] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x55d1599a9140] ref P L0: 66.7%  4.4% 20.2%  8.7%
+[libx264 @ 0x55d1599a9140] ref B L0: 66.8% 32.6%  0.6%
+[libx264 @ 0x55d1599a9140] ref B L1: 99.4%  0.6%
+[libx264 @ 0x55d1599a9140] kb/s:165.14
+[08/Jun/2024 19:47:10] "POST /heatmap/ HTTP/1.0" 201 253596
+[08/Jun/2024 19:47:41] "POST /area/ HTTP/1.0" 201 429358

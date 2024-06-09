@@ -1,26 +1,37 @@
 import React from "react";
+import myVideo from '../assets/heatmapVideo.mp4'
 
 const VideoComponent = ({ videoSrc }) => {
-  const videoBlob = videoSrc || "";
+  const videoBlob = videoSrc || null; // Ensure videoBlob is null if videoSrc is not provided
 
-  // console.log("Video Logging....", videoBlob);
   if (!videoBlob) {
-    // Render a loading indicator or placeholder while video data is being fetched
-    return <div>Placeholder for the HeatMap Video...</div>;
+    // Render a default video if videoBlob is null
+    return (
+      <video muted
+      controls
+        autoPlay
+        loop
+        style={{ width: "500px", height: "325px" }}
+          >
+
+          <source src={myVideo}/>
+         
+        
+        // Your browser does not support the video tag.
+      </video>
+    );
   }
 
+  // If videoBlob is provided, render the video with the specified blob
   return (
     <video
       controls
       autoPlay
       loop
-      // muted
-      style={{width: "400px",height: "300px"}} 
-      // key={require("/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/FrontEnd/src/assets/heatmapVideo.mp4")}
+      style={{ width: "500px", height: "325px" }}
       key={URL.createObjectURL(videoBlob)}
     >
       <source
-        // src={require("/home/husse408/iHARP New Project/iHARPVFullStack/iHARPV/FrontEnd/src/assets/heatmapVideo.mp4")}
         src={URL.createObjectURL(videoBlob)}
         type="video/mp4"
       />

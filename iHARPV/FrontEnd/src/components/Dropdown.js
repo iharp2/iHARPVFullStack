@@ -5,7 +5,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
-import Checkbox from "@mui/material/Checkbox";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -36,7 +35,7 @@ export default function MyDropdown({ personName, handleChange }) {
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
         <InputLabel id="demo-multiple-checkbox-label">
-          Select Variable(s)
+          Select Variable
         </InputLabel>
         <Select
           labelId="demo-simple-select-autowidth-label"
@@ -44,7 +43,9 @@ export default function MyDropdown({ personName, handleChange }) {
           value={personName}
           onChange={handleChange}
           autoWidth
-          label="Select Variable"
+          
+          MenuProps={MenuProps}
+          input={<OutlinedInput  label="Select Variable"/>}
         >
           
           {names.map((name) => (
