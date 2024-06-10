@@ -24,10 +24,10 @@ export default function StickyHeadTable({ tableData=[] }) {
   // Define your columns based on your JSON structure
   const columns = [
     { id: 'time', label: 'Time', minWidth: 100 },
-    { id: 'latitude', label: 'Latitude', minWidth: 100 },
-    { id: 'longitude', label: 'Longitude', minWidth: 100 },
-    { id: 'sp', label: 'Variable', minWidth: 100 },
-    { id: 'condition_met', label: 'Condition Met', minWidth: 150 },
+    { id: 'latitude', label: 'Latitude', minWidth: 80 },
+    { id: 'longitude', label: 'Longitude', minWidth: 80 },
+    { id: 'sp', label: 'Variable', minWidth: 80 },
+    { id: 'condition_met', label: 'Condition Met', minWidth: 100 },
     // { id: 'latitude2', label: 'Latitude 2', minWidth: 100 },
     // { id: 'longitude2', label: 'Longitude 2', minWidth: 100 },
   ];
@@ -75,7 +75,7 @@ export default function StickyHeadTable({ tableData=[] }) {
       <TableContainer sx={{ width: '100%' }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
-            <TableRow>
+            <TableRow sx={{ backgroundColor: 'lightgrey' }}>
               {columns.map((column) => (
                 <TableCell key={column.id} align="center" style={{ minWidth: column.minWidth }}>
                   {column.label}

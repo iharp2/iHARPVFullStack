@@ -1,45 +1,121 @@
-Watching for file changes with StatReloader
-[03/Jun/2024 17:04:06] "GET / HTTP/1.0" 200 560
-[03/Jun/2024 17:04:06] "GET /static/js/main.0d1c26f3.js HTTP/1.0" 304 0
-[03/Jun/2024 17:04:06] "GET /static/css/main.a6445a35.css HTTP/1.0" 304 0
-[03/Jun/2024 17:04:07] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 304 0
-[03/Jun/2024 17:04:07] "GET /static/media/umnlogo.ico HTTP/1.0" 304 0
-[03/Jun/2024 17:04:09] "GET / HTTP/1.1" 200 560
-[03/Jun/2024 17:04:09] "GET /static/js/main.0d1c26f3.js HTTP/1.1" 304 0
-[03/Jun/2024 17:04:09] "GET /static/css/main.a6445a35.css HTTP/1.1" 304 0
-[03/Jun/2024 17:04:09] "GET /static/media/umnlogo.ico HTTP/1.1" 304 0
-[03/Jun/2024 17:05:30] "GET / HTTP/1.0" 200 560
-[03/Jun/2024 17:05:30] "GET /static/css/main.a6445a35.css HTTP/1.0" 200 269355
-[03/Jun/2024 17:05:30] "GET /static/js/main.0d1c26f3.js HTTP/1.0" 200 1008673
-[03/Jun/2024 17:05:30] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 200 5551
-[03/Jun/2024 17:05:31] "GET /static/media/umnlogo.ico HTTP/1.0" 200 432254
+Internal Server Error: /timeseries/
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 50, in getTimeSeries
+    _raster = iHARPExecuterInstance.getRaster(
+  File "/data/iHARPScripts/iHARPExecutor.py", line 313, in getRaster
+    raise ValueError("iHARPV: Query range or resolution not supported")
+ValueError: iHARPV: Query range or resolution not supported
+[09/Jun/2024 23:23:47] "POST /timeseries/ HTTP/1.0" 500 110187
+/data/iHARPScripts/iHARPExecutor.py changed, reloading.
+/data/iHARPVFullStack/iHARPV
 Performing system checks...
 
+0.39871640836351874
 System check identified no issues (0 silenced).
-June 03, 2024 - 17:04:05
+June 09, 2024 - 23:22:23
+Django version 5.0.4, using settings 'BackEnd.settings'
+Starting development server at http://0.0.0.0:6080/
+Quit the server with CONTROL-C.
+
+Request for Time Seies 
+Request for Time Seies 
+Request for Time Seies 
+Watching for file changes with StatReloader
+/data/iHARPScripts/iHARPExecutor.py changed, reloading.
+/data/iHARPVFullStack/iHARPV
+Performing system checks...
+
+0.5909137598821675
+System check identified no issues (0 silenced).
+June 09, 2024 - 23:25:24
+Django version 5.0.4, using settings 'BackEnd.settings'
+Starting development server at http://0.0.0.0:6080/
+Quit the server with CONTROL-C.
+
+Request for Time Seies 
+Watching for file changes with StatReloader
+Internal Server Error: /timeseries/
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 50, in getTimeSeries
+    _raster = iHARPExecuterInstance.getRaster(
+  File "/data/iHARPScripts/iHARPExecutor.py", line 324, in getRaster
+    raise ValueError("iHARPV: Query range or resolution not supported")
+ValueError: iHARPV: Query range or resolution not supported
+[09/Jun/2024 23:25:39] "POST /timeseries/ HTTP/1.0" 500 110170
+/data/iHARPScripts/iHARPExecutor.py changed, reloading.
+/data/iHARPVFullStack/iHARPV
+Performing system checks...
+
+0.7803677016373358
+System check identified no issues (0 silenced).
+June 09, 2024 - 23:25:29
+Django version 5.0.4, using settings 'BackEnd.settings'
+Starting development server at http://0.0.0.0:6080/
+Quit the server with CONTROL-C.
+
+Request for Time Seies 
+2m temperature 2023-01-01T06 2023-01-01T07 Hourly Maximum 58.0 72.0 -57.0 -11.0 0.25
+Watching for file changes with StatReloader
+/data/iHARPVFullStack/iHARPV/api/views.py changed, reloading.
+/data/iHARPVFullStack/iHARPV
+Performing system checks...
+
+0.9046376220580208
+System check identified no issues (0 silenced).
+June 09, 2024 - 23:26:02
 Django version 5.0.4, using settings 'BackEnd.settings'
 Starting development server at http://0.0.0.0:6080/
 Quit the server with CONTROL-C.
 
 Watching for file changes with StatReloader
-[06/Jun/2024 22:08:22] "GET / HTTP/1.0" 200 559
-[06/Jun/2024 22:08:22] "GET /static/js/main.40d631fd.js HTTP/1.0" 200 5117178
-[06/Jun/2024 22:08:22] "GET /static/css/main.8a18a701.css HTTP/1.0" 200 269347
-[06/Jun/2024 22:08:23] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 200 5551
-[06/Jun/2024 22:08:23] "GET /static/media/heatmapVideo.b408471cc10f46dab99c.mp4 HTTP/1.0" 200 62793
-[06/Jun/2024 22:12:31] "GET / HTTP/1.0" 200 559
-[06/Jun/2024 22:12:31] "GET /static/css/main.8a18a701.css HTTP/1.0" 200 269347
-[06/Jun/2024 22:12:31] "GET /static/js/main.40d631fd.js HTTP/1.0" 200 5117178
-[06/Jun/2024 22:12:33] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 200 5551
-[06/Jun/2024 22:12:33] "GET /static/media/heatmapVideo.b408471cc10f46dab99c.mp4 HTTP/1.0" 200 62793
-[06/Jun/2024 22:12:34] "GET /static/media/favicon.ico HTTP/1.0" 404 1942
-[06/Jun/2024 22:12:53] "GET / HTTP/1.0" 200 559
-[07/Jun/2024 03:00:34] "GET / HTTP/1.0" 200 559
-[07/Jun/2024 03:00:35] "GET /static/css/main.8a18a701.css HTTP/1.0" 200 269347
-[07/Jun/2024 03:00:35] "GET /static/js/main.40d631fd.js HTTP/1.0" 200 5117178
-[07/Jun/2024 03:00:36] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 200 5551
-[07/Jun/2024 03:00:36] "GET /static/media/heatmapVideo.b408471cc10f46dab99c.mp4 HTTP/1.0" 200 62793
-[07/Jun/2024 03:00:37] "GET /static/media/favicon.ico HTTP/1.0" 404 1942
+/data/iHARPScripts/iHARPExecutor.py changed, reloading.
+/data/iHARPVFullStack/iHARPV
+Performing system checks...
+
+0.9166011131194988
+System check identified no issues (0 silenced).
+June 09, 2024 - 23:28:11
+Django version 5.0.4, using settings 'BackEnd.settings'
+Starting development server at http://0.0.0.0:6080/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
 Internal Server Error: /timeseries/
 Traceback (most recent call last):
   File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
@@ -61,156 +137,389 @@ Traceback (most recent call last):
   File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/decorators.py", line 50, in handler
     return func(*args, **kwargs)
   File "/data/iHARPVFullStack/iHARPV/api/views.py", line 51, in getTimeSeries
-    response = iHARPExecuterInstance.getTimeSeries(
-  File "/data/iHARPScripts/iHARPExecutor.py", line 368, in getTimeSeries
-    raster = self.getRaster(
-  File "/data/iHARPScripts/iHARPExecutor.py", line 180, in getRaster
-    self.dataDirectory
-TypeError: can only concatenate str (not "list") to str
-[07/Jun/2024 03:01:42] "POST /timeseries/ HTTP/1.0" 500 111358
-[07/Jun/2024 03:01:52] "POST /timeseries/ HTTP/1.0" 201 9610
-ffmpeg version 4.4.2-0ubuntu0.22.04.1 Copyright (c) 2000-2021 the FFmpeg developers
-  built with gcc 11 (Ubuntu 11.2.0-19ubuntu1)
-  configuration: --prefix=/usr --extra-version=0ubuntu0.22.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-pocketsphinx --enable-librsvg --enable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
-  libavutil      56. 70.100 / 56. 70.100
-  libavcodec     58.134.100 / 58.134.100
-  libavformat    58. 76.100 / 58. 76.100
-  libavdevice    58. 13.100 / 58. 13.100
-  libavfilter     7.110.100 /  7.110.100
-  libswscale      5.  9.100 /  5.  9.100
-  libswresample   3.  9.100 /  3.  9.100
-  libpostproc    55.  9.100 / 55.  9.100
-Input #0, image2, from '/data/iHARPVFullStack/iHARPV/api/assets/frames/%d.png':
-  Duration: 00:00:01.50, start: 0.000000, bitrate: N/A
-  Stream #0:0: Video: png, rgba(pc), 1200x900 [SAR 3937:3937 DAR 4:3], 2 fps, 2 tbr, 2 tbn, 2 tbc
-Stream mapping:
-  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
-Press [q] to stop, [?] for help
-[libx264 @ 0x653a3cea10c0] using SAR=1/1
-[libx264 @ 0x653a3cea10c0] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
-[libx264 @ 0x653a3cea10c0] profile High 4:4:4 Predictive, level 3.2, 4:4:4, 8-bit
-[libx264 @ 0x653a3cea10c0] 264 - core 163 r3060 5db6aa6 - H.264/MPEG-4 AVC codec - Copyleft 2003-2021 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=4 threads=28 lookahead_threads=4 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
-Output #0, mp4, to '/data/iHARPVFullStack/iHARPV/api/assets/heatmapVideo.mp4':
-  Metadata:
-    encoder         : Lavf58.76.100
-  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv444p(tv, progressive), 1200x900 [SAR 1:1 DAR 4:3], q=2-31, 30 fps, 15360 tbn
-    Metadata:
-      encoder         : Lavc58.134.100 libx264
-    Side data:
-      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
-frame=   15 fps=0.0 q=0.0 size=       0kB time=00:00:00.00 bitrate=N/A dup=14 drop=0 speed=   0x    frame=   45 fps=0.0 q=-1.0 Lsize=      75kB time=00:00:01.40 bitrate= 437.5kbits/s dup=42 drop=0 speed=1.76x    
-video:73kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 1.885437%
-[libx264 @ 0x653a3cea10c0] frame I:1     Avg QP:18.65  size: 34618
-[libx264 @ 0x653a3cea10c0] frame P:11    Avg QP:16.26  size:  3164
-[libx264 @ 0x653a3cea10c0] frame B:33    Avg QP:14.21  size:   153
-[libx264 @ 0x653a3cea10c0] consecutive B-frames:  2.2%  0.0%  0.0% 97.8%
-[libx264 @ 0x653a3cea10c0] mb I  I16..4: 18.1% 66.7% 15.3%
-[libx264 @ 0x653a3cea10c0] mb P  I16..4:  1.6%  2.0%  0.3%  P16..4:  5.7%  3.0%  0.9%  0.0%  0.0%    skip:86.4%
-[libx264 @ 0x653a3cea10c0] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  3.2%  0.0%  0.0%  direct: 0.0%  skip:96.8%  L0:43.4% L1:56.5% BI: 0.1%
-[libx264 @ 0x653a3cea10c0] 8x8 transform intra:61.9% inter:81.5%
-[libx264 @ 0x653a3cea10c0] coded y,u,v intra: 28.1% 22.7% 21.0% inter: 0.5% 0.5% 0.4%
-[libx264 @ 0x653a3cea10c0] i16 v,h,dc,p: 49% 31%  5% 15%
-[libx264 @ 0x653a3cea10c0] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 54% 14% 26%  1%  1%  1%  1%  1%  1%
-[libx264 @ 0x653a3cea10c0] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 53% 27% 12%  1%  1%  1%  1%  1%  1%
-[libx264 @ 0x653a3cea10c0] Weighted P-Frames: Y:9.1% UV:9.1%
-[libx264 @ 0x653a3cea10c0] ref P L0: 61.0%  5.4% 27.3%  5.9%  0.4%
-[libx264 @ 0x653a3cea10c0] ref B L0: 51.6% 47.7%  0.8%
-[libx264 @ 0x653a3cea10c0] ref B L1: 97.0%  3.0%
-[libx264 @ 0x653a3cea10c0] kb/s:397.15
-[07/Jun/2024 03:02:14] "POST /heatmap/ HTTP/1.0" 201 76572
-[07/Jun/2024 03:02:43] "POST /area/ HTTP/1.0" 201 397579
-[07/Jun/2024 03:04:04] "GET / HTTP/1.0" 200 559
+    _raster = iHARPExecuterInstance.getRaster(
+  File "/data/iHARPScripts/iHARPExecutor.py", line 345, in getRaster
+    ds = self.spatialDownsample(ds)
+  File "/data/iHARPScripts/iHARPExecutor.py", line 284, in spatialDownsample
+    latitude=np.arange(self.max_lat, self.min_lat, -self.spatial_resolution),
+TypeError: bad operand type for unary -: 'str'
+[09/Jun/2024 23:29:26] "POST /timeseries/ HTTP/1.0" 500 116108
+/data/iHARPScripts/iHARPExecutor.py changed, reloading.
 /data/iHARPVFullStack/iHARPV
 Performing system checks...
 
-0.3859825395669382
+0.5006452736481485
 System check identified no issues (0 silenced).
-June 06, 2024 - 22:08:22
+June 09, 2024 - 23:29:26
 Django version 5.0.4, using settings 'BackEnd.settings'
 Starting development server at http://0.0.0.0:6080/
 Quit the server with CONTROL-C.
 
 Request for Time Seies 
-2023-01-01T06:00:00.000Z
-2023-01-01T23:00:00.000Z
-Mean
-Request for Time Seies 
-2023-01-01T06:00:00.000Z
-2023-01-01T23:00:00.000Z
-Mean
-Request for Heat Map
-Request for Heat Map
-Total number of values: 648
-                 time  latitude  longitude            sp  condition_met
-0 2023-01-01 06:00:00    70.875     -1.125  97982.619424          False
-1 2023-01-01 06:00:00    70.875      0.875  98011.361375          False
-2 2023-01-01 06:00:00    70.875      2.875  98038.696864          False
-3 2023-01-01 06:00:00    70.875      4.875  98069.040232          False
-4 2023-01-01 06:00:00    70.875      6.875  98090.624546          False
-Total number of values in DataFrame: 648
-Number of non-NaN values in DataFrame: 648
-/data/iHARPVFullStack/iHARPV
+Hey
+tp 2023-01-01T06 2023-01-01T07 hourly maximum 58.0 72.0 -57.0 -11.0 0.25
 Watching for file changes with StatReloader
-[07/Jun/2024 20:34:40] "GET / HTTP/1.0" 200 559
-[07/Jun/2024 20:34:40] "GET /static/css/main.8a18a701.css HTTP/1.0" 304 0
-[07/Jun/2024 20:34:40] "GET /static/js/main.40d631fd.js HTTP/1.0" 304 0
-[07/Jun/2024 20:34:41] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 304 0
-[07/Jun/2024 20:34:41] "GET /static/media/heatmapVideo.b408471cc10f46dab99c.mp4 HTTP/1.0" 304 0
-[07/Jun/2024 20:34:42] "GET /static/media/favicon.ico HTTP/1.0" 404 1942
-[07/Jun/2024 21:04:47] "GET / HTTP/1.0" 200 559
-[08/Jun/2024 19:45:55] "GET / HTTP/1.0" 200 559
-[08/Jun/2024 19:45:55] "GET /static/css/main.8a18a701.css HTTP/1.0" 200 269347
-[08/Jun/2024 19:45:55] "GET /static/js/main.40d631fd.js HTTP/1.0" 200 5117178
-[08/Jun/2024 19:45:56] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 304 0
-[08/Jun/2024 19:45:56] "GET /static/media/heatmapVideo.b408471cc10f46dab99c.mp4 HTTP/1.0" 200 62793
-[08/Jun/2024 19:46:48] "POST /timeseries/ HTTP/1.0" 201 10008
-ffmpeg version 4.4.2-0ubuntu0.22.04.1 Copyright (c) 2000-2021 the FFmpeg developers
-  built with gcc 11 (Ubuntu 11.2.0-19ubuntu1)
-  configuration: --prefix=/usr --extra-version=0ubuntu0.22.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-pocketsphinx --enable-librsvg --enable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
-  libavutil      56. 70.100 / 56. 70.100
-  libavcodec     58.134.100 / 58.134.100
-  libavformat    58. 76.100 / 58. 76.100
-  libavdevice    58. 13.100 / 58. 13.100
-  libavfilter     7.110.100 /  7.110.100
-  libswscale      5.  9.100 /  5.  9.100
-  libswresample   3.  9.100 /  3.  9.100
-  libpostproc    55.  9.100 / 55.  9.100
-Input #0, image2, from '/data/iHARPVFullStack/iHARPV/api/assets/frames/%d.png':
-  Duration: 00:00:12.00, start: 0.000000, bitrate: N/A
-  Stream #0:0: Video: png, rgba(pc), 1200x900 [SAR 3937:3937 DAR 4:3], 2 fps, 2 tbr, 2 tbn, 2 tbc
-Stream mapping:
-  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
-Press [q] to stop, [?] for help
-[libx264 @ 0x55d1599a9140] using SAR=1/1
-[libx264 @ 0x55d1599a9140] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
-[libx264 @ 0x55d1599a9140] profile High 4:4:4 Predictive, level 3.2, 4:4:4, 8-bit
-[libx264 @ 0x55d1599a9140] 264 - core 163 r3060 5db6aa6 - H.264/MPEG-4 AVC codec - Copyleft 2003-2021 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=4 threads=28 lookahead_threads=4 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
-Output #0, mp4, to '/data/iHARPVFullStack/iHARPV/api/assets/heatmapVideo.mp4':
-  Metadata:
-    encoder         : Lavf58.76.100
-  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv444p(tv, progressive), 1200x900 [SAR 1:1 DAR 4:3], q=2-31, 30 fps, 15360 tbn
-    Metadata:
-      encoder         : Lavc58.134.100 libx264
-    Side data:
-      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
-frame=   15 fps=0.0 q=0.0 size=       0kB time=00:00:00.00 bitrate=N/A dup=14 drop=0 speed=   0x    frame=  105 fps=0.0 q=29.0 size=       0kB time=00:00:01.00 bitrate=   0.4kbits/s dup=98 drop=0 speed=1.74x    frame=  240 fps=221 q=29.0 size=       0kB time=00:00:05.50 bitrate=   0.1kbits/s dup=224 drop=0 speed=5.07x    frame=  360 fps=203 q=-1.0 Lsize=     248kB time=00:00:11.90 bitrate= 170.5kbits/s dup=336 drop=0 speed= 6.7x    
-video:243kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 2.090554%
-[libx264 @ 0x55d1599a9140] frame I:2     Avg QP:17.32  size: 52824
-[libx264 @ 0x55d1599a9140] frame P:91    Avg QP:16.06  size:  1221
-[libx264 @ 0x55d1599a9140] frame B:267   Avg QP:13.81  size:   116
-[libx264 @ 0x55d1599a9140] consecutive B-frames:  1.1%  0.0%  0.0% 98.9%
-[libx264 @ 0x55d1599a9140] mb I  I16..4: 19.4% 56.7% 23.9%
-[libx264 @ 0x55d1599a9140] mb P  I16..4:  0.4%  0.5%  0.0%  P16..4:  3.9%  1.6%  0.6%  0.0%  0.0%    skip:92.9%
-[libx264 @ 0x55d1599a9140] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  2.1%  0.0%  0.0%  direct: 0.0%  skip:97.9%  L0:48.0% L1:52.0% BI: 0.0%
-[libx264 @ 0x55d1599a9140] 8x8 transform intra:55.9% inter:91.2%
-[libx264 @ 0x55d1599a9140] coded y,u,v intra: 22.6% 21.9% 20.0% inter: 0.2% 0.2% 0.2%
-[libx264 @ 0x55d1599a9140] i16 v,h,dc,p: 49% 37%  5%  9%
-[libx264 @ 0x55d1599a9140] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 44% 14% 38%  1%  1%  1%  0%  1%  1%
-[libx264 @ 0x55d1599a9140] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 50% 34%  8%  1%  2%  1%  1%  1%  1%
-[libx264 @ 0x55d1599a9140] Weighted P-Frames: Y:0.0% UV:0.0%
-[libx264 @ 0x55d1599a9140] ref P L0: 66.7%  4.4% 20.2%  8.7%
-[libx264 @ 0x55d1599a9140] ref B L0: 66.8% 32.6%  0.6%
-[libx264 @ 0x55d1599a9140] ref B L1: 99.4%  0.6%
-[libx264 @ 0x55d1599a9140] kb/s:165.14
-[08/Jun/2024 19:47:10] "POST /heatmap/ HTTP/1.0" 201 253596
-[08/Jun/2024 19:47:41] "POST /area/ HTTP/1.0" 201 429358
+/data/iHARPVFullStack/iHARPV/api/views.py changed, reloading.
+/data/iHARPVFullStack/iHARPV
+Performing system checks...
+
+0.5522301104544876
+System check identified no issues (0 silenced).
+June 09, 2024 - 23:30:28
+Django version 5.0.4, using settings 'BackEnd.settings'
+Starting development server at http://0.0.0.0:6080/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+[09/Jun/2024 23:30:44] "POST /timeseries/ HTTP/1.0" 201 8595
+[09/Jun/2024 23:31:03] "POST /timeseries/ HTTP/1.0" 201 10593
+[09/Jun/2024 23:31:32] "POST /timeseries/ HTTP/1.0" 201 31660
+Internal Server Error: /areas/
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'sp'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 133, in getAreas
+    jsonData = iHARPExecuterInstance.getAreas(
+  File "/data/iHARPScripts/iHARPExecutor.py", line 1034, in getAreas
+    print("Total number of values in DataFrame:", filtered_df["sp"].size)
+  File "/home/husse408/.local/lib/python3.10/site-packages/pandas/core/frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/home/husse408/.local/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'sp'
+[09/Jun/2024 23:31:46] "POST /areas/ HTTP/1.0" 500 140663
+Internal Server Error: /areas/
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'sp'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 133, in getAreas
+    jsonData = iHARPExecuterInstance.getAreas(
+  File "/data/iHARPScripts/iHARPExecutor.py", line 1034, in getAreas
+    print("Total number of values in DataFrame:", filtered_df["sp"].size)
+  File "/home/husse408/.local/lib/python3.10/site-packages/pandas/core/frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/home/husse408/.local/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'sp'
+[09/Jun/2024 23:31:46] "POST /areas/ HTTP/1.0" 500 140663
+[09/Jun/2024 23:31:47] "POST /timeseries/ HTTP/1.0" 201 10593
+[09/Jun/2024 23:31:57] "POST /timeseries/ HTTP/1.0" 201 10530
+Internal Server Error: /timeseries/
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 51, in getTimeSeries
+    _raster = iHARPExecuterInstance.getRaster(
+  File "/data/iHARPScripts/iHARPExecutor.py", line 331, in getRaster
+    raise ValueError("iHARPV: Query range or resolution not supported")
+ValueError: iHARPV: Query range or resolution not supported
+[09/Jun/2024 23:32:04] "POST /timeseries/ HTTP/1.0" 500 110078
+Internal Server Error: /timeseries/
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/file_manager.py", line 211, in _acquire_with_cache_info
+    file = self._cache[self._key]
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/lru_cache.py", line 56, in __getitem__
+    value = self._cache[key]
+KeyError: [<class 'netCDF4._netCDF4.Dataset'>, ('/data/era5/preprocessed/t2m/combined_daily_maximum_2014_2023.nc',), 'r', (('clobber', True), ('diskless', False), ('format', 'NETCDF4'), ('persist', False)), '84c4e88e-3329-454a-a91a-fb567bad7d51']
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 51, in getTimeSeries
+    _raster = iHARPExecuterInstance.getRaster(
+  File "/data/iHARPScripts/iHARPExecutor.py", line 336, in getRaster
+    ds = xr.open_dataset(file, engine="netcdf4").sel(
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/api.py", line 573, in open_dataset
+    backend_ds = backend.open_dataset(
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 646, in open_dataset
+    store = NetCDF4DataStore.open(
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 409, in open
+    return cls(manager, group=group, mode=mode, lock=lock, autoclose=autoclose)
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 356, in __init__
+    self.format = self.ds.data_model
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 418, in ds
+    return self._acquire()
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 412, in _acquire
+    with self._manager.acquire_context(needs_lock) as root:
+  File "/usr/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/file_manager.py", line 199, in acquire_context
+    file, cached = self._acquire_with_cache_info(needs_lock)
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/file_manager.py", line 217, in _acquire_with_cache_info
+    file = self._opener(*self._args, **kwargs)
+  File "src/netCDF4/_netCDF4.pyx", line 2469, in netCDF4._netCDF4.Dataset.__init__
+  File "src/netCDF4/_netCDF4.pyx", line 2028, in netCDF4._netCDF4._ensure_nc_success
+FileNotFoundError: [Errno 2] No such file or directory: '/data/era5/preprocessed/t2m/combined_daily_maximum_2014_2023.nc'
+[09/Jun/2024 23:33:01] "POST /timeseries/ HTTP/1.0" 500 166907
+Internal Server Error: /timeseries/
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/file_manager.py", line 211, in _acquire_with_cache_info
+    file = self._cache[self._key]
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/lru_cache.py", line 56, in __getitem__
+    value = self._cache[key]
+KeyError: [<class 'netCDF4._netCDF4.Dataset'>, ('/data/era5/preprocessed/t2m/combined_daily_maximum_2014_2023.nc',), 'r', (('clobber', True), ('diskless', False), ('format', 'NETCDF4'), ('persist', False)), '03f92814-9165-4943-9818-ef7ba5a42e8c']
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 51, in getTimeSeries
+    _raster = iHARPExecuterInstance.getRaster(
+  File "/data/iHARPScripts/iHARPExecutor.py", line 336, in getRaster
+    ds = xr.open_dataset(file, engine="netcdf4").sel(
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/api.py", line 573, in open_dataset
+    backend_ds = backend.open_dataset(
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 646, in open_dataset
+    store = NetCDF4DataStore.open(
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 409, in open
+    return cls(manager, group=group, mode=mode, lock=lock, autoclose=autoclose)
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 356, in __init__
+    self.format = self.ds.data_model
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 418, in ds
+    return self._acquire()
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 412, in _acquire
+    with self._manager.acquire_context(needs_lock) as root:
+  File "/usr/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/file_manager.py", line 199, in acquire_context
+    file, cached = self._acquire_with_cache_info(needs_lock)
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/file_manager.py", line 217, in _acquire_with_cache_info
+    file = self._opener(*self._args, **kwargs)
+  File "src/netCDF4/_netCDF4.pyx", line 2469, in netCDF4._netCDF4.Dataset.__init__
+  File "src/netCDF4/_netCDF4.pyx", line 2028, in netCDF4._netCDF4._ensure_nc_success
+FileNotFoundError: [Errno 2] No such file or directory: '/data/era5/preprocessed/t2m/combined_daily_maximum_2014_2023.nc'
+[09/Jun/2024 23:33:03] "POST /timeseries/ HTTP/1.0" 500 166907
+/data/iHARPVFullStack/iHARPV/api/models.py changed, reloading.
+/data/iHARPVFullStack/iHARPV
+Performing system checks...
+
+0.17164427919491942
+System check identified no issues (0 silenced).
+June 09, 2024 - 23:30:39
+Django version 5.0.4, using settings 'BackEnd.settings'
+Starting development server at http://0.0.0.0:6080/
+Quit the server with CONTROL-C.
+
+Request for Time Seies 
+Hey
+tp 2023-01-01T06 2023-01-01T07 hourly maximum 58.0 72.0 -57.0 -11.0 0.25
+Request for Time Seies 
+Hey
+tp 2023-01-01T06 2023-01-01T23 hourly maximum 58.0 72.0 -57.0 -11.0 0.25
+Request for Time Seies 
+Hey
+tp 2023-01-01T06 2023-01-08T23 hourly maximum 58.0 72.0 -57.0 -11.0 0.25
+Request for Areas
+Total number of values: 2898
+                 time  latitude  longitude        tp  condition_met
+0 2023-01-01 06:00:00    71.125    -56.125  0.000048          False
+1 2023-01-01 06:00:00    71.125    -54.125  0.000075          False
+2 2023-01-01 06:00:00    71.125    -52.125  0.000046          False
+3 2023-01-01 06:00:00    71.125    -50.125  0.000005          False
+4 2023-01-01 06:00:00    71.125    -48.125  0.000000          False
+Request for Areas
+Total number of values: 2898
+                 time  latitude  longitude        tp  condition_met
+0 2023-01-01 06:00:00    71.125    -56.125  0.000048          False
+1 2023-01-01 06:00:00    71.125    -54.125  0.000075          False
+2 2023-01-01 06:00:00    71.125    -52.125  0.000046          False
+3 2023-01-01 06:00:00    71.125    -50.125  0.000005          False
+4 2023-01-01 06:00:00    71.125    -48.125  0.000000          False
+Request for Time Seies 
+Hey
+tp 2023-01-01T06 2023-01-01T23 hourly maximum 58.0 72.0 -57.0 -11.0 0.25
+Request for Time Seies 
+Hey
+t2m 2023-01-01T06 2023-01-01T23 hourly maximum 58.0 72.0 -57.0 -11.0 0.25
+Request for Time Seies 
+Hey
+sp 2023-01-01T06 2023-01-01T23 hourly maximum 58.0 72.0 -57.0 -11.0 0.25
+Request for Time Seies 
+Hey
+t2m 2023-01-01T06 2023-01-10T23 daily maximum -70.378 -29.535 -77.344 41.484 0.25
+Request for Time Seies 
+Hey
+t2m 2023-01-01T06 2023-01-10T23 daily maximum -70.378 -29.535 -77.344 41.484 0.25
+Watching for file changes with StatReloader
+/data/iHARPScripts/iHARPExecutor.py changed, reloading.
+/data/iHARPVFullStack/iHARPV
+Performing system checks...
+
+0.6055547995449954
+System check identified no issues (0 silenced).
+June 09, 2024 - 23:34:13
+Django version 5.0.4, using settings 'BackEnd.settings'
+Starting development server at http://0.0.0.0:6080/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory '/data/iHARPVFullStack/iHARPV/FrontEnd/build/static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+/data/iHARPScripts/iHARPExecutor.py changed, reloading.
+/data/iHARPVFullStack/iHARPV
+Performing system checks...
+
+0.09221220057449953
+June 09, 2024 - 23:38:01
+Django version 5.0.4, using settings 'BackEnd.settings'
+Starting development server at http://0.0.0.0:6080/
+Quit the server with CONTROL-C.
+
+Watching for file changes with StatReloader
+[09/Jun/2024 23:38:40] "GET / HTTP/1.0" 200 546
+[09/Jun/2024 23:38:40] "GET /static/css/main.5ffb34c9.css HTTP/1.0" 200 269349
+[09/Jun/2024 23:38:40] "GET /static/js/main.a5aa64f3.js HTTP/1.0" 200 5138575
+[09/Jun/2024 23:38:41] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 200 5551
+[09/Jun/2024 23:38:41] "GET /static/media/heatmapVideo.b408471cc10f46dab99c.mp4 HTTP/1.0" 200 62793
+[09/Jun/2024 23:38:49] "POST /timeseries/ HTTP/1.0" 201 8580
+[09/Jun/2024 23:38:56] "POST /timeseries/ HTTP/1.0" 201 10522
+[09/Jun/2024 23:39:16] "POST /timeseries/ HTTP/1.0" 201 11250
+[09/Jun/2024 23:39:28] "POST /timeseries/ HTTP/1.0" 201 8431
+[09/Jun/2024 23:39:33] "POST /timeseries/ HTTP/1.0" 201 9258
+[09/Jun/2024 23:39:39] "POST /timeseries/ HTTP/1.0" 201 10234
+[09/Jun/2024 23:39:59] "POST /timeseries/ HTTP/1.0" 201 10230
+/data/iHARPScripts/iHARPExecutor.py changed, reloading.
+/data/iHARPVFullStack/iHARPV
+Performing system checks...
+
+0.4247205680607349
+System check identified no issues (0 silenced).
+June 09, 2024 - 23:38:39
+Django version 5.0.4, using settings 'BackEnd.settings'
+Starting development server at http://0.0.0.0:6080/
+Quit the server with CONTROL-C.
+
+Request for Time Seies 
+Hey
+t2m 2023-01-01T06 2023-01-01T07 hourly max 58.0 72.0 -57.0 -11.0 0.25
+Request for Time Seies 
+Hey
+t2m 2023-01-01T06 2023-01-01T23 hourly max 58.0 72.0 -57.0 -11.0 0.25
+Request for Time Seies 
+Hey
+t2m 2023-01-01T00 2023-01-01T23 hourly max 58.0 72.0 -57.0 -11.0 0.25
+Request for Time Seies 
+Hey
+t2m 2023-01-01T00 2023-01-01T23 daily max 58.0 72.0 -57.0 -11.0 0.25
+Request for Time Seies 
+Hey
+t2m 2023-01-01T00 2023-01-10T23 daily max 58.0 72.0 -57.0 -11.0 0.25
+Request for Time Seies 
+Hey
+t2m 2023-01-01T00 2023-01-20T23 daily max 58.0 72.0 -57.0 -11.0 0.25
+Request for Time Seies 
+Hey
+t2m 2023-01-01T00 2023-01-20T23 daily mean 58.0 72.0 -57.0 -11.0 0.25
+Watching for file changes with StatReloader
+[09/Jun/2024 23:41:04] "POST /timeseries/ HTTP/1.0" 201 10230
+[09/Jun/2024 23:42:42] "POST /timeseries/ HTTP/1.0" 201 10230
+/data/iHARPVFullStack/iHARPV

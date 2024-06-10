@@ -112,9 +112,9 @@ h1 em {
   display: flex;
   flex-direction: column;
   /* margin-left: 10px	; */
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   /* Add border */
-  padding-top: 15px;
+  padding-top: 10px;
   /* Padding from the top */
   padding-bottom: 20px;
   /* Padding from the bottom */
@@ -124,13 +124,16 @@ h1 em {
 }
 
 .sidebar-content .sidebar-heading {
-  /* Your heading styles */
-  /* padding: 20px; */
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  font-size: 15px;
-  /* Add this line to set the top margin to -10px */
-
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  /* Use Roboto if available, fallback to Arial/Helvetica */
+  font-weight: 500;
+  /* Adjust the weight to match the boldness you want */
+  font-size: 16px;
+  /* Adjust the font size */
+  /* color: #007bff; */
+  /* Adjust the color to match your desired blue */
+  margin-top: -10px;
+  /* Set the top margin to -10px */
 
 }
 

@@ -1,16 +1,21 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
 import myFigure from '../assets/plotly_figure.json'
-const PlotlyFigure = ({ jsonData }) => {
+const AreasComponentMap = ({ jsonData }) => {
   
     if (!jsonData) {
      // Render a loading indicator or placeholder while imageData is being fetched
      if(myFigure){
+        const Initialconfig = {
+            ...myFigure.config,
+            displaylogo: false,
+        
+        };
         return <div><Plot
         data={myFigure.data}
         layout={myFigure.layout}
         frames={myFigure.frames}
-        config={myFigure.config}
+        config={Initialconfig}
         style={{width: "500px",height: "325px"}}      
            /></div>;}
           else{
@@ -40,4 +45,4 @@ const PlotlyFigure = ({ jsonData }) => {
     );
 };
 
-export default PlotlyFigure;
+export default AreasComponentMap;

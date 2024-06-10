@@ -12,8 +12,11 @@ import timezone from "dayjs/plugin/timezone";
 import dayjs from "dayjs";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BoundsContext } from "./BoundsContext";
-import Dropdown from "./Dropdown";
-
+import VariablesDropDown from "./VariablesDropDown";
+import ComparisonsDropDown from "./ComparisonsDropDownComponent";
+import SecondAggDropDown from "./SecondAggDropDownComponent";
+import Divider from '@mui/material/Divider';
+import QuantityInput from "./NumberInputComponent";
 const drawerWidth = 375;
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -45,11 +48,11 @@ export default function SideBar({
   // videoUrl,
 }) {
   // const { updateImageData } = props;
-  const [variable, setVariable] = React.useState([]);
+  const [variable, setVariable] = React.useState("2m Temperature");
+  const [comparison, setComparison] = React.useState("");
+  const [secondAgg, setSecondAgg] = React.useState("");
+  const [myValue, setMyValue] = React.useState(0);
 
-  const handleChangeDropDown = (event) => {
-    setVariable(event.target.value);
-  };
   const { drawnShapeBounds, setDrawnShapeBounds } = useContext(BoundsContext);
   const classes = useStyles();
   const [selectedStartDateTime, setSelectedStartDateTime] = useState(dayjs("2023-01-01T00")); // Initialize selectedStartDateTime with null
@@ -68,51 +71,37 @@ export default function SideBar({
 
   const [formData, setFormData] = useState({
     requestType: "",
-    variable:"",
-    startDateTime: "",
-    endDateTime: "",
-    temporalLevel: "Hourly",
-    aggLevel: "Mean",
+    variable:"Surface Pressure",
+    startDateTime: selectedStartDateTime,
+    endDateTime: selectedEndDateTime,
+    temporalLevel: "hourly",
+    aggLevel: "max",
     spatialLevel: "0.25",
     north: 72,
     south: 58,
     east: -11,
     west: -57,
+    secondAgg:"",
+    comparison:"",
+    value:0,
+
   });
   const [areaRecieved, setAreaRecieved] = useState(null); // Initialize selectedEndDateTime with null
+  
+  const handleValueChange = (newValue) => {
+    console.log("I was called");
+    setMyValue(newValue);
+  };
+  const handleChangeDropDown = (event) => {
+    setVariable(event.target.value);
+  };
+  const handleChangeComparisonDropDown = (event) => {
+    setComparison(event.target.value);
+  };
+  const handleChangeSecondAggDropDown = (event) => {
+    setSecondAgg(event.target.value);
+  };
 
-  useEffect(() => {
-    if (drawnShapeBounds) {
-      const north_val = drawnShapeBounds._northEast.lat;
-      const east_val = drawnShapeBounds._northEast.lng;
-      const south_val = drawnShapeBounds._southWest.lat;
-      const west_val = drawnShapeBounds._southWest.lng;
-
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        north: north_val,
-        east: east_val,
-        south: south_val,
-        west: west_val,
-      }));
-    }
-    // if (variable){
-    //   setFormData((prevFormData) => ({
-    //     ...prevFormData,
-    //     variable: variable, // Update formData.variable with the selected variable
-    //   }));
-    // }
-  }, [drawnShapeBounds]);
-
-  useEffect(() => {
-
-    if (variable){
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        variable: variable, // Update formData.variable with the selected variable
-      }));
-    }
-  }, [variable]);
 
   const handleChange = (e) => {
     let myValue;
@@ -190,6 +179,18 @@ export default function SideBar({
       );
       return; // Exit the function early
     }
+    else if (formData.secondAgg === "") {
+      alert(
+        "ERROR: Please select second aggregation level method before proceeding..."
+      );
+      return; // Exit the function early
+    }
+    else if (formData.comparison === "") {
+      alert(
+        "ERROR: Please select comparison operator before proceeding..."
+      );
+      return; // Exit the function early
+    }
     else if (formData.temporalLevel === "") {
       // If not, display an error message or perform any other action to prompt the user to select a temporal level
       alert(
@@ -197,7 +198,7 @@ export default function SideBar({
       );
       return; // Exit the function early
     } else if (
-      formData.temporalLevel !== "Hourly" &&
+      formData.temporalLevel !== "hourly" &&
       formData.aggLevel === ""
     ) {
       alert("ERROR: Please select an aggregation method before proceeding...");
@@ -209,13 +210,20 @@ export default function SideBar({
       alert("ERROR: Please select an end date and time before proceeding..");
       return; // Exit the function early
     } else if (
-      formData.north === "" ||
-      formData.south === "" ||
-      formData.east === "" ||
-      formData.west === ""
+      isNaN(formData.north) ||
+      isNaN(formData.south) ||
+      isNaN(formData.east)||
+      isNaN(formData.west)||
+      (formData.north>90)||
+      (formData.south<-90)||
+      (formData.west<-180)||
+      (formData.east>180)
     ) {
       alert(
         "ERROR: Please select an area on the map or enter FOUR coordinates of interest manually(S,N,W,E) before proceeding..."
+      );
+      alert(
+        "Coordinates should be between -90:90 and -180:180 for (S,N,W,E) respectively..."
       );
       return; // Exit the function early
     }
@@ -226,9 +234,9 @@ export default function SideBar({
 
     try {
       setProgress(20);
-      setProgressDesc("Getting an Area");
+      setProgressDesc("Getting Areas");
       // Send request to the backend to fetch both time series data and image data
-      const response = await fetch("area/", {
+      const response = await fetch("areas/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -249,7 +257,178 @@ export default function SideBar({
         );
       }
     } catch (error) {
-      console.error("Error requesting Time Series:", error);
+      console.error("Error requesting Areas:", error);
+    }
+  };
+  const handleTimes= async (e) =>  {
+    if (e) e.preventDefault();
+    // if (fo)
+    if (formData.variable === "") {
+      // If not, display an error message or perform any other action to prompt the user to select a temporal level
+      alert(
+        "ERROR: Please select a variable before proceeding..."
+      );
+      return; // Exit the function early
+    }
+    else if (formData.secondAgg === "") {
+      alert(
+        "ERROR: Please select second aggregation level method before proceeding..."
+      );
+      return; // Exit the function early
+    }
+    else if (formData.comparison === "") {
+      alert(
+        "ERROR: Please select comparison operator before proceeding..."
+      );
+      return; // Exit the function early
+    }
+    else if (formData.value === "") {
+      alert(
+        "ERROR: Please Enter Value before proceeding..."
+      );
+      return; // Exit the function early
+    }
+    else if (formData.temporalLevel === "") {
+      // If not, display an error message or perform any other action to prompt the user to select a temporal level
+      alert(
+        "ERROR: Please select a temporal level resolution before proceeding..."
+      );
+      return; // Exit the function early
+    } else if (
+      formData.temporalLevel !== "hourly" &&
+      formData.aggLevel === ""
+    ) {
+      alert("ERROR: Please select an aggregation method before proceeding...");
+      return; // Exit the function early
+    } else if (!selectedStartDateTime) {
+      alert("ERROR: Please select a start date and time before proceeding.");
+      return; // Exit the function early
+    } else if (!selectedEndDateTime) {
+      alert("ERROR: Please select an end date and time before proceeding..");
+      return; // Exit the function early
+    } else if (
+      isNaN(formData.north) ||
+      isNaN(formData.south) ||
+      isNaN(formData.east)||
+      isNaN(formData.west)||
+      (formData.north>90)||
+      (formData.south<-90)||
+      (formData.west<-180)||
+      (formData.east>180)
+    ) {
+      alert(
+        "ERROR: Please select an area on the map or enter FOUR coordinates of interest manually(S,N,W,E) before proceeding..."
+      );
+      alert(
+        "Coordinates should be between -90:90 and -180:180 for (S,N,W,E) respectively..."
+      );
+      return; // Exit the function early
+    }
+
+    formData.requestType = "Times Query";
+    formData.startDateTime = selectedStartDateTime;
+    formData.endDateTime = selectedEndDateTime;
+
+    try {
+      setProgress(20);
+      setProgressDesc("Finding Time Units");
+      // Send request to the backend to fetch both time series data and image data
+      const response = await fetch("times/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const jsonData = await response.json();
+        // setAreaRecieved(jsonData.plotlyData);
+        setImageRecieved(jsonData.plotlyData);
+      } else {
+        setProgress(5);
+        setProgressDesc("Failed", response.status);
+        console.error(
+          "Failed to find times. HTTP status:",
+          response.status
+        );
+      }
+    } catch (error) {
+      console.error("Error requesting Time Units:", error);
+    }
+  };
+  const handleDownload = async (e) => {
+    if (e) e.preventDefault();
+    if (formData.variable === "") {
+      // If not, display an error message or perform any other action to prompt the user to select a temporal level
+      alert(
+        "ERROR: Please select a variable before proceeding..."
+      );
+      return; // Exit the function early
+    }
+    else if (formData.temporalLevel === "") {
+      // If not, display an error message or perform any other action to prompt the user to select a temporal level
+      alert(
+        "ERROR: Please select a temporal level resolution before proceeding..."
+      );
+      return; // Exit the function early
+    } else if (!selectedStartDateTime) {
+      alert("ERROR: Please select a start date and time before proceeding.");
+      return; // Exit the function early
+    } else if (!selectedEndDateTime) {
+      alert("ERROR: Please select an end date and time before proceeding..");
+      return; // Exit the function early
+    } else if (
+      isNaN(formData.north) ||
+      isNaN(formData.south) ||
+      isNaN(formData.east)||
+      isNaN(formData.west)||
+      (formData.north>90)||
+      (formData.south<-90)||
+      (formData.west<-180)||
+      (formData.east>180)
+    ) {
+      alert(
+        "ERROR: Please select an area on the map or enter FOUR coordinates of interest manually(S,N,W,E) before proceeding..."
+      );
+      alert(
+        "Coordinates should be between -90:90 and -180:180 for (S,N,W,E) respectively..."
+      );
+      return; // Exit the function early
+    }
+
+    formData.requestType = "Download";
+    formData.startDateTime = selectedStartDateTime;
+    formData.endDateTime = selectedEndDateTime;
+    try {
+      setProgress(20);
+      setProgressDesc("Downloading Data");
+      console.log(formData);
+      // Send request to the backend to fetch both time series data and image data
+      const response = await fetch("download/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      // Check if the response is successful
+      if (response.ok) {
+        // Parse the response as JSON
+        const responseData = await response.json();
+        // console.log("Successfully requested time series data:", responseData);
+        setImageRecieved(responseData);
+      } else {
+        setProgress(5);
+        setProgressDesc("Failed", response.status);
+        console.error(
+          "Failed to download data. HTTP status:",
+          response.status
+        );
+      }
+    } catch (error) {
+      console.error("Error Downloading Data:", error);
     }
   };
   const handleHeatMap = async (e) => {
@@ -268,7 +447,7 @@ export default function SideBar({
       );
       return; // Exit the function early
     } else if (
-      formData.temporalLevel !== "Hourly" &&
+      formData.temporalLevel !== "hourly" &&
       formData.aggLevel === ""
     ) {
       alert("ERROR: Please select an aggregation method before proceeding...");
@@ -280,13 +459,20 @@ export default function SideBar({
       alert("ERROR: Please select an end date and time before proceeding..");
       return; // Exit the function early
     } else if (
-      formData.north === "" ||
-      formData.south === "" ||
-      formData.east === "" ||
-      formData.west === ""
+      isNaN(formData.north) ||
+      isNaN(formData.south) ||
+      isNaN(formData.east)||
+      isNaN(formData.west)||
+      (formData.north>90)||
+      (formData.south<-90)||
+      (formData.west<-180)||
+      (formData.east>180)
     ) {
       alert(
         "ERROR: Please select an area on the map or enter FOUR coordinates of interest manually(S,N,W,E) before proceeding..."
+      );
+      alert(
+        "Coordinates should be between -90:90 and -180:180 for (S,N,W,E) respectively..."
       );
       return; // Exit the function early
     }
@@ -318,28 +504,25 @@ export default function SideBar({
         // setVideoUrl(url);
         setVideoReceived(videoBlob);
       } else {
+        const errorResponse = await response.json();
         setProgress(5);
-        setProgressDesc("Failed", response.status);
+        setProgressDesc(errorResponse.error, response.status);
         console.error(
           "Failed to fetch heat map data. HTTP status:",
-          response.status
+          response.status, 
+          "Error message:",
+          errorResponse.error
         );
       }
     } catch (error) {
       console.error("Error requesting Time Series:", error);
     }
   };
+  // console.log(formData.variable);
+
   const handleTimeSeries = async (e) => {
     if (e) e.preventDefault();
-    // if (variable){
-    //   console.log
-    //   setFormData((prevFormData) => ({
-    //     ...prevFormData,
-    //     variable: variable, // Update formData.variable with the selected variable
-    //   }));
-    // }
-    // console.log(formData.variable);
-    // Check if a temporal level option has been selected
+    isNaN(variable)
     if (formData.variable === "") {
       // If not, display an error message or perform any other action to prompt the user to select a temporal level
       alert(
@@ -360,13 +543,20 @@ export default function SideBar({
       alert("ERROR: Please select an end date and time before proceeding..");
       return; // Exit the function early
     } else if (
-      formData.north === "" ||
-      formData.south === "" ||
-      formData.east === "" ||
-      formData.west === ""
+      isNaN(formData.north) ||
+      isNaN(formData.south) ||
+      isNaN(formData.east)||
+      isNaN(formData.west)||
+      (formData.north>90)||
+      (formData.south<-90)||
+      (formData.west<-180)||
+      (formData.east>180)
     ) {
       alert(
         "ERROR: Please select an area on the map or enter FOUR coordinates of interest manually(S,N,W,E) before proceeding..."
+      );
+      alert(
+        "Coordinates should be between -90:90 and -180:180 for (S,N,W,E) respectively..."
       );
       return; // Exit the function early
     }
@@ -394,17 +584,79 @@ export default function SideBar({
         // console.log("Successfully requested time series data:", responseData);
         setImageRecieved(responseData);
       } else {
+        const errorResponse = await response.json();
         setProgress(5);
-        setProgressDesc("Failed", response.status);
+        setProgressDesc(errorResponse.error, response.status);
         console.error(
           "Failed to fetch time series data. HTTP status:",
-          response.status
+          response.status, 
+          "Error message:",
+          errorResponse.error
         );
       }
     } catch (error) {
       console.error("Error requesting Time Series:", error);
     }
   };
+  useEffect(() => {
+    if (drawnShapeBounds) {
+      const north_val = drawnShapeBounds._northEast.lat;
+      const east_val = drawnShapeBounds._northEast.lng;
+      const south_val = drawnShapeBounds._southWest.lat;
+      const west_val = drawnShapeBounds._southWest.lng;
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        north: north_val,
+        east: east_val,
+        south: south_val,
+        west: west_val,
+      }));
+    }
+    // if (variable){
+    //   setFormData((prevFormData) => ({
+    //     ...prevFormData,
+    //     variable: variable, // Update formData.variable with the selected variable
+    //   }));
+    // }
+  }, [drawnShapeBounds]);
+
+  useEffect(() => {
+
+    if (variable){
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        variable: variable, // Update formData.variable with the selected variable
+      }));
+    }
+  }, [variable]);
+  useEffect(() => {
+
+    if (secondAgg){
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        secondAgg: secondAgg, // Update formData.variable with the selected variable
+      }));
+    }
+  }, [secondAgg]);
+  useEffect(() => {
+
+    if (comparison){
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        comparison: comparison, // Update formData.variable with the selected variable
+      }));
+    }
+  }, [comparison]);
+  useEffect(() => {
+
+    if (myValue){
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        value: myValue, // Update formData.variable with the selected variable
+      }));
+    }
+  }, [myValue]);
   useEffect(() => {
     if (videoRecieved) {
       // Execute any code you want to run after responseReceived changes
@@ -490,13 +742,15 @@ export default function SideBar({
           </h1>
         </div>
         <div style={{ marginBottom: "-20px" }}></div>
-
+        
         <div className="sidebar-container">
-          <Dropdown personName={variable} handleChange={handleChangeDropDown}  />
-          <div style={{ marginBottom: "10px" }}></div>
+        <div style={{ marginLeft: "5px"}}>
+        <div style={{ marginBottom: "10px" }}>
+          <VariablesDropDown personName={variable} handleChange={handleChangeDropDown}  />
+          </div>
 
           {/* <h4 className="sidebar-heading">Select Start Date and Time</h4> */}
-          <div style={{ marginBottom: "3px" }}></div>
+          <div style={{ marginBottom: "15px" }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
               // name=""
@@ -514,9 +768,9 @@ export default function SideBar({
               onChange={(newDateTime) => setSelectedStartDateTime(newDateTime)}
             />
           </LocalizationProvider>
-          <div style={{ marginBottom: "10px" }}></div>
+          </div>
           {/* <h4 className="sidebar-heading">Select End Date and Time</h4> */}
-          <div style={{ marginBottom: "3px" }}></div>
+          <div style={{ marginBottom: "20px" }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateTimePicker
               disableFuture
@@ -533,99 +787,105 @@ export default function SideBar({
               onChange={(newDateTime) => setSelectedEndDateTime(newDateTime)}
             />
           </LocalizationProvider>
-          <div style={{ marginBottom: "20px" }}></div>
-          <h4 className="sidebar-heading">Select Temporal Resolution</h4>
+          </div>
+          <div style={{ marginBottom: "-16px" }}>
+          <h4 className="sidebar-heading">Temporal Resolution</h4>
           <Form label="Select Output Level">
             <div className="mb-4">
               <Form.Check
                 inline
-                label="Hourly"
+                label="hourly"
                 name="temporalLevel"
                 type="radio"
                 id="inline-radio-1"
-                value="Hourly" // Set value of radio input to Hourly
+                value="hourly" // Set value of radio input to hourly
                 style={{ fontSize: "small", marginLeft: "10px" }}
                 onChange={handleChange}
-                checked={formData.temporalLevel === "Hourly"}
+                checked={formData.temporalLevel === "hourly"}
               />
               <Form.Check
                 inline
-                label="Daily"
+                label="daily"
                 name="temporalLevel"
                 type="radio"
                 id="inline-radio-2"
-                value="Daily" // Set value of radio input to Daily
+                value="daily" // Set value of radio input to Daily
                 style={{ fontSize: "small" }}
                 onChange={handleChange}
-                checked={formData.temporalLevel === "Daily"}
+                checked={formData.temporalLevel === "daily"}
               />
               <Form.Check
                 inline
                 name="temporalLevel"
-                label="Monthly"
+                label="monthly"
                 type="radio"
                 id="inline-radio-3"
-                value="Monthly" // Set value of radio input to Monthly
+                value="monthly" // Set value of radio input to monthly
                 style={{ fontSize: "small" }}
                 onChange={handleChange}
-                checked={formData.temporalLevel === "Monthly"}
+                checked={formData.temporalLevel === "monthly"}
               />
               <Form.Check
                 inline
                 name="temporalLevel"
-                label="Yearly"
+                label="yearly"
                 type="radio"
                 id="inline-radio-4"
-                value="Yearly" // Set value of radio input to Yearly
+                value="yearly" // Set value of radio input to yearly
                 style={{ fontSize: "small" }}
                 onChange={handleChange}
-                checked={formData.temporalLevel === "Yearly"}
+                checked={formData.temporalLevel === "yearly"}
               />
             </div>
           </Form>
+          </div>
+          <div style={{ marginTop: "10px" }}>
+
           <h4 className="sidebar-heading">
-            For HeatMap: Select Aggregation Level
+            Temporal Aggregation
           </h4>
           <Form>
             {["radio"].map((type) => (
               <div key={`inline-${type}`} className="mb-3">
                 <Form.Check
                   inline
-                  label="Minimum"
+                  label="min"
                   name="aggLevel"
                   type={type}
                   id={`inline-2-${type}-1`}
-                  value="Minimum" // Set value of radio input to Minimum
+                  value="min" // Set value of radio input to Minimum
                   style={{ fontSize: "small", marginLeft: "10px" }}
                   onChange={handleChange} // Add onChange handler
-                  checked={formData.aggLevel === "Minimum"}
+                  checked={formData.aggLevel === "min"}
                 />
                 <Form.Check
                   inline
-                  label="Maximum"
+                  label="max"
                   name="aggLevel"
                   type={type}
                   id={`inline-2-${type}-2`}
-                  value="Maximum" // Set value of radio input to Maximum
+                  value="max" // Set value of radio input to Maximum
                   style={{ fontSize: "small" }}
                   onChange={handleChange} // Add onChange handler
-                  checked={formData.aggLevel === "Maximum"}
+                  checked={formData.aggLevel === "max"}
                 />
                 <Form.Check
                   inline
-                  label="Mean"
+                  label="mean"
                   name="aggLevel"
                   type={type}
                   id={`inline-2-${type}-3`}
-                  value="Mean" // Set value of radio input to Average
+                  value="mean" // Set value of radio input to Average
                   style={{ fontSize: "small" }}
                   onChange={handleChange} // Add onChange handler
-                  checked={formData.aggLevel === "Mean"}
+                  checked={formData.aggLevel === "mean"}
                 />
               </div>
             ))}
           </Form>
-          <h4 className="sidebar-heading">Select Spatial Resolution</h4>
+          </div>
+          <div style={{ marginTop: "10px" }}>
+          <h4 className="sidebar-heading">Spatial Resolution</h4>
           <Form>
             {["radio"].map((type) => (
               <div key={`inline-${type}`} className="mb-5">
@@ -651,7 +911,7 @@ export default function SideBar({
                   style={{ fontSize: "small" }}
                   onChange={handleChange} // Add onChange handler
                   checked={formData.spatialLevel === "0.5"}
-                  disabled
+                  // disabled
                 />
                 <Form.Check
                   inline
@@ -663,7 +923,7 @@ export default function SideBar({
                   style={{ fontSize: "small" }}
                   onChange={handleChange} // Add onChange handler
                   checked={formData.spatialLevel === "1.0"}
-                  disabled
+                  // disabled
                 />
                 <Form.Check
                   inline
@@ -675,18 +935,22 @@ export default function SideBar({
                   style={{ fontSize: "small" }}
                   onChange={handleChange} // Add onChange handler
                   checked={formData.spatialLevel === "2.0"}
-                  disabled
+                  // disabled
                 />
               </div>
             ))}
           </Form>
-          <div style={{ marginBottom: "-30px" }}></div>
+          </div>
+          <div style={{ marginBottom: "-40px" }}></div>
 
           <h4 className="sidebar-heading">
-            Optional: Select Longitude Latitude Range
+          Longitude Latitude Range
           </h4>
           <div className="coordinates-container">
+          <div style={{ marginLeft: "50px" }}>
             <div className="row">
+            
+            </div>
               <div className="cell">
                 <label className="label"> North:</label>
                 <input
@@ -700,7 +964,9 @@ export default function SideBar({
                 />
               </div>
             </div>
+            
             <div className="column">
+            <div style={{ marginLeft: "40px" }}></div>
               <div className="cell">
                 <label className="label">West:</label>
                 <input
@@ -727,7 +993,9 @@ export default function SideBar({
                 />
               </div>
             </div>
+            <div style={{ marginLeft: "50px",marginBottom:"10px"}}>
             <div className="row">
+            </div>
               <div className="cell">
                 <label className="label">South:</label>
 
@@ -747,7 +1015,7 @@ export default function SideBar({
           <div style={{ marginBottom: "10px" }}></div>
           <div
             className="sidebar-buttons"
-            style={{ display: "flex", gap: "10px", position: "right" }}
+            style={{ display: "flex", gap: "10px", position: "right",marginLeft:"25px" }}
           >
             <Button
               variant="outline-primary"
@@ -763,12 +1031,74 @@ export default function SideBar({
             <Button
               variant="outline-primary"
               size="sm"
+              onClick={handleDownload}
+              // disabled
+            >
+              Download
+            </Button>
+          </div>
+          </div>
+          <Divider
+      sx={{
+        height: 1,
+        margin: '10px 0px 0px 0px',
+        border: '1px solid #ccc',
+
+        // borderTop: '1px dashed #bbb',
+      }}
+    />
+          <div
+            style={{
+              marginTop: "5px",marginLeft:"-15px",maringBottom:"30px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <div
+            style={{
+              marginRight:"1px",
+            }}
+          >
+          <SecondAggDropDown personName={secondAgg} handleChange={handleChangeSecondAggDropDown}  />
+          </div>
+          <div
+            style={{
+              marginRight:"10px",
+              // mrginLeft:"-20px"
+            }}
+          >
+          <ComparisonsDropDown personName={comparison} handleChange={handleChangeComparisonDropDown}  />  
+          </div>  
+          <div
+            style={{
+              marginTop:"10px",
+              // mrginLeft:"-20px"
+            }}
+          > 
+            <QuantityInput myValue={myValue} onChange={handleValueChange}  />
+            </div>
+            </div>
+            <div
+            className="sidebar-buttons"
+            style={{ display: "flex", gap: "10px", position: "right" ,marginTop:"25px",marginLeft:"60px"}}
+          >
+            <Button
+              variant="outline-primary"
+              size="sm"
               onClick={handleAreas}
               // disabled
             >
-              Get Areas
+              Find Areas
             </Button>
-          </div>
+            <Button
+              variant="outline-primary"
+              size="sm"
+              onClick={handleTimes}
+              // disabled
+            >
+              Find Times
+            </Button>
+            </div>
           <div
             style={{
               marginTop: "10px",
@@ -776,6 +1106,8 @@ export default function SideBar({
               justifyContent: "center",
             }}
           >
+          
+         
             <p>{progressDesc}</p>
           </div>
           <div
@@ -785,6 +1117,7 @@ export default function SideBar({
               justifyContent: "center",
             }}
           >
+            
             {/* TODO: Look at this website later to do the progress bar  */}
             <ProgressBar
               // animated

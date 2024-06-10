@@ -1,7 +1,7 @@
 import React from "react";
 import myVideo from '../assets/heatmapVideo.mp4'
 
-const VideoComponent = ({ videoSrc }) => {
+const HeatMapComponent = ({ videoSrc }) => {
   const videoBlob = videoSrc || null; // Ensure videoBlob is null if videoSrc is not provided
 
   if (!videoBlob) {
@@ -40,4 +40,4 @@ const VideoComponent = ({ videoSrc }) => {
   );
 };
 
-export default VideoComponent;
+export default HeatMapComponent;

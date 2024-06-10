@@ -4,12 +4,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
 import { createTheme } from "@material-ui/core/styles";
 import Box from "@mui/joy/Box";
-import ImageComponent from "./components/ImageComponent";
-import VideoComponent from "./components/VideoComponent";
-import NewMap from "./components/NewMap";
+import TimeSeriesComponent from "./components/TimeSeriesComponent";
+import HeatMapComponent from "./components/HeatMapComponent";
+import MyMap from "./components/Map";
 import Sidebar from "./components/Sidebar";
 import "./App.css";
-import PlotlyFigure from './components/plotlyFigure';
+import AreasComponentMap from './components/AreasComponentMap';
 import TableComponent from "./components/TableComponent";
 import CollapsibleCard from "./components/CollapsibleCard";
 const drawerWidth = 375;
@@ -98,7 +98,7 @@ export default function App() {
           <div className={classes.drawerHeader} />
           
           <Box sx={{ marginLeft: 0 , marginRight: 0,marginTop:0 }}> {/* Add margin to the left */}
-              <NewMap />
+              <MyMap />
           </Box>
 
           <Box
@@ -106,7 +106,7 @@ export default function App() {
             sx={{ display: "flex", gap: 2, flexWrap: "wrap", p: 0, m: 1 }}
           >
             <CollapsibleCard title="Image">
-              <ImageComponent imageData={imageSrc} />
+              <TimeSeriesComponent imageData={imageSrc} />
             </CollapsibleCard>
             <CollapsibleCard title="Table">
               <TableComponent tableData={tableDataM} />
@@ -117,13 +117,13 @@ export default function App() {
             sx={{ display: "flex", gap: 2, flexWrap: "wrap", p: 0, m: 0 }}
           >
             <CollapsibleCard title="Video">
-              <VideoComponent videoSrc={videoUrl} />
+              <HeatMapComponent videoSrc={videoUrl} />
             </CollapsibleCard>
             <CollapsibleCard title="Plotly Figure">
-              <PlotlyFigure jsonData={jsonFile} />
+              <AreasComponentMap jsonData={jsonFile} />
             </CollapsibleCard>
             <CollapsibleCard title="Video">
-            <PlotlyFigure jsonData={jsonFile} />
+            <AreasComponentMap jsonData={jsonFile} />
             </CollapsibleCard>
            
           </Box>

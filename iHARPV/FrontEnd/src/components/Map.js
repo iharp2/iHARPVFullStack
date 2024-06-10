@@ -17,7 +17,7 @@ import "react-leaflet-fullscreen/dist/styles.css";
 
 // import "react-leaflet-fullscreen/styles.css";
 // import { FullscreenControl } from "react-leaflet-fullscreen";
-const NewMap = () => {
+const MyMap = () => {
   const { drawnShapeBounds, setDrawnShapeBounds } = useContext(BoundsContext);
   const [editableFG, setEditableFG] = useState(null);
 
@@ -105,12 +105,13 @@ const NewMap = () => {
   return (
     <Map
       center={[70, -40]}
-      zoom={2.5}
+      zoom={2}
       zoomControl={false}
       minZoom={2}
       maxZoom={12}
       className="map-container"
       maxBounds={bounds} // Set the maxBounds option
+      maxBoundsViscosity={1.0}
     >
       <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" />
       <ScaleControl position="bottomleft" imperial={true} />
@@ -150,4 +151,4 @@ const NewMap = () => {
   );
 };
 
-export default NewMap;
+export default MyMap;

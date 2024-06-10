@@ -7,15 +7,15 @@ from django.utils import timezone
 
 class Query(models.Model):
     TEMPORAL_CHOICES = (
-        ("Hourly", "Hourly"),
-        ("Daily", "Daily"),
-        ("Monthly", "Monthly"),
-        ("Yearly", "Yearly"),
+        ("hourly", "hourly"),
+        ("daily", "daily"),
+        ("monthly", "monthly"),
+        ("yearly", "yearly"),
     )
     AGG_CHOICES = (
-        ("Minimum", "Minimum"),
-        ("Maximum", "Maximum"),
-        ("Mean", "Mean"),
+        ("min", "min"),
+        ("max", "max"),
+        ("mean", "mean"),
     )
     REQUEST_CHOICES = (
         ("Time Series", "Time Series"),
