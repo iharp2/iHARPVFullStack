@@ -45,7 +45,9 @@ export default function SideBar({
   handleVideoUpdate,
   handleAreaQuery,
   handleTable,
-  // videoUrl,
+  handleTimeQuery,
+  handleQueryType,
+  videoUrl,
 }) {
   // const { updateImageData } = props;
   const [variable, setVariable] = React.useState("2m Temperature");
@@ -87,7 +89,8 @@ export default function SideBar({
 
   });
   const [areaRecieved, setAreaRecieved] = useState(null); // Initialize selectedEndDateTime with null
-  
+  const [timeRecieved, setTimeRecieved] = useState(null); // Initialize selectedEndDateTime with null
+
   const handleValueChange = (newValue) => {
     console.log("I was called");
     setMyValue(newValue);
@@ -249,15 +252,18 @@ export default function SideBar({
         setAreaRecieved(jsonData.plotlyData);
         setTableRecieved(jsonData.dfData);
       } else {
+        const errorResponse = await response.json();
         setProgress(5);
-        setProgressDesc("Failed", response.status);
+        setProgressDesc(errorResponse.error, response.status);
         console.error(
-          "Failed to fetch get area. HTTP status:",
-          response.status
+          "Failed to fetch areas. HTTP status:",
+          response.status, 
+          "Error message:",
+          errorResponse.error
         );
       }
     } catch (error) {
-      console.error("Error requesting Areas:", error);
+      console.error("Error requesting Time Series:", error);
     }
   };
   const handleTimes= async (e) =>  {
@@ -343,18 +349,21 @@ export default function SideBar({
 
       if (response.ok) {
         const jsonData = await response.json();
-        // setAreaRecieved(jsonData.plotlyData);
-        setImageRecieved(jsonData.plotlyData);
+        setTimeRecieved(jsonData.plotlyData);
+        setTableRecieved(jsonData.dfData);
       } else {
+        const errorResponse = await response.json();
         setProgress(5);
-        setProgressDesc("Failed", response.status);
+        setProgressDesc(errorResponse.error, response.status);
         console.error(
-          "Failed to find times. HTTP status:",
-          response.status
+          "Failed to fetch times. HTTP status:",
+          response.status, 
+          "Error message:",
+          errorResponse.error
         );
       }
     } catch (error) {
-      console.error("Error requesting Time Units:", error);
+      console.error("Error requesting Time Series:", error);
     }
   };
   const handleDownload = async (e) => {
@@ -420,15 +429,18 @@ export default function SideBar({
         // console.log("Successfully requested time series data:", responseData);
         setImageRecieved(responseData);
       } else {
+        const errorResponse = await response.json();
         setProgress(5);
-        setProgressDesc("Failed", response.status);
+        setProgressDesc(errorResponse.error, response.status);
         console.error(
           "Failed to download data. HTTP status:",
-          response.status
+          response.status, 
+          "Error message:",
+          errorResponse.error
         );
       }
     } catch (error) {
-      console.error("Error Downloading Data:", error);
+      console.error("Error requesting Time Series:", error);
     }
   };
   const handleHeatMap = async (e) => {
@@ -518,7 +530,7 @@ export default function SideBar({
       console.error("Error requesting Time Series:", error);
     }
   };
-  // console.log(formData.variable);
+  console.log(formData.value);
 
   const handleTimeSeries = async (e) => {
     if (e) e.preventDefault();
@@ -688,11 +700,39 @@ export default function SideBar({
       // For example, you can trigger a re-render here or perform other actions
       // console.log("Image received:");
       handleAreaQuery(areaRecieved);
+      // handleQueryType(formData.requestType);
       // Update progress to 100 when response is received
       setProgress(100);
       setProgressDesc("Received Areas On Map");
     }
   }, [areaRecieved, handleAreaQuery]);
+  useEffect(() => {
+    if (formData.requestType) {
+      // Execute any code you want to run after responseReceived changes
+      // This code will run every time responseReceived changes
+      // For example, you can trigger a re-render here or perform other actions
+      // console.log("Image received:");
+      // handleTimeQuery(timeRecieved);
+      handleQueryType(formData.requestType);
+      // Update progress to 100 when response is received
+      // setProgress(100);
+      // setProgressDesc("Received Times On Plot");
+    }
+  }, [formData.requestType,handleQueryType]);
+  useEffect(() => {
+    if (timeRecieved) {
+      // Execute any code you want to run after responseReceived changes
+      // This code will run every time responseReceived changes
+      // For example, you can trigger a re-render here or perform other actions
+      // console.log("Image received:");
+      handleTimeQuery(timeRecieved);
+      // handleQueryType(formData.requestType);
+      // Update progress to 100 when response is received
+      setProgress(100);
+      setProgressDesc("Received Times On Plot");
+    }
+  }, [timeRecieved, handleTimeQuery]);
+
   useEffect(() => {
     if (tableRecieved) {
       // Execute any code you want to run after responseReceived changes
@@ -702,7 +742,7 @@ export default function SideBar({
       handleTable(tableRecieved);
       // Update progress to 100 when response is received
       setProgress(100);
-      setProgressDesc("Received Areas on Table");
+      setProgressDesc("Received Data on Table");
     }
   }, [tableRecieved, handleTable]);
 

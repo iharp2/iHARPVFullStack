@@ -9,54 +9,71 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
 const tableDataInitial = [
-  {"time": "2014-02-01T00:00:00", "latitude": 71.125, "longitude": -56.125, "sp": 99446.1202725448, "condition_met": false, "latitude2": 72.625, "longitude2": -55.625},
-  {"time": "2014-02-01T00:00:00", "latitude": 71.125, "longitude": -56.125, "sp": 99446.1202725448, "condition_met": false, "latitude2": 72.625, "longitude2": -55.625},
-  {"time": "2014-02-01T00:00:00", "latitude": 71.125, "longitude": -56.125, "sp": 99446.1202725448, "condition_met": false, "latitude2": 72.625, "longitude2": -55.625},
-  {"time": "2014-02-01T00:00:00", "latitude": 71.125, "longitude": -56.125, "sp": 99446.1202725448, "condition_met": false, "latitude2": 72.625, "longitude2": -55.625},
-  {"time": "2014-02-01T00:00:00", "latitude": 71.125, "longitude": -56.125, "sp": 99446.1202725448, "condition_met": false, "latitude2": 72.625, "longitude2": -55.625},
-  {"time": "2014-02-01T00:00:00", "latitude": 71.125, "longitude": -56.125, "sp": 99446.1202725448, "condition_met": false, "latitude2": 72.625, "longitude2": -55.625},
+  {"time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "variable": 99446, "condition_met": false},
+  {"time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "variable": 99446, "condition_met": false},
+  {"time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "variable": 99446, "condition_met": false},
+  {"time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "variable": 99446, "condition_met": false},
+  {"time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "variable": 99446, "condition_met": false},
+  {"time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "variable": 99446, "condition_met": false},
 ];
 
-export default function StickyHeadTable({ tableData=[] }) {
+export default function StickyHeadTable({ tableData=[],request=""}) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   // Define your columns based on your JSON structure
-  const columns = [
-    { id: 'time', label: 'Time', minWidth: 100 },
-    { id: 'latitude', label: 'Latitude', minWidth: 80 },
-    { id: 'longitude', label: 'Longitude', minWidth: 80 },
-    { id: 'sp', label: 'Variable', minWidth: 80 },
-    { id: 'condition_met', label: 'Condition Met', minWidth: 100 },
-    // { id: 'latitude2', label: 'Latitude 2', minWidth: 100 },
-    // { id: 'longitude2', label: 'Longitude 2', minWidth: 100 },
-  ];
+  const [columns,setColumns] = React.useState([
+    { id: 'time', label: 'Time', maxWidth: 10 },
+    { id: 'latitude', label: 'Latitude', maxWidth: 10 },
+    { id: 'longitude', label: 'Longitude', maxWidth: 80 },
+    { id: 'variable', label: 'Variable Value', maxWidth: 80 },
+    { id: 'condition_met', label: 'Condition Met', maxWidth: 80 },
+  ]);
 
   // Initialize rows based on tableData or use tableDataInitial if tableData is null/undefined
   const rows = React.useMemo(() => {
     console.log("Inside rows jsonData", tableData);
 
     if (Array.isArray(tableData) && tableData.length > 0) {
+      if(request==="Times Query"){
+        const newColumns = [{ id: 'time', label: 'Time', minWidth: 100 },
+        // { id: 'variable', label: 'Variable Value', minWidth: 60 },
+        { id: 'condition_met', label: 'Condition Met', minWidth: 60 }];
+        setColumns(newColumns);
+        return tableData.map((data, index) => ({
+          id: index,
+          time: data.time,
+          // variable: data.variable,
+          condition_met: data.condition_met,
+          
+        }));
+      }
+    else{
+      const newColumns = [
+        { id: 'latitude', label: 'Latitude', minWidth: 80 },
+      { id: 'longitude', label: 'Longitude', minWidth: 80 },
+        // { id: 'variable', label: 'Variable Value', minWidth: 60 },
+        { id: 'condition_met', label: 'Condition Met', minWidth: 60 }];
+        setColumns(newColumns);
       return tableData.map((data, index) => ({
         id: index,
-        time: data.time,
         latitude: data.latitude,
         longitude: data.longitude,
-        sp: data.sp,
+        // variable: data.variable,
         condition_met: data.condition_met,
         
       }));
-    } else {
+    }
+  } else {
       // Use initial data if tableData is empty or undefined
       return tableDataInitial.map((data, index) => ({
         id: index,
         time: data.time,
         latitude: data.latitude,
         longitude: data.longitude,
-        sp: data.sp,
+        variable: data.variable,
         condition_met: data.condition_met,
-        // latitude2: data.latitude2,
-        // longitude2: data.longitude2,
+
       }));
     }
   }, [tableData]);
@@ -71,7 +88,7 @@ export default function StickyHeadTable({ tableData=[] }) {
   };
 
   return (
-    <Paper sx={{ width: "750px", height: "325px", overflow: 'auto' }}>
+    <Paper sx={{ width: "500px", height: "325px", overflow: 'auto' }}>
       <TableContainer sx={{ width: '100%' }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>

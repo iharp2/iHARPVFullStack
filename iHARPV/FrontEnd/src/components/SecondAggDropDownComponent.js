@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 
-const ITEM_HEIGHT = 30;
+const ITEM_HEIGHT = 20;
 const ITEM_PADDING_TOP = 1;
 const MenuProps = {
   PaperProps: {
@@ -18,11 +18,8 @@ const MenuProps = {
 };
 
 const names = [
- 
-  "min",
-  "max",
-  "mean",
-  
+  "any",
+  "all",
 ];
 
 export default function SecondAggDropDown({ personName, handleChange }) {

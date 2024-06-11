@@ -12,6 +12,7 @@ import "./App.css";
 import AreasComponentMap from './components/AreasComponentMap';
 import TableComponent from "./components/TableComponent";
 import CollapsibleCard from "./components/CollapsibleCard";
+import TimesComponent from "./components/Times";
 const drawerWidth = 375;
 
 const useStyles = makeStyles((theme) => ({
@@ -54,8 +55,12 @@ export default function App() {
   const [imageSrc, setImageSrc] = useState(null);
   const [videoUrl, setVideoUrl] = useState("");
   const [jsonFile,setJsonFile] = useState(null);
-  const [tableDataM, setTableDataM] = useState(null);
+  const [jsonFileTimeQuery,setJsonFileTimeQuery] = useState(null);
+  const [requestType,setrequestType] = useState("");
 
+  
+  const [tableDataM, setTableDataM] = useState(null);
+  // const [variable,setVariable]=useState("");
   // const handleDrawerToggle = () => {
   //   setOpen(!open);
   // };
@@ -87,7 +92,8 @@ export default function App() {
           handleVideoUpdate={setVideoUrl}
           handleAreaQuery={setJsonFile}
           handleTable={setTableDataM}
-          // videoUrl={videoUrl}
+          handleTimeQuery={setJsonFileTimeQuery}
+          handleQueryType={setrequestType}
         />
 
         <main
@@ -103,18 +109,19 @@ export default function App() {
 
           <Box
             component="ul"
-            sx={{ display: "flex", gap: 2, flexWrap: "wrap", p: 0, m: 1 }}
+            sx={{ display: "flex", gap: 1, flexWrap: "wrap", p: 0, mb: 1,mt:0.5 }}
           >
             <CollapsibleCard title="Image">
               <TimeSeriesComponent imageData={imageSrc} />
             </CollapsibleCard>
-            <CollapsibleCard title="Table">
-              <TableComponent tableData={tableDataM} />
+            <CollapsibleCard title="Times">
+              <TimesComponent imageData={jsonFileTimeQuery} />
             </CollapsibleCard>
+        
           </Box>
           <Box
             component="ul"
-            sx={{ display: "flex", gap: 2, flexWrap: "wrap", p: 0, m: 0 }}
+            sx={{ display: "flex", gap: 1, flexWrap: "wrap", p: 0, m: 0 }}
           >
             <CollapsibleCard title="Video">
               <HeatMapComponent videoSrc={videoUrl} />
@@ -122,9 +129,10 @@ export default function App() {
             <CollapsibleCard title="Plotly Figure">
               <AreasComponentMap jsonData={jsonFile} />
             </CollapsibleCard>
-            <CollapsibleCard title="Video">
-            <AreasComponentMap jsonData={jsonFile} />
+            <CollapsibleCard title="Table">
+              <TableComponent tableData={tableDataM} request={requestType}   />
             </CollapsibleCard>
+            
            
           </Box>
         </main>
