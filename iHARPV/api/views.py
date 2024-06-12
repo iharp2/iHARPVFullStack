@@ -118,17 +118,52 @@ def getHeatMap(request):
 @api_view(["POST"])
 def downloadData(request):
     print("Request for Downloding Data")
-    # print(request.data)
     serializer = QuerySeriazlier(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        requestType = request.data.get("requestType")
-        response = {
-            "message": f"[Django {now}] Hi, Data Written Successfully: {requestType} !"
-        }
-        return Response(response, status=201)
-    return Response(serializer.errors, status=400)
+    if not serializer.is_valid():
+        error = str(serializer.errors)
+        return JsonResponse({"error": error}, status=400)
+
+    serializer.save()
+    _north = round(float(request.data.get("north")), 3)
+    _south = round(float(request.data.get("south")), 3)
+    _east = round(float(request.data.get("east")), 3)
+    _west = round(float(request.data.get("west")), 3)
+    _start_date_time = request.data.get("startDateTime")
+    _end_date_time = request.data.get("endDateTime")
+    _time_resolution = request.data.get("temporalLevel")
+    _variable = request.data.get("variable")
+    _time_agg_method = request.data.get("aggLevel")
+    _spatial_resolution = float(request.data.get("spatialLevel"))
+    _request_id_ = serializer.data['id']
+
+    try:
+        _raster = iHARPExecuterInstance.getRaster(
+            variable=_variable,
+            start_datetime=_start_date_time,
+            end_datetime=_end_date_time,
+            time_resolution=_time_resolution,  # e.g., "hourly", "daily", "monthly", "yearly"
+            time_agg_method=_time_agg_method,  # e.g., "mean", "max", "min"
+            south=_south,
+            north=_north,
+            west=_west,
+            east=_east,
+            spatial_resolution=_spatial_resolution,  # e.g., 0.25, 0.5, 1.0, 2.5, 5.0
+        )
+        file_name = f"download_{_request_id_}.nc"
+        file_path = f"FrontEnd/build/static/for_download/{file_name}"
+        _raster.to_netcdf(file_path)
+        return JsonResponse(
+            {
+                "fileName": file_name,
+            },
+            status=201,
+        )
+    except ValueError as e:
+        if str(e) == "iHARPV: Query range or resolution not supported":
+            return JsonResponse(
+                {"error": "iHARPV: Query range or resolution not supported"},
+                status=400,
+            )
 
 
 @api_view(["POST"])
