@@ -426,8 +426,10 @@ export default function SideBar({
       if (response.ok) {
         // Parse the response as JSON
         const responseData = await response.json();
-        // console.log("Successfully requested time series data:", responseData);
-        setImageRecieved(responseData);
+        const fileName = responseData.fileName;
+        alert("Receive file name: " + fileName);
+        const fileUrl = `static/for_download/${fileName}`;
+        window.open(fileUrl);
       } else {
         const errorResponse = await response.json();
         setProgress(5);
