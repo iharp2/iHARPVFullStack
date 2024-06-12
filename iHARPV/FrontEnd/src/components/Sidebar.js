@@ -428,7 +428,7 @@ export default function SideBar({
         const responseData = await response.json();
         const fileName = responseData.fileName;
         alert("Receive file name: " + fileName);
-        const fileUrl = `http://127.0.0.1:6099/static/for_download/${fileName}`;
+        const fileUrl = `static/for_download/${fileName}`;
         window.open(fileUrl);
       } else {
         const errorResponse = await response.json();
