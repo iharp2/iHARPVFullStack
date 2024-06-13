@@ -96,10 +96,10 @@ const MyMap = () => {
   const northEast = [90, 180]; // Example: New York City
   const bounds = [southWest, northEast];
   const initialRectangleBounds = [
-    [72, -57], // Top-left
-    [72, -11], // Top-right
-    [58, -11], // Bottom-right
-    [58, -57], // Bottom-left
+    [84, -96], // Top-left (north, west)
+    [84, -7],  // Top-right (north, east)
+    [59, -7],  // Bottom-right (south, east)
+    [59, -96], // Bottom-left (south, west)
   ]; // Define the initial bounds for the rectangle
 
   return (

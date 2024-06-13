@@ -13,6 +13,7 @@ import AreasComponentMap from './components/AreasComponentMap';
 import TableComponent from "./components/TableComponent";
 import CollapsibleCard from "./components/CollapsibleCard";
 import TimesComponent from "./components/Times";
+import TableTimesComponent from "./components/TableTimesComponent";
 const drawerWidth = 375;
 
 const useStyles = makeStyles((theme) => ({
@@ -54,12 +55,14 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [imageSrc, setImageSrc] = useState(null);
   const [videoUrl, setVideoUrl] = useState("");
-  const [jsonFile,setJsonFile] = useState(null);
-  const [jsonFileTimeQuery,setJsonFileTimeQuery] = useState(null);
-  const [requestType,setrequestType] = useState("");
+  const [jsonFile, setJsonFile] = useState(null);
+  const [jsonFileTimeQuery, setJsonFileTimeQuery] = useState(null);
+  const [requestType, setrequestType] = useState("");
 
-  
+
   const [tableDataM, setTableDataM] = useState(null);
+  const [tableDataTimes, setTableDataTimes] = useState(null);
+
   // const [variable,setVariable]=useState("");
   // const handleDrawerToggle = () => {
   //   setOpen(!open);
@@ -81,7 +84,7 @@ export default function App() {
 
 
   return (
-    
+
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
@@ -94,6 +97,7 @@ export default function App() {
           handleTable={setTableDataM}
           handleTimeQuery={setJsonFileTimeQuery}
           handleQueryType={setrequestType}
+          handleTableTimes={setTableDataTimes}
         />
 
         <main
@@ -102,14 +106,14 @@ export default function App() {
           })}
         >
           <div className={classes.drawerHeader} />
-          
-          <Box sx={{ marginLeft: 0 , marginRight: 0,marginTop:0 }}> {/* Add margin to the left */}
-              <MyMap />
+
+          <Box sx={{ marginLeft: 0, marginRight: 0, marginTop: 0 }}> {/* Add margin to the left */}
+            <MyMap />
           </Box>
 
           <Box
             component="ul"
-            sx={{ display: "flex", gap: 1, flexWrap: "wrap", p: 0, mb: 1,mt:0.5 }}
+            sx={{ display: "flex", gap: 1, flexWrap: "wrap", p: 0, mb: 1, mt: 0.5 }}
           >
             <CollapsibleCard title="Image">
               <TimeSeriesComponent imageData={imageSrc} />
@@ -117,7 +121,9 @@ export default function App() {
             <CollapsibleCard title="Times">
               <TimesComponent imageData={jsonFileTimeQuery} />
             </CollapsibleCard>
-        
+            <CollapsibleCard title="Table">
+              <TableTimesComponent tableData={tableDataTimes} />
+            </CollapsibleCard>
           </Box>
           <Box
             component="ul"
@@ -130,10 +136,10 @@ export default function App() {
               <AreasComponentMap jsonData={jsonFile} />
             </CollapsibleCard>
             <CollapsibleCard title="Table">
-              <TableComponent tableData={tableDataM} request={requestType}   />
+              <TableComponent tableData={tableDataM} />
             </CollapsibleCard>
-            
-           
+
+
           </Box>
         </main>
       </div>

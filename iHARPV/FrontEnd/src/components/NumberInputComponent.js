@@ -15,7 +15,7 @@ export default function QuantityInput({ myValue, onChange }) {
     }
   }, [value, onChange]);
 
-  console.log("Inside Number, ", value);
+  // console.log("Inside Number, ", value);
   return (
     <NumberField placeholder='Value' allowWheelScrub value={value} onChange={(newValue) => setValue(newValue)}>
       {/* <NumberLabel>Amount</NumberLabel> */}

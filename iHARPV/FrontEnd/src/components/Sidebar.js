@@ -22,7 +22,7 @@ import SecondAggDropDown from "./SecondAggDropDownComponent";
 import Divider from '@mui/material/Divider';
 import QuantityInput from "./NumberInputComponent";
 import DownloadDropDownComponent from "./DownloadDropDownComponent";
-const drawerWidth = 375;
+const drawerWidth = 370;
 dayjs.extend(utc);
 dayjs.extend(timezone);
 const useStyles = makeStyles((theme) => ({
@@ -52,12 +52,14 @@ export default function SideBar({
   handleTable,
   handleTimeQuery,
   handleQueryType,
+  handleTableTimes,
+
   videoUrl,
 }) {
   // const { updateImageData } = props;
   const [variable, setVariable] = React.useState("2m Temperature");
-  const [comparison, setComparison] = React.useState("");
-  const [secondAgg, setSecondAgg] = React.useState("");
+  const [comparison, setComparison] = React.useState(">");
+  const [secondAgg, setSecondAgg] = React.useState("any");
   const [downloadOption, setDownloadOption] = React.useState("");
 
   const [myValue, setMyValue] = React.useState(0);
@@ -77,6 +79,7 @@ export default function SideBar({
   const [videoRecieved, setVideoReceived] = useState(null);
   const [imageRecieved, setImageRecieved] = useState(null); // Initialize selectedEndDateTime with null
   const [tableRecieved, setTableRecieved] = useState([]); // Initialize selectedEndDateTime with null
+  const [tableTimesRecieved, setTableTimesRecieved] = useState([]); // Initialize selectedEndDateTime with null
 
   const [formData, setFormData] = useState({
     requestType: "",
@@ -85,11 +88,11 @@ export default function SideBar({
     endDateTime: selectedEndDateTime,
     temporalLevel: "daily",
     aggLevel: "mean",
-    spatialLevel: "1.0",
-    north: 72,
-    south: 58,
-    east: -11,
-    west: -57,
+    spatialLevel: "2.0",
+    north: 84,
+    south: 59,
+    east: -7,
+    west: -59,
     secondAgg: "",
     comparison: "",
     value: 0,
@@ -115,7 +118,7 @@ export default function SideBar({
     setSecondAgg(event.target.value);
   };
 
-  console.log("Inside Sidebar myvale", myValue);
+  // console.log("Inside Sidebar myvale", myValue);
   const handleChange = (e) => {
     let myValue;
     const { name, value } = e.target;
@@ -371,7 +374,7 @@ export default function SideBar({
       if (response.ok) {
         const jsonData = await response.json();
         setTimeRecieved(jsonData.plotlyData);
-        setTableRecieved(jsonData.dfData);
+        setTableTimesRecieved(jsonData.dfData);
       } else {
         const errorResponse = await response.json();
         setProgress(5);
@@ -439,7 +442,7 @@ export default function SideBar({
     try {
       setProgress(20);
       setProgressDesc("Downloading Data");
-      console.log(formData);
+      // console.log(formData);
       // Send request to the backend to fetch both time series data and image data
       const response = await fetch("download/", {
         method: "POST",
@@ -474,7 +477,7 @@ export default function SideBar({
       console.error("Error requesting Time Series:", error);
     }
   };
-  console.log(downloadOption);
+  // console.log(downloadOption);
   const handleDownloadAreasTimes = async (e) => {
     if (e) e.preventDefault();
     if (formData.variable === "") {
@@ -546,7 +549,7 @@ export default function SideBar({
     try {
       setProgress(20);
       setProgressDesc("Downloading Data");
-      console.log(formData);
+      // console.log(formData);
       // Send request to the backend to fetch both time series data and image data
       const response = await fetch("downloadareastimes/", {
         method: "POST",
@@ -674,7 +677,7 @@ export default function SideBar({
       console.error("Error requesting Time Series:", error);
     }
   };
-  console.log(formData.value);
+  // console.log(formData.value);
 
   const handleTimeSeries = async (e) => {
     if (e) e.preventDefault();
@@ -729,7 +732,7 @@ export default function SideBar({
     try {
       setProgress(20);
       setProgressDesc("Creating Timeseries");
-      console.log(formData);
+      // console.log(formData);
       // Send request to the backend to fetch both time series data and image data
       const response = await fetch("timeseries/", {
         method: "POST",
@@ -892,9 +895,22 @@ export default function SideBar({
       handleTable(tableRecieved);
       // Update progress to 100 when response is received
       setProgress(100);
-      setProgressDesc("Received Data on Table");
+      setProgressDesc("Received Areas Data on Lower Table");
     }
   }, [tableRecieved, handleTable]);
+
+  useEffect(() => {
+    if (tableTimesRecieved) {
+      // Execute any code you want to run after responseReceived changes
+      // This code will run every time responseReceived changes
+      // For example, you can trigger a re-render here or perform other actions
+      // console.log("Image received:");
+      handleTableTimes(tableTimesRecieved);
+      // Update progress to 100 when response is received
+      setProgress(100);
+      setProgressDesc("Received Times Data on Upper Table");
+    }
+  }, [tableTimesRecieved, handleTableTimes]);
   const isAggregationDisabled = formData.temporalLevel === 'hourly';
   return (
     <Drawer
@@ -934,7 +950,7 @@ export default function SideBar({
         <div style={{ marginBottom: "-20px" }}></div>
 
         <div className="sidebar-container">
-          <div style={{ marginLeft: "5px" }}>
+          <div style={{ marginLeft: "-5px" }}>
             <div style={{ marginBottom: "10px", marginLeft: "-5px" }}>
               <VariablesDropDown personName={variable} handleChange={handleChangeDropDown} />
             </div>
@@ -985,159 +1001,165 @@ export default function SideBar({
             </div>
             <div style={{ marginBottom: "-16px" }}>
               <h4 className="sidebar-heading">Temporal Resolution</h4>
-              <Form label="Select Output Level">
-                <div className="mb-4">
-                  <Form.Check
-                    inline
-                    label="hourly"
-                    name="temporalLevel"
-                    type="radio"
-                    id="inline-radio-1"
-                    value="hourly" // Set value of radio input to hourly
-                    style={{ fontSize: "small", marginLeft: "10px" }}
-                    onChange={handleChange}
-                    checked={formData.temporalLevel === "hourly"}
-                  />
-                  <Form.Check
-                    inline
-                    label="daily"
-                    name="temporalLevel"
-                    type="radio"
-                    id="inline-radio-2"
-                    value="daily" // Set value of radio input to Daily
-                    style={{ fontSize: "small" }}
-                    onChange={handleChange}
-                    checked={formData.temporalLevel === "daily"}
-                  />
-                  <Form.Check
-                    inline
-                    name="temporalLevel"
-                    label="monthly"
-                    type="radio"
-                    id="inline-radio-3"
-                    value="monthly" // Set value of radio input to monthly
-                    style={{ fontSize: "small" }}
-                    onChange={handleChange}
-                    checked={formData.temporalLevel === "monthly"}
-                  />
-                  <Form.Check
-                    inline
-                    name="temporalLevel"
-                    label="yearly"
-                    type="radio"
-                    id="inline-radio-4"
-                    value="yearly" // Set value of radio input to yearly
-                    style={{ fontSize: "small" }}
-                    onChange={handleChange}
-                    checked={formData.temporalLevel === "yearly"}
-                  />
-                </div>
-              </Form>
+              <div style={{ marginLeft: "30px" }}>
+                <Form label="Select Output Level">
+                  <div className="mb-4">
+                    <Form.Check
+                      inline
+                      label="hourly"
+                      name="temporalLevel"
+                      type="radio"
+                      id="inline-radio-1"
+                      value="hourly" // Set value of radio input to hourly
+                      style={{ fontSize: "small", marginLeft: "10px" }}
+                      onChange={handleChange}
+                      checked={formData.temporalLevel === "hourly"}
+                    />
+                    <Form.Check
+                      inline
+                      label="daily"
+                      name="temporalLevel"
+                      type="radio"
+                      id="inline-radio-2"
+                      value="daily" // Set value of radio input to Daily
+                      style={{ fontSize: "small" }}
+                      onChange={handleChange}
+                      checked={formData.temporalLevel === "daily"}
+                    />
+                    <Form.Check
+                      inline
+                      name="temporalLevel"
+                      label="monthly"
+                      type="radio"
+                      id="inline-radio-3"
+                      value="monthly" // Set value of radio input to monthly
+                      style={{ fontSize: "small" }}
+                      onChange={handleChange}
+                      checked={formData.temporalLevel === "monthly"}
+                    />
+                    <Form.Check
+                      inline
+                      name="temporalLevel"
+                      label="yearly"
+                      type="radio"
+                      id="inline-radio-4"
+                      value="yearly" // Set value of radio input to yearly
+                      style={{ fontSize: "small" }}
+                      onChange={handleChange}
+                      checked={formData.temporalLevel === "yearly"}
+                    />
+                  </div>
+                </Form>
+              </div>
             </div>
             <div style={{ marginTop: "10px" }}>
 
               <h4 className="sidebar-heading">
                 Temporal Aggregation
               </h4>
-              <Form>
-                {["radio"].map((type) => (
-                  <div key={`inline-${type}`} className="mb-3">
-                    <Form.Check
-                      inline
-                      label="min"
-                      name="aggLevel"
-                      type={type}
-                      id={`inline-2-${type}-1`}
-                      value="min" // Set value of radio input to Minimum
-                      style={{ fontSize: "small", marginLeft: "10px" }}
-                      onChange={handleChange} // Add onChange handler
-                      checked={formData.aggLevel === "min"}
-                      disabled={isAggregationDisabled}
-                    />
-                    <Form.Check
-                      inline
-                      label="max"
-                      name="aggLevel"
-                      type={type}
-                      id={`inline-2-${type}-2`}
-                      value="max" // Set value of radio input to Maximum
-                      style={{ fontSize: "small" }}
-                      onChange={handleChange} // Add onChange handler
-                      checked={formData.aggLevel === "max"}
-                      disabled={isAggregationDisabled}
-                    />
-                    <Form.Check
-                      inline
-                      label="mean"
-                      name="aggLevel"
-                      type={type}
-                      id={`inline-2-${type}-3`}
-                      value="mean" // Set value of radio input to Average
-                      style={{ fontSize: "small" }}
-                      onChange={handleChange} // Add onChange handler
-                      checked={formData.aggLevel === "mean"}
-                      disabled={isAggregationDisabled}
-                    />
-                  </div>
-                ))}
-              </Form>
+              <div style={{ marginLeft: "30px" }}>
+                <Form>
+                  {["radio"].map((type) => (
+                    <div key={`inline-${type}`} className="mb-3">
+                      <Form.Check
+                        inline
+                        label="min"
+                        name="aggLevel"
+                        type={type}
+                        id={`inline-2-${type}-1`}
+                        value="min" // Set value of radio input to Minimum
+                        style={{ fontSize: "small", marginLeft: "10px" }}
+                        onChange={handleChange} // Add onChange handler
+                        checked={formData.aggLevel === "min"}
+                        disabled={isAggregationDisabled}
+                      />
+                      <Form.Check
+                        inline
+                        label="max"
+                        name="aggLevel"
+                        type={type}
+                        id={`inline-2-${type}-2`}
+                        value="max" // Set value of radio input to Maximum
+                        style={{ fontSize: "small" }}
+                        onChange={handleChange} // Add onChange handler
+                        checked={formData.aggLevel === "max"}
+                        disabled={isAggregationDisabled}
+                      />
+                      <Form.Check
+                        inline
+                        label="mean"
+                        name="aggLevel"
+                        type={type}
+                        id={`inline-2-${type}-3`}
+                        value="mean" // Set value of radio input to Average
+                        style={{ fontSize: "small" }}
+                        onChange={handleChange} // Add onChange handler
+                        checked={formData.aggLevel === "mean"}
+                        disabled={isAggregationDisabled}
+                      />
+                    </div>
+                  ))}
+                </Form>
+              </div>
             </div>
             <div style={{ marginTop: "10px" }}>
               <h4 className="sidebar-heading">Spatial Resolution</h4>
-              <Form>
-                {["radio"].map((type) => (
-                  <div key={`inline-${type}`} className="mb-5">
-                    <Form.Check
-                      inline
-                      label="0.25"
-                      name="spatialLevel"
-                      type={type}
-                      id={`inline-2-${type}-1`}
-                      value="0.25" // Set value of radio input to Minimum
-                      style={{ fontSize: "small", marginLeft: "10px" }}
-                      onChange={handleChange} // Add onChange handler
-                      checked={formData.spatialLevel === "0.25"}
-                    // disabled
-                    />
-                    <Form.Check
-                      inline
-                      label="0.5"
-                      name="spatialLevel"
-                      type={type}
-                      id={`inline-2-${type}-2`}
-                      value="0.5" // Set value of radio input to Maximum
-                      style={{ fontSize: "small" }}
-                      onChange={handleChange} // Add onChange handler
-                      checked={formData.spatialLevel === "0.5"}
-                    // disabled
-                    />
-                    <Form.Check
-                      inline
-                      label="1.0"
-                      name="spatialLevel"
-                      type={type}
-                      id={`inline-2-${type}-3`}
-                      value="1.0" // Set value of radio input to Average
-                      style={{ fontSize: "small" }}
-                      onChange={handleChange} // Add onChange handler
-                      checked={formData.spatialLevel === "1.0"}
-                    // disabled
-                    />
-                    <Form.Check
-                      inline
-                      label="2.0"
-                      name="spatialLevel"
-                      type={type}
-                      id={`inline-2-${type}-3`}
-                      value="2.0" // Set value of radio input to Average
-                      style={{ fontSize: "small" }}
-                      onChange={handleChange} // Add onChange handler
-                      checked={formData.spatialLevel === "2.0"}
-                    // disabled
-                    />
-                  </div>
-                ))}
-              </Form>
+              <div style={{ marginLeft: "30px" }}>
+                <Form>
+                  {["radio"].map((type) => (
+                    <div key={`inline-${type}`} className="mb-5">
+                      <Form.Check
+                        inline
+                        label="0.25"
+                        name="spatialLevel"
+                        type={type}
+                        id={`inline-2-${type}-1`}
+                        value="0.25" // Set value of radio input to Minimum
+                        style={{ fontSize: "small", marginLeft: "10px" }}
+                        onChange={handleChange} // Add onChange handler
+                        checked={formData.spatialLevel === "0.25"}
+                      // disabled
+                      />
+                      <Form.Check
+                        inline
+                        label="0.5"
+                        name="spatialLevel"
+                        type={type}
+                        id={`inline-2-${type}-2`}
+                        value="0.5" // Set value of radio input to Maximum
+                        style={{ fontSize: "small" }}
+                        onChange={handleChange} // Add onChange handler
+                        checked={formData.spatialLevel === "0.5"}
+                      // disabled
+                      />
+                      <Form.Check
+                        inline
+                        label="1.0"
+                        name="spatialLevel"
+                        type={type}
+                        id={`inline-2-${type}-3`}
+                        value="1.0" // Set value of radio input to Average
+                        style={{ fontSize: "small" }}
+                        onChange={handleChange} // Add onChange handler
+                        checked={formData.spatialLevel === "1.0"}
+                      // disabled
+                      />
+                      <Form.Check
+                        inline
+                        label="2.0"
+                        name="spatialLevel"
+                        type={type}
+                        id={`inline-2-${type}-3`}
+                        value="2.0" // Set value of radio input to Average
+                        style={{ fontSize: "small" }}
+                        onChange={handleChange} // Add onChange handler
+                        checked={formData.spatialLevel === "2.0"}
+                      // disabled
+                      />
+                    </div>
+                  ))}
+                </Form>
+              </div>
             </div>
             <div style={{ marginBottom: "-40px" }}></div>
 
@@ -1278,7 +1300,7 @@ export default function SideBar({
           </div>
           <div
             className="sidebar-buttons"
-            style={{ display: "flex", gap: "10px", position: "left", marginTop: "25px", marginLeft: "0px" }}
+            style={{ display: "flex", gap: "10px", position: "left", marginTop: "25px", marginLeft: "-5px" }}
           >
             <Button
               variant="outline-primary"

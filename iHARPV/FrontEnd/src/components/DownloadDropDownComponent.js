@@ -28,7 +28,7 @@ export default function DownloadDropDownComponent({ personName, handleChange }) 
   return (
     <div>
       <FormControl sx={{ m: 1, width: '105px', height: '10px', marginLeft: "-10px" }}>
-        <InputLabel id="demo-multiple-checkbox-label" sx={{ fontSize: '14px', marginTop: "-2px", marginLeft: "3px" }}>
+        <InputLabel id="demo-multiple-checkbox-label" sx={{ fontSize: '14px', marginTop: "-1px", marginLeft: "3px" }}>
           Download
         </InputLabel>
         <Select

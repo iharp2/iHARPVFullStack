@@ -2,11 +2,10 @@
     <PartitionRange>30</PartitionRange>
     <Variables>
         <variable>2m-dewpoint temperature</variable>
-        <variable>pressure</variable>
-        <variable>precipitation</variable>
+        
     </Variables>
     <TimeRange>
-        <range>14</range>
+        <range>10</range>
 	<unit> years</unit>
     </TimeRange>
     <Partitions>
@@ -14,7 +13,7 @@
             <partitionStart>0</partitionStart>
 	     <partitionEnd>71</partitionEnd>
             <SpatialResolution>0.25</SpatialResolution>
-            <TimeResolution>day</TimeResolution>
+            <TimeResolution>hourly</TimeResolution>
         </partition>
        
     </Partitions>

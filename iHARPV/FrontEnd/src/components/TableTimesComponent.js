@@ -9,46 +9,41 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import Papa from 'papaparse';
-import myinitialTable from '../assets/tableDataAreas.json'
+import myinitialTable from '../assets/tableDataTimes.json'
 
 
-export default function TableComponent({ tableData = [] }) {
+export default function TableTimesComponent({ tableData = [] }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const [columns, setColumns] = React.useState([
-    { id: 'latitude', label: 'Latitude', maxWidth: 10 },
-    { id: 'longitude', label: 'Longitude', maxWidth: 80 },
-    { id: 'condition_met', label: 'Condition Met', maxWidth: 80 },
+    { id: 'time', label: 'Time', maxWidth: 200 },
+    { id: 'condition_met', label: 'Condition Met', maxWidth: 150 },
   ]);
 
   const rows = React.useMemo(() => {
     if (Array.isArray(tableData) && tableData.length > 0) {
       setPage(0);
-
-      const newColumns = [
-        { id: 'latitude', label: 'Latitude', minWidth: 80 },
-        { id: 'longitude', label: 'Longitude', minWidth: 80 },
-        { id: 'condition_met', label: 'Condition Met', minWidth: 60 }];
+      // if (request === "Times Query") {
+      const newColumns = [{ id: 'time', label: 'Time', minWidth: 200 },
+      { id: 'condition_met', label: 'Condition Met', minWidth: 150 }];
       setColumns(newColumns);
       return tableData.map((data, index) => ({
         id: index,
-        latitude: data.latitude,
-        longitude: data.longitude,
+        time: data.time,
         condition_met: data.condition_met,
       }));
+      // }
+
     } else {
       if (myinitialTable) {
-
         return myinitialTable.map((data, index) => ({
           id: index,
-          latitude: data.latitude,
-          longitude: data.longitude,
+          time: data.time,
           condition_met: data.condition_met,
         }));
       }
       else {
-        console.log("The problem here")
         return;
       }
     }
@@ -83,7 +78,7 @@ export default function TableComponent({ tableData = [] }) {
     }
   };
   return (
-    <Paper sx={{ width: "100%", overflow: 'auto', maxWidth: '480px', maxHeight: '310px' }}>
+    <Paper sx={{ width: "100%", overflow: 'auto', width: '330px', maxHeight: '310px' }}>
 
       <TableContainer sx={{ width: '100%' }}>
         <Table stickyHeader aria-label="sticky table">
@@ -112,8 +107,8 @@ export default function TableComponent({ tableData = [] }) {
         </Table>
       </TableContainer>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Button variant="contained" color="primary" onClick={handleDownload} style={{ fontSize: '10px', height: '30px', minWidth: '120px', margin: '10px' }}>
-          Download CSV
+        <Button variant="contained" color="primary" onClick={handleDownload} style={{ fontSize: '12px', height: '30px', minWidth: '90px', margin: '5px' }}>
+          Download
         </Button>
         <TablePagination
           rowsPerPageOptions={[5, 20, 100]}
@@ -123,6 +118,31 @@ export default function TableComponent({ tableData = [] }) {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          sx={{
+            '& .MuiTablePagination-toolbar': {
+              // marginLeft: '-20px',
+
+              fontSize: '20px', // Set your desired font size here
+            },
+            '& .MuiTablePagination-selectLabel': {
+              // marginTop: '10px',
+              // marginLeft: '-50px',
+              fontSize: '0px', // Set your desired font size here
+            },
+            '& .MuiTablePagination-displayedRows': {
+              marginTop: '10px',
+              marginLeft: '-30px',
+              fontSize: '14px', // Set your desired font size here
+            },
+            '& .MuiTablePagination-select': {
+              marginLeft: '-30px',
+              fontSize: '15px', // Set your desired font size here
+            },
+            '& .MuiTablePagination-menuItem': {
+              marginLeft: '-50px',
+              fontSize: '12px', // Set your desired font size here
+            },
+          }}
         />
       </div>
     </Paper>
