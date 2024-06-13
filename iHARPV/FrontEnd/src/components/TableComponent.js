@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,76 +7,64 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import Button from '@mui/material/Button';
+import Papa from 'papaparse';
 
 const tableDataInitial = [
-  {"time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "variable": 99446, "condition_met": false},
-  {"time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "variable": 99446, "condition_met": false},
-  {"time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "variable": 99446, "condition_met": false},
-  {"time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "variable": 99446, "condition_met": false},
-  {"time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "variable": 99446, "condition_met": false},
-  {"time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "variable": 99446, "condition_met": false},
+  { "time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "condition_met": false },
+  { "time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "condition_met": false },
+  { "time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "condition_met": false },
+  { "time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "condition_met": false },
+  { "time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "condition_met": false },
+  { "time": "2014-02-01T00", "latitude": 71.125, "longitude": -56.125, "condition_met": false },
 ];
 
-export default function StickyHeadTable({ tableData=[],request=""}) {
+export default function StickyHeadTable({ tableData = [], request = "" }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  // Define your columns based on your JSON structure
-  const [columns,setColumns] = React.useState([
+  const [columns, setColumns] = React.useState([
     { id: 'time', label: 'Time', maxWidth: 10 },
     { id: 'latitude', label: 'Latitude', maxWidth: 10 },
     { id: 'longitude', label: 'Longitude', maxWidth: 80 },
-    { id: 'variable', label: 'Variable Value', maxWidth: 80 },
     { id: 'condition_met', label: 'Condition Met', maxWidth: 80 },
   ]);
 
-  // Initialize rows based on tableData or use tableDataInitial if tableData is null/undefined
   const rows = React.useMemo(() => {
-    console.log("Inside rows jsonData", tableData);
-
     if (Array.isArray(tableData) && tableData.length > 0) {
-      if(request==="Times Query"){
+      setPage(0);
+      if (request === "Times Query") {
         const newColumns = [{ id: 'time', label: 'Time', minWidth: 100 },
-        // { id: 'variable', label: 'Variable Value', minWidth: 60 },
         { id: 'condition_met', label: 'Condition Met', minWidth: 60 }];
         setColumns(newColumns);
         return tableData.map((data, index) => ({
           id: index,
           time: data.time,
-          // variable: data.variable,
           condition_met: data.condition_met,
-          
+        }));
+      } else {
+        const newColumns = [
+          { id: 'latitude', label: 'Latitude', minWidth: 80 },
+          { id: 'longitude', label: 'Longitude', minWidth: 80 },
+          { id: 'condition_met', label: 'Condition Met', minWidth: 60 }];
+        setColumns(newColumns);
+        return tableData.map((data, index) => ({
+          id: index,
+          latitude: data.latitude,
+          longitude: data.longitude,
+          condition_met: data.condition_met,
         }));
       }
-    else{
-      const newColumns = [
-        { id: 'latitude', label: 'Latitude', minWidth: 80 },
-      { id: 'longitude', label: 'Longitude', minWidth: 80 },
-        // { id: 'variable', label: 'Variable Value', minWidth: 60 },
-        { id: 'condition_met', label: 'Condition Met', minWidth: 60 }];
-        setColumns(newColumns);
-      return tableData.map((data, index) => ({
-        id: index,
-        latitude: data.latitude,
-        longitude: data.longitude,
-        // variable: data.variable,
-        condition_met: data.condition_met,
-        
-      }));
-    }
-  } else {
-      // Use initial data if tableData is empty or undefined
+    } else {
       return tableDataInitial.map((data, index) => ({
         id: index,
         time: data.time,
         latitude: data.latitude,
         longitude: data.longitude,
-        variable: data.variable,
         condition_met: data.condition_met,
-
       }));
     }
-  }, [tableData]);
+  }, [tableData, request]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -84,11 +72,31 @@ export default function StickyHeadTable({ tableData=[],request=""}) {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
-    setPage(0); // Reset page to 0 when changing rows per page
+    setPage(0);
   };
+  const handleDownload = () => {
+    const csvData = Papa.unparse(rows);
+    const timestamp = new Date().toLocaleString().replace(/\/|,|:|\s/g, "_"); // Replace special characters for filename compatibility
+    const filename = `table_data_${timestamp}.csv`; // Generate filename with readable timestamp
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
 
+    if (navigator.msSaveBlob) { // For IE 10+
+      navigator.msSaveBlob(blob, filename);
+    } else {
+      const link = document.createElement("a");
+      if (link.download !== undefined) {
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", filename);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
+  };
   return (
-    <Paper sx={{ width: "500px", height: "325px", overflow: 'auto' }}>
+    <Paper sx={{ width: "100%", overflow: 'auto', maxWidth: '500px', maxHeight: '310px' }}>
+
       <TableContainer sx={{ width: '100%' }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -115,15 +123,20 @@ export default function StickyHeadTable({ tableData=[],request=""}) {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Button variant="contained" color="primary" onClick={handleDownload} style={{ fontSize: '10px', height: '30px', minWidth: '120px', margin: '10px' }}>
+          Download CSV
+        </Button>
+        <TablePagination
+          rowsPerPageOptions={[5, 20, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </div>
     </Paper>
   );
 }

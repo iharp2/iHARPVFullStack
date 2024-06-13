@@ -8,3 +8,5 @@ iHARPV/api/migrations
 iHARPV/db.sqlite3
 iHARPV/nohup.out
 iHARPV/api/migrations/
+venv/
+init_venv.sh

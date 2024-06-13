@@ -1,6 +1,6 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
-import myFigure from '../assets/plotly_figure.json'
+import myFigure from '../assets/areasData.json'
 const AreasComponentMap = ({ jsonData }) => {
   
     if (!jsonData) {

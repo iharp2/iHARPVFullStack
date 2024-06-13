@@ -11,6 +11,7 @@ urlpatterns = [
     path("timeseries/", getTimeSeries, name="timeseries"),
     path("heatmap/", getHeatMap, name="heatmap"),
     path("download/", downloadData, name="download"),
+    path("downloadareastimes/", downloadAreasTimes, name="downloadareastimes"),
     path("areas/", getAreas, name="areas"),
     path("times/", getTimes, name="times"),
 ]

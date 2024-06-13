@@ -6,6 +6,14 @@
 /* div {
   white-space: pre-wrap;
 } */
+.datetime-container {
+  display: flex;
+  align-items: center;
+  /* Align items vertically center if needed */
+  gap: 4px;
+  /* Optional: space between the datetime pickers */
+}
+
 .instruction-text h7 {
   font-size: 16px;
   color: #333;
@@ -118,9 +126,9 @@ h1 em {
   /* Padding from the top */
   padding-bottom: 20px;
   /* Padding from the bottom */
-  padding-left: 10px;
+  padding-left: 3px;
   /* Padding from the left */
-  padding-right: 5px;
+  padding-right: 2px;
 }
 
 .sidebar-content .sidebar-heading {

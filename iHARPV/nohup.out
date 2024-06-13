@@ -523,3 +523,1058 @@ Watching for file changes with StatReloader
 [09/Jun/2024 23:41:04] "POST /timeseries/ HTTP/1.0" 201 10230
 [09/Jun/2024 23:42:42] "POST /timeseries/ HTTP/1.0" 201 10230
 /data/iHARPVFullStack/iHARPV
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory '/data/iHARPVFullStack/iHARPV/FrontEnd/build/static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 25, in index
+    return render(request, "index.html")
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:31:45] "GET / HTTP/1.0" 500 84894
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 25, in index
+    return render(request, "index.html")
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:31:45] "GET / HTTP/1.0" 500 84620
+Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:31:45] "GET /favicon.ico HTTP/1.0" 500 84430
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 25, in index
+    return render(request, "index.html")
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:24] "GET / HTTP/1.0" 500 84757
+Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:24] "GET /favicon.ico HTTP/1.0" 500 84430
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 25, in index
+    return render(request, "index.html")
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:26] "GET / HTTP/1.0" 500 84757
+Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:26] "GET /favicon.ico HTTP/1.0" 500 84430
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 25, in index
+    return render(request, "index.html")
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:30] "GET / HTTP/1.0" 500 84757
+Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:30] "GET /favicon.ico HTTP/1.0" 500 84430
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 25, in index
+    return render(request, "index.html")
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:30] "GET / HTTP/1.0" 500 84757
+Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:31] "GET /favicon.ico HTTP/1.0" 500 84430
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 25, in index
+    return render(request, "index.html")
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:31] "GET / HTTP/1.0" 500 84757
+Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:31] "GET /favicon.ico HTTP/1.0" 500 84430
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 25, in index
+    return render(request, "index.html")
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:31] "GET / HTTP/1.0" 500 84757
+Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:31] "GET /favicon.ico HTTP/1.0" 500 84430
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 25, in index
+    return render(request, "index.html")
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:31] "GET / HTTP/1.0" 500 84757
+Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:31] "GET /favicon.ico HTTP/1.0" 500 84430
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 25, in index
+    return render(request, "index.html")
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:31] "GET / HTTP/1.0" 500 84757
+Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:31] "GET /favicon.ico HTTP/1.0" 500 84430
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 25, in index
+    return render(request, "index.html")
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:44] "GET / HTTP/1.0" 500 84757
+Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:44] "GET /favicon.ico HTTP/1.0" 500 84430
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 25, in index
+    return render(request, "index.html")
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:46] "GET / HTTP/1.0" 500 84757
+Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:46] "GET /favicon.ico HTTP/1.0" 500 84430
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 25, in index
+    return render(request, "index.html")
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:49] "GET / HTTP/1.0" 500 84757
+Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:49] "GET /favicon.ico HTTP/1.0" 500 84430
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 25, in index
+    return render(request, "index.html")
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:50] "GET / HTTP/1.0" 500 84757
+Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[12/Jun/2024 03:32:50] "GET /favicon.ico HTTP/1.0" 500 84430
+/data/iHARPVFullStack/iHARPV
+Performing system checks...
+
+0.6481539549729405
+June 12, 2024 - 03:31:34
+Django version 5.0.4, using settings 'BackEnd.settings'
+Starting development server at http://0.0.0.0:6080/
+Quit the server with CONTROL-C.
+
+/data/iHARPVFullStack/iHARPV
+Watching for file changes with StatReloader
+[12/Jun/2024 03:33:22] "GET / HTTP/1.0" 200 546
+[12/Jun/2024 03:33:22] "GET /static/css/main.43d847fb.css HTTP/1.0" 200 269362
+[12/Jun/2024 03:33:22] "GET /static/js/main.46b4e3e9.js HTTP/1.0" 200 5176091
+[12/Jun/2024 03:33:23] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 200 5551
+[12/Jun/2024 03:33:23] "GET /static/media/heatmapVideo.bb57cd139a85a8801969.mp4 HTTP/1.0" 200 3022689
+[12/Jun/2024 03:33:24] "GET /favicon.ico HTTP/1.0" 200 546
+Internal Server Error: /download/
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/file_manager.py", line 211, in _acquire_with_cache_info
+    file = self._cache[self._key]
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/lru_cache.py", line 56, in __getitem__
+    value = self._cache[key]
+KeyError: [<class 'netCDF4._netCDF4.Dataset'>, ('/data/iHARPVFullStack/iHARPV/FrontEnd/build/static/for_download/download_1662.nc',), 'a', (('clobber', True), ('diskless', False), ('format', 'NETCDF4'), ('persist', False)), '77dcb987-8331-4732-b16c-94cff3185c89']
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/data/iHARPVFullStack/iHARPV/api/views.py", line 154, in downloadData
+    _raster.to_netcdf(file_path)
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/core/dataset.py", line 2298, in to_netcdf
+    return to_netcdf(  # type: ignore  # mypy cannot resolve the overloads:(
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/api.py", line 1322, in to_netcdf
+    store = store_open(target, mode, format, group, **kwargs)
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 409, in open
+    return cls(manager, group=group, mode=mode, lock=lock, autoclose=autoclose)
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 356, in __init__
+    self.format = self.ds.data_model
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 418, in ds
+    return self._acquire()
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 412, in _acquire
+    with self._manager.acquire_context(needs_lock) as root:
+  File "/usr/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/file_manager.py", line 199, in acquire_context
+    file, cached = self._acquire_with_cache_info(needs_lock)
+  File "/home/husse408/.local/lib/python3.10/site-packages/xarray/backends/file_manager.py", line 217, in _acquire_with_cache_info
+    file = self._opener(*self._args, **kwargs)
+  File "src/netCDF4/_netCDF4.pyx", line 2469, in netCDF4._netCDF4.Dataset.__init__
+  File "src/netCDF4/_netCDF4.pyx", line 2028, in netCDF4._netCDF4._ensure_nc_success
+PermissionError: [Errno 13] Permission denied: '/data/iHARPVFullStack/iHARPV/FrontEnd/build/static/for_download/download_1662.nc'
+[12/Jun/2024 03:33:29] "POST /download/ HTTP/1.0" 500 161594
+[12/Jun/2024 03:34:04] "GET / HTTP/1.0" 200 546
+[12/Jun/2024 03:34:04] "GET /static/css/main.43d847fb.css HTTP/1.0" 304 0
+[12/Jun/2024 03:34:04] "GET /static/js/main.46b4e3e9.js HTTP/1.0" 304 0
+[12/Jun/2024 03:34:04] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 304 0
+[12/Jun/2024 03:34:05] "GET /favicon.ico HTTP/1.0" 200 546
+[12/Jun/2024 03:34:05] "GET /static/media/heatmapVideo.bb57cd139a85a8801969.mp4 HTTP/1.0" 200 3022689
+[12/Jun/2024 03:34:09] "POST /download/ HTTP/1.0" 201 32
+[12/Jun/2024 03:34:11] "GET /static/for_download/download_1663.nc HTTP/1.0" 200 10828
+[12/Jun/2024 03:37:50] "POST /areas/ HTTP/1.0" 201 104010
+[12/Jun/2024 03:37:52] "POST /times/ HTTP/1.0" 201 9005
+[12/Jun/2024 03:37:53] "POST /areas/ HTTP/1.0" 201 104010
+[12/Jun/2024 03:38:05] "POST /times/ HTTP/1.0" 201 9005
+[12/Jun/2024 03:46:24] "GET /static/media/heatmapVideo.bb57cd139a85a8801969.mp4 HTTP/1.0" 304 0
+[12/Jun/2024 03:57:27] "POST /areas/ HTTP/1.0" 201 5350078
+[12/Jun/2024 03:57:33] "POST /areas/ HTTP/1.0" 201 389670
+[12/Jun/2024 03:59:42] "POST /areas/ HTTP/1.0" 201 389668
+[12/Jun/2024 04:00:10] "POST /areas/ HTTP/1.0" 201 389682
+[12/Jun/2024 14:08:20] "GET / HTTP/1.0" 200 546
+[12/Jun/2024 14:08:20] "GET /static/css/main.43d847fb.css HTTP/1.0" 304 0
+[12/Jun/2024 14:08:20] "GET /static/js/main.46b4e3e9.js HTTP/1.0" 304 0
+[12/Jun/2024 14:08:20] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 304 0
+[12/Jun/2024 14:08:20] "GET /static/media/heatmapVideo.bb57cd139a85a8801969.mp4 HTTP/1.0" 304 0
+[12/Jun/2024 14:08:20] "GET /favicon.ico HTTP/1.0" 200 546
+Bad Request: /timeseries/
+[12/Jun/2024 14:08:43] "POST /timeseries/ HTTP/1.0" 400 15
+[12/Jun/2024 14:08:52] "POST /timeseries/ HTTP/1.0" 201 16470
+[12/Jun/2024 14:09:02] "POST /download/ HTTP/1.0" 201 32
+[12/Jun/2024 14:09:06] "GET /static/for_download/download_1674.nc HTTP/1.0" 200 81027
+[12/Jun/2024 14:09:22] "POST /download/ HTTP/1.0" 201 32
+[12/Jun/2024 14:09:24] "GET /static/for_download/download_1675.nc HTTP/1.0" 200 4608451
+[12/Jun/2024 14:09:55] "POST /timeseries/ HTTP/1.0" 201 9825
+[12/Jun/2024 14:10:01] "POST /timeseries/ HTTP/1.0" 201 11720
+[12/Jun/2024 14:10:17] "POST /times/ HTTP/1.0" 201 19484
+/data/iHARPVFullStack/iHARPV
+Performing system checks...
+
+0.00508721633776632
+System check identified no issues (0 silenced).
+June 12, 2024 - 03:33:20
+Django version 5.0.4, using settings 'BackEnd.settings'
+Starting development server at http://0.0.0.0:6080/
+Quit the server with CONTROL-C.
+
+Request for Downloding Data
+Request for Downloding Data
+Request for Areas
+Request for Times
+['2023-01-01T06:00:00.000000000' '2023-01-01T07:00:00.000000000']
+[ True  True]
+                 time  condition_met
+0 2023-01-01 06:00:00           True
+1 2023-01-01 07:00:00           True
+Request for Areas
+Request for Times
+['2023-01-01T06:00:00.000000000' '2023-01-01T07:00:00.000000000']
+[ True  True]
+                 time  condition_met
+0 2023-01-01 06:00:00           True
+1 2023-01-01 07:00:00           True
+Request for Areas
+Request for Areas
+Request for Areas
+Request for Areas
+Request for Time Seies 
+Request for Time Seies 
+Request for Downloding Data
+Request for Downloding Data
+Request for Time Seies 
+Request for Time Seies 
+Request for Times
+['2014-01-02T00:00:00.000000000' '2014-01-03T00:00:00.000000000'
+ '2014-01-04T00:00:00.000000000' '2014-01-05T00:00:00.000000000'
+ '2014-01-06T00:00:00.000000000' '2014-01-07T00:00:00.000000000'
+ '2014-01-08T00:00:00.000000000' '2014-01-09T00:00:00.000000000'
+ '2014-01-10T00:00:00.000000000' '2014-01-11T00:00:00.000000000'
+ '2014-01-12T00:00:00.000000000' '2014-01-13T00:00:00.000000000'
+ '2014-01-14T00:00:00.000000000' '2014-01-15T00:00:00.000000000'
+ '2014-01-16T00:00:00.000000000' '2014-01-17T00:00:00.000000000'
+ '2014-01-18T00:00:00.000000000' '2014-01-19T00:00:00.000000000'
+ '2014-01-20T00:00:00.000000000' '2014-01-21T00:00:00.000000000'
+ '2014-01-22T00:00:00.000000000' '2014-01-23T00:00:00.000000000'
+ '2014-01-24T00:00:00.000000000' '2014-01-25T00:00:00.000000000'
+ '2014-01-26T00:00:00.000000000' '2014-01-27T00:00:00.000000000'
+ '2014-01-28T00:00:00.000000000' '2014-01-29T00:00:00.000000000'
+ '2014-01-30T00:00:00.000000000' '2014-01-31T00:00:00.000000000'
+ '2014-02-01T00:00:00.000000000' '2014-02-02T00:00:00.000000000'
+ '2014-02-03T00:00:00.000000000' '2014-02-04T00:00:00.000000000'
+ '2014-02-05T00:00:00.000000000' '2014-02-06T00:00:00.000000000'
+ '2014-02-07T00:00:00.000000000' '2014-02-08T00:00:00.000000000'
+ '2014-02-09T00:00:00.000000000' '2014-02-10T00:00:00.000000000'
+ '2014-02-11T00:00:00.000000000' '2014-02-12T00:00:00.000000000'
+ '2014-02-13T00:00:00.000000000' '2014-02-14T00:00:00.000000000'
+ '2014-02-15T00:00:00.000000000' '2014-02-16T00:00:00.000000000'
+ '2014-02-17T00:00:00.000000000' '2014-02-18T00:00:00.000000000'
+ '2014-02-19T00:00:00.000000000' '2014-02-20T00:00:00.000000000'
+ '2014-02-21T00:00:00.000000000' '2014-02-22T00:00:00.000000000'
+ '2014-02-23T00:00:00.000000000' '2014-02-24T00:00:00.000000000'
+ '2014-02-25T00:00:00.000000000' '2014-02-26T00:00:00.000000000'
+ '2014-02-27T00:00:00.000000000' '2014-02-28T00:00:00.000000000'
+ '2014-03-01T00:00:00.000000000' '2014-03-02T00:00:00.000000000'
+ '2014-03-03T00:00:00.000000000' '2014-03-04T00:00:00.000000000'
+ '2014-03-05T00:00:00.000000000' '2014-03-06T00:00:00.000000000'
+ '2014-03-07T00:00:00.000000000' '2014-03-08T00:00:00.000000000'
+ '2014-03-09T00:00:00.000000000' '2014-03-10T00:00:00.000000000'
+ '2014-03-11T00:00:00.000000000' '2014-03-12T00:00:00.000000000'
+ '2014-03-13T00:00:00.000000000' '2014-03-14T00:00:00.000000000'
+ '2014-03-15T00:00:00.000000000' '2014-03-16T00:00:00.000000000'
+ '2014-03-17T00:00:00.000000000' '2014-03-18T00:00:00.000000000'
+ '2014-03-19T00:00:00.000000000' '2014-03-20T00:00:00.000000000'
+ '2014-03-21T00:00:00.000000000' '2014-03-22T00:00:00.000000000'
+ '2014-03-23T00:00:00.000000000' '2014-03-24T00:00:00.000000000'
+ '2014-03-25T00:00:00.000000000' '2014-03-26T00:00:00.000000000'
+ '2014-03-27T00:00:00.000000000' '2014-03-28T00:00:00.000000000'
+ '2014-03-29T00:00:00.000000000' '2014-03-30T00:00:00.000000000'
+ '2014-03-31T00:00:00.000000000' '2014-04-01T00:00:00.000000000'
+ '2014-04-02T00:00:00.000000000' '2014-04-03T00:00:00.000000000'
+ '2014-04-04T00:00:00.000000000' '2014-04-05T00:00:00.000000000'
+ '2014-04-06T00:00:00.000000000' '2014-04-07T00:00:00.000000000'
+ '2014-04-08T00:00:00.000000000' '2014-04-09T00:00:00.000000000'
+ '2014-04-10T00:00:00.000000000']
+[ True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True False False  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True False  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True]
+         time  condition_met
+0  2014-01-02           True
+1  2014-01-03           True
+2  2014-01-04           True
+3  2014-01-05           True
+4  2014-01-06           True
+..        ...            ...
+94 2014-04-06           True
+95 2014-04-07           True
+96 2014-04-08           True
+97 2014-04-09           True
+98 2014-04-10           True
+
+[99 rows x 2 columns]
+Request for Times
+[12/Jun/2024 14:10:35] "POST /times/ HTTP/1.0" 201 26072
+['2014-01-02T00:00:00.000000000' '2014-01-03T00:00:00.000000000'
+ '2014-01-04T00:00:00.000000000' '2014-01-05T00:00:00.000000000'
+ '2014-01-06T00:00:00.000000000' '2014-01-07T00:00:00.000000000'
+ '2014-01-08T00:00:00.000000000' '2014-01-09T00:00:00.000000000'
+ '2014-01-10T00:00:00.000000000' '2014-01-11T00:00:00.000000000'
+ '2014-01-12T00:00:00.000000000' '2014-01-13T00:00:00.000000000'
+ '2014-01-14T00:00:00.000000000' '2014-01-15T00:00:00.000000000'
+ '2014-01-16T00:00:00.000000000' '2014-01-17T00:00:00.000000000'
+ '2014-01-18T00:00:00.000000000' '2014-01-19T00:00:00.000000000'
+ '2014-01-20T00:00:00.000000000' '2014-01-21T00:00:00.000000000'
+ '2014-01-22T00:00:00.000000000' '2014-01-23T00:00:00.000000000'
+ '2014-01-24T00:00:00.000000000' '2014-01-25T00:00:00.000000000'
+ '2014-01-26T00:00:00.000000000' '2014-01-27T00:00:00.000000000'
+ '2014-01-28T00:00:00.000000000' '2014-01-29T00:00:00.000000000'
+ '2014-01-30T00:00:00.000000000' '2014-01-31T00:00:00.000000000'
+ '2014-02-01T00:00:00.000000000' '2014-02-02T00:00:00.000000000'
+ '2014-02-03T00:00:00.000000000' '2014-02-04T00:00:00.000000000'
+ '2014-02-05T00:00:00.000000000' '2014-02-06T00:00:00.000000000'
+ '2014-02-07T00:00:00.000000000' '2014-02-08T00:00:00.000000000'
+ '2014-02-09T00:00:00.000000000' '2014-02-10T00:00:00.000000000'
+ '2014-02-11T00:00:00.000000000' '2014-02-12T00:00:00.000000000'
+ '2014-02-13T00:00:00.000000000' '2014-02-14T00:00:00.000000000'
+ '2014-02-15T00:00:00.000000000' '2014-02-16T00:00:00.000000000'
+ '2014-02-17T00:00:00.000000000' '2014-02-18T00:00:00.000000000'
+ '2014-02-19T00:00:00.000000000' '2014-02-20T00:00:00.000000000'
+ '2014-02-21T00:00:00.000000000' '2014-02-22T00:00:00.000000000'
+ '2014-02-23T00:00:00.000000000' '2014-02-24T00:00:00.000000000'
+ '2014-02-25T00:00:00.000000000' '2014-02-26T00:00:00.000000000'
+ '2014-02-27T00:00:00.000000000' '2014-02-28T00:00:00.000000000'
+ '2014-03-01T00:00:00.000000000' '2014-03-02T00:00:00.000000000'
+ '2014-03-03T00:00:00.000000000' '2014-03-04T00:00:00.000000000'
+ '2014-03-05T00:00:00.000000000' '2014-03-06T00:00:00.000000000'
+ '2014-03-07T00:00:00.000000000' '2014-03-08T00:00:00.000000000'
+ '2014-03-09T00:00:00.000000000' '2014-03-10T00:00:00.000000000'
+ '2014-03-11T00:00:00.000000000' '2014-03-12T00:00:00.000000000'
+ '2014-03-13T00:00:00.000000000' '2014-03-14T00:00:00.000000000'
+ '2014-03-15T00:00:00.000000000' '2014-03-16T00:00:00.000000000'
+ '2014-03-17T00:00:00.000000000' '2014-03-18T00:00:00.000000000'
+ '2014-03-19T00:00:00.000000000' '2014-03-20T00:00:00.000000000'
+ '2014-03-21T00:00:00.000000000' '2014-03-22T00:00:00.000000000'
+ '2014-03-23T00:00:00.000000000' '2014-03-24T00:00:00.000000000'
+ '2014-03-25T00:00:00.000000000' '2014-03-26T00:00:00.000000000'
+ '2014-03-27T00:00:00.000000000' '2014-03-28T00:00:00.000000000'
+ '2014-03-29T00:00:00.000000000' '2014-03-30T00:00:00.000000000'
+ '2014-03-31T00:00:00.000000000' '2014-04-01T00:00:00.000000000'
+ '2014-04-02T00:00:00.000000000' '2014-04-03T00:00:00.000000000'
+ '2014-04-04T00:00:00.000000000' '2014-04-05T00:00:00.000000000'
+ '2014-04-06T00:00:00.000000000' '2014-04-07T00:00:00.000000000'
+ '2014-04-08T00:00:00.000000000' '2014-04-09T00:00:00.000000000'
+ '2014-04-10T00:00:00.000000000' '2014-04-11T00:00:00.000000000'
+ '2014-04-12T00:00:00.000000000' '2014-04-13T00:00:00.000000000'
+ '2014-04-14T00:00:00.000000000' '2014-04-15T00:00:00.000000000'
+ '2014-04-16T00:00:00.000000000' '2014-04-17T00:00:00.000000000'
+ '2014-04-18T00:00:00.000000000' '2014-04-19T00:00:00.000000000'
+ '2014-04-20T00:00:00.000000000' '2014-04-21T00:00:00.000000000'
+ '2014-04-22T00:00:00.000000000' '2014-04-23T00:00:00.000000000'
+ '2014-04-24T00:00:00.000000000' '2014-04-25T00:00:00.000000000'
+ '2014-04-26T00:00:00.000000000' '2014-04-27T00:00:00.000000000'
+ '2014-04-28T00:00:00.000000000' '2014-04-29T00:00:00.000000000'
+ '2014-04-30T00:00:00.000000000' '2014-05-01T00:00:00.000000000'
+ '2014-05-02T00:00:00.000000000' '2014-05-03T00:00:00.000000000'
+ '2014-05-04T00:00:00.000000000' '2014-05-05T00:00:00.000000000'
+ '2014-05-06T00:00:00.000000000' '2014-05-07T00:00:00.000000000'
+ '2014-05-08T00:00:00.000000000' '2014-05-09T00:00:00.000000000'
+ '2014-05-10T00:00:00.000000000' '2014-05-11T00:00:00.000000000'
+ '2014-05-12T00:00:00.000000000' '2014-05-13T00:00:00.000000000'
+ '2014-05-14T00:00:00.000000000' '2014-05-15T00:00:00.000000000'
+ '2014-05-16T00:00:00.000000000' '2014-05-17T00:00:00.000000000'
+ '2014-05-18T00:00:00.000000000' '2014-05-19T00:00:00.000000000'
+ '2014-05-20T00:00:00.000000000' '2014-05-21T00:00:00.000000000'
+ '2014-05-22T00:00:00.000000000' '2014-05-23T00:00:00.000000000'
+ '2014-05-24T00:00:00.000000000' '2014-05-25T00:00:00.000000000'
+ '2014-05-26T00:00:00.000000000' '2014-05-27T00:00:00.000000000'
+ '2014-05-28T00:00:00.000000000' '2014-05-29T00:00:00.000000000'
+ '2014-05-30T00:00:00.000000000' '2014-05-31T00:00:00.000000000'
+ '2014-06-01T00:00:00.000000000' '2014-06-02T00:00:00.000000000'
+ '2014-06-03T00:00:00.000000000' '2014-06-04T00:00:00.000000000'
+ '2014-06-05T00:00:00.000000000' '2014-06-06T00:00:00.000000000'
+ '2014-06-07T00:00:00.000000000' '2014-06-08T00:00:00.000000000'
+ '2014-06-09T00:00:00.000000000' '2014-06-10T00:00:00.000000000']
+[ True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True False False  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True False  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True]
+          time  condition_met
+0   2014-01-02           True
+1   2014-01-03           True
+2   2014-01-04           True
+3   2014-01-05           True
+4   2014-01-06           True
+..         ...            ...
+155 2014-06-06           True
+156 2014-06-07           True
+157 2014-06-08           True
+158 2014-06-09           True
+159 2014-06-10           True
+
+[160 rows x 2 columns]
+Request for Times
+[12/Jun/2024 14:11:26] "POST /times/ HTTP/1.0" 201 26086
+[12/Jun/2024 14:11:35] "POST /areas/ HTTP/1.0" 201 104126
+ffmpeg version 4.4.2-0ubuntu0.22.04.1 Copyright (c) 2000-2021 the FFmpeg developers
+  built with gcc 11 (Ubuntu 11.2.0-19ubuntu1)
+  configuration: --prefix=/usr --extra-version=0ubuntu0.22.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-pocketsphinx --enable-librsvg --enable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
+  libavutil      56. 70.100 / 56. 70.100
+  libavcodec     58.134.100 / 58.134.100
+  libavformat    58. 76.100 / 58. 76.100
+  libavdevice    58. 13.100 / 58. 13.100
+  libavfilter     7.110.100 /  7.110.100
+  libswscale      5.  9.100 /  5.  9.100
+  libswresample   3.  9.100 /  3.  9.100
+  libpostproc    55.  9.100 / 55.  9.100
+Input #0, image2, from '/data/iHARPVFullStack/iHARPV/api/assets/frames/%d.png':
+  Duration: 00:00:04.50, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: png, rgba(pc), 2000x1400 [SAR 3937:3937 DAR 10:7], 2 fps, 2 tbr, 2 tbn, 2 tbc
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[libx264 @ 0x61923e88cbc0] using SAR=1/1
+[libx264 @ 0x61923e88cbc0] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x61923e88cbc0] profile High 4:4:4 Predictive, level 5.0, 4:4:4, 8-bit
+[libx264 @ 0x61923e88cbc0] 264 - core 163 r3060 5db6aa6 - H.264/MPEG-4 AVC codec - Copyleft 2003-2021 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=4 threads=30 lookahead_threads=5 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to '/data/iHARPVFullStack/iHARPV/api/assets/heatmapVideo.mp4':
+  Metadata:
+    encoder         : Lavf58.76.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv444p(tv, progressive), 2000x1400 [SAR 1:1 DAR 10:7], q=2-31, 30 fps, 15360 tbn
+    Metadata:
+      encoder         : Lavc58.134.100 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+frame=   15 fps=0.0 q=0.0 size=       0kB time=00:00:00.00 bitrate=N/A dup=14 drop=0 speed=   0x    frame=   75 fps=0.0 q=29.0 size=       0kB time=-00:00:00.06 bitrate=N/A dup=70 drop=0 speed=N/A    frame=  120 fps= 80 q=29.0 size=       0kB time=00:00:01.43 bitrate=   0.3kbits/s dup=112 drop=0 speed=0.951x    frame=  135 fps= 52 q=-1.0 Lsize=     175kB time=00:00:04.40 bitrate= 325.4kbits/s dup=126 drop=0 speed=1.69x    
+video:172kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 1.415642%
+[libx264 @ 0x61923e88cbc0] frame I:1     Avg QP:16.19  size: 24625
+[libx264 @ 0x61923e88cbc0] frame P:34    Avg QP:14.73  size:  3634
+[libx264 @ 0x61923e88cbc0] frame B:100   Avg QP:14.99  size:   276
+[libx264 @ 0x61923e88cbc0] consecutive B-frames:  0.7%  1.5%  0.0% 97.8%
+[libx264 @ 0x61923e88cbc0] mb I  I16..4: 56.1% 40.6%  3.3%
+[libx264 @ 0x61923e88cbc0] mb P  I16..4: 10.5%  4.7%  0.3%  P16..4:  1.3%  0.3%  0.0%  0.0%  0.0%    skip:82.9%
+[libx264 @ 0x61923e88cbc0] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  2.0%  0.0%  0.0%  direct: 0.0%  skip:97.9%  L0:49.1% L1:50.7% BI: 0.1%
+[libx264 @ 0x61923e88cbc0] 8x8 transform intra:31.8% inter:75.9%
+[libx264 @ 0x61923e88cbc0] coded y,u,v intra: 2.7% 2.2% 1.4% inter: 0.1% 0.1% 0.1%
+[libx264 @ 0x61923e88cbc0] i16 v,h,dc,p: 80% 19%  0%  0%
+[libx264 @ 0x61923e88cbc0] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 35%  8% 56%  0%  0%  0%  0%  0%  0%
+[libx264 @ 0x61923e88cbc0] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 41% 31% 22%  1%  1%  1%  1%  1%  1%
+[libx264 @ 0x61923e88cbc0] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x61923e88cbc0] ref P L0: 69.5% 15.4% 12.5%  2.6%
+[libx264 @ 0x61923e88cbc0] ref B L0: 57.2% 42.4%  0.3%
+[libx264 @ 0x61923e88cbc0] ref B L1: 97.9%  2.1%
+[libx264 @ 0x61923e88cbc0] kb/s:312.48
+[12/Jun/2024 14:12:01] "POST /heatmap/ HTTP/1.0" 201 178955
+ffmpeg version 4.4.2-0ubuntu0.22.04.1 Copyright (c) 2000-2021 the FFmpeg developers
+  built with gcc 11 (Ubuntu 11.2.0-19ubuntu1)
+  configuration: --prefix=/usr --extra-version=0ubuntu0.22.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-pocketsphinx --enable-librsvg --enable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
+  libavutil      56. 70.100 / 56. 70.100
+  libavcodec     58.134.100 / 58.134.100
+  libavformat    58. 76.100 / 58. 76.100
+  libavdevice    58. 13.100 / 58. 13.100
+  libavfilter     7.110.100 /  7.110.100
+  libswscale      5.  9.100 /  5.  9.100
+  libswresample   3.  9.100 /  3.  9.100
+  libpostproc    55.  9.100 / 55.  9.100
+Input #0, image2, from '/data/iHARPVFullStack/iHARPV/api/assets/frames/%d.png':
+  Duration: 00:00:04.50, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: png, rgba(pc), 2000x1400 [SAR 3937:3937 DAR 10:7], 2 fps, 2 tbr, 2 tbn, 2 tbc
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[libx264 @ 0x614c2cc8ebc0] using SAR=1/1
+[libx264 @ 0x614c2cc8ebc0] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x614c2cc8ebc0] profile High 4:4:4 Predictive, level 5.0, 4:4:4, 8-bit
+[libx264 @ 0x614c2cc8ebc0] 264 - core 163 r3060 5db6aa6 - H.264/MPEG-4 AVC codec - Copyleft 2003-2021 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=4 threads=30 lookahead_threads=5 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to '/data/iHARPVFullStack/iHARPV/api/assets/heatmapVideo.mp4':
+  Metadata:
+    encoder         : Lavf58.76.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv444p(tv, progressive), 2000x1400 [SAR 1:1 DAR 10:7], q=2-31, 30 fps, 15360 tbn
+    Metadata:
+      encoder         : Lavc58.134.100 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+frame=   15 fps=0.0 q=0.0 size=       0kB time=00:00:00.00 bitrate=N/A dup=14 drop=0 speed=   0x    frame=   75 fps=0.0 q=29.0 size=       0kB time=-00:00:00.06 bitrate=N/A dup=70 drop=0 speed=N/A    frame=  105 fps= 70 q=29.0 size=       0kB time=00:00:00.93 bitrate=   0.4kbits/s dup=98 drop=0 speed=0.621x    frame=  135 fps= 65 q=29.0 size=       0kB time=00:00:01.93 bitrate=   0.2kbits/s dup=126 drop=0 speed=0.924x    frame=  135 fps= 41 q=-1.0 Lsize=     479kB time=00:00:04.40 bitrate= 891.3kbits/s dup=126 drop=0 speed=1.33x    
+video:476kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.512158%
+[libx264 @ 0x614c2cc8ebc0] frame I:1     Avg QP:18.33  size: 56034
+[libx264 @ 0x614c2cc8ebc0] frame P:34    Avg QP:17.18  size: 11180
+[libx264 @ 0x614c2cc8ebc0] frame B:100   Avg QP:14.84  size:   509
+[libx264 @ 0x614c2cc8ebc0] consecutive B-frames:  0.7%  1.5%  0.0% 97.8%
+[libx264 @ 0x614c2cc8ebc0] mb I  I16..4: 33.9% 54.9% 11.2%
+[libx264 @ 0x614c2cc8ebc0] mb P  I16..4:  5.6%  5.9%  1.3%  P16..4:  6.8%  2.6%  0.5%  0.0%  0.0%    skip:77.3%
+[libx264 @ 0x614c2cc8ebc0] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  4.6%  0.0%  0.0%  direct: 0.0%  skip:95.3%  L0:40.9% L1:59.0% BI: 0.1%
+[libx264 @ 0x614c2cc8ebc0] 8x8 transform intra:48.0% inter:85.0%
+[libx264 @ 0x614c2cc8ebc0] coded y,u,v intra: 15.3% 15.2% 14.4% inter: 0.4% 0.3% 0.4%
+[libx264 @ 0x614c2cc8ebc0] i16 v,h,dc,p: 58% 36%  3%  2%
+[libx264 @ 0x614c2cc8ebc0] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 56% 20% 21%  1%  0%  0%  0%  0%  1%
+[libx264 @ 0x614c2cc8ebc0] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 62% 26%  9%  0%  1%  1%  1%  1%  0%
+[libx264 @ 0x614c2cc8ebc0] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x614c2cc8ebc0] ref P L0: 75.8%  3.5% 15.9%  4.8%
+[libx264 @ 0x614c2cc8ebc0] ref B L0: 40.5% 58.7%  0.9%
+[libx264 @ 0x614c2cc8ebc0] ref B L1: 97.2%  2.8%
+[libx264 @ 0x614c2cc8ebc0] kb/s:865.87
+[12/Jun/2024 14:12:17] "POST /heatmap/ HTTP/1.0" 201 490238
+[12/Jun/2024 14:12:30] "POST /timeseries/ HTTP/1.0" 201 8694
+ffmpeg version 4.4.2-0ubuntu0.22.04.1 Copyright (c) 2000-2021 the FFmpeg developers
+  built with gcc 11 (Ubuntu 11.2.0-19ubuntu1)
+  configuration: --prefix=/usr --extra-version=0ubuntu0.22.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-pocketsphinx --enable-librsvg --enable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
+  libavutil      56. 70.100 / 56. 70.100
+  libavcodec     58.134.100 / 58.134.100
+  libavformat    58. 76.100 / 58. 76.100
+  libavdevice    58. 13.100 / 58. 13.100
+  libavfilter     7.110.100 /  7.110.100
+  libswscale      5.  9.100 /  5.  9.100
+  libswresample   3.  9.100 /  3.  9.100
+  libpostproc    55.  9.100 / 55.  9.100
+Input #0, image2, from '/data/iHARPVFullStack/iHARPV/api/assets/frames/%d.png':
+  Duration: 00:00:04.50, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: png, rgba(pc), 2000x1400 [SAR 3937:3937 DAR 10:7], 2 fps, 2 tbr, 2 tbn, 2 tbc
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[libx264 @ 0x623b8f514bc0] using SAR=1/1
+[libx264 @ 0x623b8f514bc0] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x623b8f514bc0] profile High 4:4:4 Predictive, level 5.0, 4:4:4, 8-bit
+[libx264 @ 0x623b8f514bc0] 264 - core 163 r3060 5db6aa6 - H.264/MPEG-4 AVC codec - Copyleft 2003-2021 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=4 threads=30 lookahead_threads=5 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to '/data/iHARPVFullStack/iHARPV/api/assets/heatmapVideo.mp4':
+  Metadata:
+    encoder         : Lavf58.76.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv444p(tv, progressive), 2000x1400 [SAR 1:1 DAR 10:7], q=2-31, 30 fps, 15360 tbn
+    Metadata:
+      encoder         : Lavc58.134.100 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+frame=   15 fps=0.0 q=0.0 size=       0kB time=00:00:00.00 bitrate=N/A dup=14 drop=0 speed=   0x    frame=   75 fps=0.0 q=29.0 size=       0kB time=-00:00:00.06 bitrate=N/A dup=70 drop=0 speed=N/A    frame=  120 fps= 82 q=29.0 size=       0kB time=00:00:01.43 bitrate=   0.3kbits/s dup=112 drop=0 speed=0.974x    frame=  135 fps= 55 q=-1.0 Lsize=     307kB time=00:00:04.40 bitrate= 571.4kbits/s dup=126 drop=0 speed= 1.8x    
+video:304kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.801160%
+[libx264 @ 0x623b8f514bc0] frame I:1     Avg QP:18.89  size: 59732
+[libx264 @ 0x623b8f514bc0] frame P:34    Avg QP:15.76  size:  6293
+[libx264 @ 0x623b8f514bc0] frame B:100   Avg QP:14.65  size:   374
+[libx264 @ 0x623b8f514bc0] consecutive B-frames:  0.7%  1.5%  0.0% 97.8%
+[libx264 @ 0x623b8f514bc0] mb I  I16..4: 18.3% 64.0% 17.8%
+[libx264 @ 0x623b8f514bc0] mb P  I16..4:  2.1%  4.1%  1.5%  P16..4:  2.6%  0.9%  0.2%  0.0%  0.0%    skip:88.7%
+[libx264 @ 0x623b8f514bc0] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  3.3%  0.0%  0.0%  direct: 0.0%  skip:96.7%  L0:50.4% L1:49.5% BI: 0.1%
+[libx264 @ 0x623b8f514bc0] 8x8 transform intra:56.5% inter:81.8%
+[libx264 @ 0x623b8f514bc0] coded y,u,v intra: 18.3% 5.6% 12.3% inter: 0.2% 0.0% 0.2%
+[libx264 @ 0x623b8f514bc0] i16 v,h,dc,p: 60% 36%  2%  2%
+[libx264 @ 0x623b8f514bc0] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 53% 17% 27%  1%  0%  0%  0%  0%  1%
+[libx264 @ 0x623b8f514bc0] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 63% 26%  7%  0%  1%  1%  1%  1%  1%
+[libx264 @ 0x623b8f514bc0] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x623b8f514bc0] ref P L0: 74.4%  5.9% 16.3%  3.5%
+[libx264 @ 0x623b8f514bc0] ref B L0: 53.0% 46.5%  0.5%
+[libx264 @ 0x623b8f514bc0] ref B L1: 98.0%  2.0%
+[libx264 @ 0x623b8f514bc0] kb/s:553.08
+[12/Jun/2024 14:12:40] "POST /heatmap/ HTTP/1.0" 201 314296
+[12/Jun/2024 14:12:45] "POST /timeseries/ HTTP/1.0" 201 11374
+[12/Jun/2024 14:13:07] "POST /timeseries/ HTTP/1.0" 201 14154
+[12/Jun/2024 14:13:16] "POST /timeseries/ HTTP/1.0" 201 14336
+[12/Jun/2024 14:13:29] "POST /timeseries/ HTTP/1.0" 201 14154
+Bad Request: /timeseries/
+[12/Jun/2024 14:13:34] "POST /timeseries/ HTTP/1.0" 400 60
+[12/Jun/2024 14:13:38] "POST /timeseries/ HTTP/1.0" 201 13744
+[12/Jun/2024 14:13:39] "POST /timeseries/ HTTP/1.0" 201 13744
+[12/Jun/2024 14:13:42] "POST /timeseries/ HTTP/1.0" 201 8671
+[12/Jun/2024 14:13:47] "POST /timeseries/ HTTP/1.0" 201 8519
+/data/iHARPVFullStack/iHARPV/api/views.py changed, reloading.
+['2014-01-02T00:00:00.000000000' '2014-01-03T00:00:00.000000000'
+ '2014-01-04T00:00:00.000000000' '2014-01-05T00:00:00.000000000'
+ '2014-01-06T00:00:00.000000000' '2014-01-07T00:00:00.000000000'
+ '2014-01-08T00:00:00.000000000' '2014-01-09T00:00:00.000000000'
+ '2014-01-10T00:00:00.000000000' '2014-01-11T00:00:00.000000000'
+ '2014-01-12T00:00:00.000000000' '2014-01-13T00:00:00.000000000'
+ '2014-01-14T00:00:00.000000000' '2014-01-15T00:00:00.000000000'
+ '2014-01-16T00:00:00.000000000' '2014-01-17T00:00:00.000000000'
+ '2014-01-18T00:00:00.000000000' '2014-01-19T00:00:00.000000000'
+ '2014-01-20T00:00:00.000000000' '2014-01-21T00:00:00.000000000'
+ '2014-01-22T00:00:00.000000000' '2014-01-23T00:00:00.000000000'
+ '2014-01-24T00:00:00.000000000' '2014-01-25T00:00:00.000000000'
+ '2014-01-26T00:00:00.000000000' '2014-01-27T00:00:00.000000000'
+ '2014-01-28T00:00:00.000000000' '2014-01-29T00:00:00.000000000'
+ '2014-01-30T00:00:00.000000000' '2014-01-31T00:00:00.000000000'
+ '2014-02-01T00:00:00.000000000' '2014-02-02T00:00:00.000000000'
+ '2014-02-03T00:00:00.000000000' '2014-02-04T00:00:00.000000000'
+ '2014-02-05T00:00:00.000000000' '2014-02-06T00:00:00.000000000'
+ '2014-02-07T00:00:00.000000000' '2014-02-08T00:00:00.000000000'
+ '2014-02-09T00:00:00.000000000' '2014-02-10T00:00:00.000000000'
+ '2014-02-11T00:00:00.000000000' '2014-02-12T00:00:00.000000000'
+ '2014-02-13T00:00:00.000000000' '2014-02-14T00:00:00.000000000'
+ '2014-02-15T00:00:00.000000000' '2014-02-16T00:00:00.000000000'
+ '2014-02-17T00:00:00.000000000' '2014-02-18T00:00:00.000000000'
+ '2014-02-19T00:00:00.000000000' '2014-02-20T00:00:00.000000000'
+ '2014-02-21T00:00:00.000000000' '2014-02-22T00:00:00.000000000'
+ '2014-02-23T00:00:00.000000000' '2014-02-24T00:00:00.000000000'
+ '2014-02-25T00:00:00.000000000' '2014-02-26T00:00:00.000000000'
+ '2014-02-27T00:00:00.000000000' '2014-02-28T00:00:00.000000000'
+ '2014-03-01T00:00:00.000000000' '2014-03-02T00:00:00.000000000'
+ '2014-03-03T00:00:00.000000000' '2014-03-04T00:00:00.000000000'
+ '2014-03-05T00:00:00.000000000' '2014-03-06T00:00:00.000000000'
+ '2014-03-07T00:00:00.000000000' '2014-03-08T00:00:00.000000000'
+ '2014-03-09T00:00:00.000000000' '2014-03-10T00:00:00.000000000'
+ '2014-03-11T00:00:00.000000000' '2014-03-12T00:00:00.000000000'
+ '2014-03-13T00:00:00.000000000' '2014-03-14T00:00:00.000000000'
+ '2014-03-15T00:00:00.000000000' '2014-03-16T00:00:00.000000000'
+ '2014-03-17T00:00:00.000000000' '2014-03-18T00:00:00.000000000'
+ '2014-03-19T00:00:00.000000000' '2014-03-20T00:00:00.000000000'
+ '2014-03-21T00:00:00.000000000' '2014-03-22T00:00:00.000000000'
+ '2014-03-23T00:00:00.000000000' '2014-03-24T00:00:00.000000000'
+ '2014-03-25T00:00:00.000000000' '2014-03-26T00:00:00.000000000'
+ '2014-03-27T00:00:00.000000000' '2014-03-28T00:00:00.000000000'
+ '2014-03-29T00:00:00.000000000' '2014-03-30T00:00:00.000000000'
+ '2014-03-31T00:00:00.000000000' '2014-04-01T00:00:00.000000000'
+ '2014-04-02T00:00:00.000000000' '2014-04-03T00:00:00.000000000'
+ '2014-04-04T00:00:00.000000000' '2014-04-05T00:00:00.000000000'
+ '2014-04-06T00:00:00.000000000' '2014-04-07T00:00:00.000000000'
+ '2014-04-08T00:00:00.000000000' '2014-04-09T00:00:00.000000000'
+ '2014-04-10T00:00:00.000000000' '2014-04-11T00:00:00.000000000'
+ '2014-04-12T00:00:00.000000000' '2014-04-13T00:00:00.000000000'
+ '2014-04-14T00:00:00.000000000' '2014-04-15T00:00:00.000000000'
+ '2014-04-16T00:00:00.000000000' '2014-04-17T00:00:00.000000000'
+ '2014-04-18T00:00:00.000000000' '2014-04-19T00:00:00.000000000'
+ '2014-04-20T00:00:00.000000000' '2014-04-21T00:00:00.000000000'
+ '2014-04-22T00:00:00.000000000' '2014-04-23T00:00:00.000000000'
+ '2014-04-24T00:00:00.000000000' '2014-04-25T00:00:00.000000000'
+ '2014-04-26T00:00:00.000000000' '2014-04-27T00:00:00.000000000'
+ '2014-04-28T00:00:00.000000000' '2014-04-29T00:00:00.000000000'
+ '2014-04-30T00:00:00.000000000' '2014-05-01T00:00:00.000000000'
+ '2014-05-02T00:00:00.000000000' '2014-05-03T00:00:00.000000000'
+ '2014-05-04T00:00:00.000000000' '2014-05-05T00:00:00.000000000'
+ '2014-05-06T00:00:00.000000000' '2014-05-07T00:00:00.000000000'
+ '2014-05-08T00:00:00.000000000' '2014-05-09T00:00:00.000000000'
+ '2014-05-10T00:00:00.000000000' '2014-05-11T00:00:00.000000000'
+ '2014-05-12T00:00:00.000000000' '2014-05-13T00:00:00.000000000'
+ '2014-05-14T00:00:00.000000000' '2014-05-15T00:00:00.000000000'
+ '2014-05-16T00:00:00.000000000' '2014-05-17T00:00:00.000000000'
+ '2014-05-18T00:00:00.000000000' '2014-05-19T00:00:00.000000000'
+ '2014-05-20T00:00:00.000000000' '2014-05-21T00:00:00.000000000'
+ '2014-05-22T00:00:00.000000000' '2014-05-23T00:00:00.000000000'
+ '2014-05-24T00:00:00.000000000' '2014-05-25T00:00:00.000000000'
+ '2014-05-26T00:00:00.000000000' '2014-05-27T00:00:00.000000000'
+ '2014-05-28T00:00:00.000000000' '2014-05-29T00:00:00.000000000'
+ '2014-05-30T00:00:00.000000000' '2014-05-31T00:00:00.000000000'
+ '2014-06-01T00:00:00.000000000' '2014-06-02T00:00:00.000000000'
+ '2014-06-03T00:00:00.000000000' '2014-06-04T00:00:00.000000000'
+ '2014-06-05T00:00:00.000000000' '2014-06-06T00:00:00.000000000'
+ '2014-06-07T00:00:00.000000000' '2014-06-08T00:00:00.000000000'
+ '2014-06-09T00:00:00.000000000' '2014-06-10T00:00:00.000000000']
+[ True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+ False False False False False False False  True False  True  True  True
+  True  True  True  True  True False  True  True  True False False False
+  True  True  True False False  True  True  True  True  True  True  True
+  True  True  True  True  True False False False  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True  True  True  True  True  True  True  True  True
+  True  True  True  True]
+          time  condition_met
+0   2014-01-02           True
+1   2014-01-03           True
+2   2014-01-04           True
+3   2014-01-05           True
+4   2014-01-06           True
+..         ...            ...
+155 2014-06-06           True
+156 2014-06-07           True
+157 2014-06-08           True
+158 2014-06-09           True
+159 2014-06-10           True
+
+[160 rows x 2 columns]
+Request for Areas
+Request for Heat Map
+Request for Heat Map
+Request for Time Seies 
+Request for Heat Map
+Request for Time Seies 
+Request for Time Seies 
+Request for Time Seies 
+Request for Time Seies 
+Request for Time Seies 
+Request for Time Seies 
+Request for Time Seies 
+Request for Time Seies 
+Request for Time Seies 
+Watching for file changes with StatReloader
+/data/iHARPVFullStack/iHARPV
+Watching for file changes with StatReloader
+[13/Jun/2024 14:23:50] "GET / HTTP/1.0" 200 619
+[13/Jun/2024 14:23:50] "GET /static/css/main.32fc430d.css HTTP/1.0" 200 269421
+[13/Jun/2024 14:23:50] "GET /static/js/main.c3d7d7bd.js HTTP/1.0" 200 4942631
+[13/Jun/2024 14:23:51] "GET /static/media/spritesheet.a4e0eb7ad904a4858361.svg HTTP/1.0" 200 5551
+[13/Jun/2024 14:23:51] "GET /static/media/heatmapVideo.bb57cd139a85a8801969.mp4 HTTP/1.0" 200 3022689
+[13/Jun/2024 14:24:10] "POST /timeseries/ HTTP/1.0" 201 45837

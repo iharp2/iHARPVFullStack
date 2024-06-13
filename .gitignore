@@ -5,3 +5,4 @@ nohup.out
 iHARPV/api/assets/
 iHARPV/db.sqlite3
 iHARPV/nohup.out
+venv/
